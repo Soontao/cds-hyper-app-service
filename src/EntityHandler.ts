@@ -1,10 +1,10 @@
-import { ApplicationService, CDS, cwdRequire, DatabaseService, Logger } from "cds-internal-tool";
+import { ApplicationService, CDS, cwdRequire, DatabaseService, Logger, Service } from "cds-internal-tool";
 
 
 /**
  * handler for specific entity
  */
-export class EntityHandler {
+export class EntityHandlers {
 
   /**
    * application service
@@ -29,6 +29,17 @@ export class EntityHandler {
     this.logger = cds.log(service?.name ?? "UnknownService");
   }
 
+  protected tx(...args: Parameters<Service["tx"]>) {
+    return this.service.tx(...args);
+  }
+
+  protected get model() {
+    return this.service.model;
+  }
+
+  protected get context() {
+    return cwdRequire("@sap/cds").context;
+  }
 
   beforeRead?(): Promise<void>;
 
