@@ -1,3 +1,9 @@
-export const a = 1;
+import { CDS } from "cds-internal-tool";
+export * from "./EntityHandler";
 
-export const b = "1";
+
+export function supportHyperImpl(cds: CDS) {
+  cds.on("serving", _service => {
+    // 
+  });
+}

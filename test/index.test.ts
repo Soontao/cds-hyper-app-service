@@ -1,9 +1,14 @@
-import { a } from "../src";
+import { setupTest } from "cds-internal-tool";
 
-describe("Demo Test Suite", () => {
+describe("Fundamental Test Suite", () => {
 
-  it("should equal to 1", () => {
-    expect(a).toBe(1);
+  const axios = setupTest(__dirname, "./app");
+
+  it("should support start server", async () => {
+    const response = await axios.get("/demo/$metadata");
+    expect(response.status).toBe(200);
+    expect(response.data).toMatch(/People/);
   });
+
 
 });
