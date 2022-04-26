@@ -1,4 +1,4 @@
-import { ApplicationService, CDS, cwdRequire, DatabaseService, Logger, Service } from "cds-internal-tool";
+import { ApplicationService, CDS, cwdRequire, DatabaseService, EventContext, Logger, Service } from "cds-internal-tool";
 
 
 /**
@@ -37,7 +37,7 @@ export class EntityHandlers {
     return this.service.model;
   }
 
-  protected get context() {
+  protected get context(): EventContext {
     return cwdRequire("@sap/cds").context;
   }
 

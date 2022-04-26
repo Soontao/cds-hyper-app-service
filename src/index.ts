@@ -1,5 +1,5 @@
 import { CDS } from "cds-internal-tool";
-export * from "./EntityHandler";
+export * from "./EntityHandlers";
 
 
 export function supportHyperImpl(cds: CDS) {
