@@ -2,6 +2,15 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "debug grammer",
+      "type": "antlr-debug",
+      "request": "launch",
+      "grammar": "${workspaceFolder}/src/grammar/HandlerName.g4",
+      "input": "${workspaceFolder}/src/grammar/example.txt",
+      "visualParseTree": true,
+      "printParseTree": true
+    },
+    {
       "type": "node",
       "name": "vscode-jest-tests",
       "request": "launch",

@@ -2,9 +2,17 @@
   "editor.insertSpaces": true,
   "editor.tabSize": 2,
   "editor.formatOnSave": false,
+  "files.trimFinalNewlines": true,
+  "files.insertFinalNewline": false,
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
     "source.organizeImports": true
+  },
+  "[plaintext]": {
+    "editor.unicodeHighlight.ambiguousCharacters": false,
+    "editor.unicodeHighlight.invisibleCharacters": false,
+    "files.insertFinalNewline": false,
+    "files.trimFinalNewlines": true
   },
   "[typescript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"

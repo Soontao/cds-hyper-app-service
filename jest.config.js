@@ -5,7 +5,7 @@
 module.exports = {
   testTimeout: 10 * 1000,
   transform: {
-    ".(ts|tsx)": "ts-jest"
+    ".(js|ts|tsx)": "ts-jest"
   },
   collectCoverageFrom: [
     "src/**/*.ts",

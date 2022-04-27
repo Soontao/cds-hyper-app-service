@@ -22,13 +22,16 @@
     "release": "npx standard-version --no-verify",
     "coverage": "npm test -- --coverage --no-cache"
   },
+  "dependencies": {
+    "acron": "^1.0.5",
+    "cds-internal-tool": "^0.0.8"
+  },
   "devDependencies": {
     "@commitlint/config-conventional": "^16.2.1",
     "@types/jest": "^27.4.1",
     "@types/node": "^16.11.29",
     "@typescript-eslint/eslint-plugin": "^5.21.0",
     "@typescript-eslint/parser": "^5.21.0",
-    "cds-internal-tool": "^0.0.4",
     "commitlint": "^16.2.3",
     "eslint": "^8.14.0",
     "eslint-plugin-jest": "^26.1.5",

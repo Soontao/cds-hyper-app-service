@@ -9,4 +9,21 @@ service DemoService {
     Age  : Integer;
   }
 
+
+  @impl.on.create : './deep/onAnimalCreate.js'
+  entity Animal : cuid {
+    Name : String(255);
+    Age  : Integer;
+  }
+
+  @impl : {
+    before : {create : './impl/animal/beforeBookCreate.js'},
+    on     : {delete : './impl/animal/onBookDelete.js'}
+  }
+  entity Book : cuid {
+    Name  : String(255);
+    Price : Decimal;
+  }
+
+
 }
