@@ -13,6 +13,7 @@ module.exports = {
   ],
   coveragePathIgnorePatterns: [
     "node_modules/",
+    "src/grammar/HandlerName*.js",
   ],
   testEnvironment: "node",
   testRegex: "/test/.*\\.test\\.ts$",
