@@ -1,13 +1,11 @@
 grammar HandlerName;
 
 name: (hook UNDER_SCORE?)+ ((event UNDER_SCORE?)+)? UNDER_SCORE? entity? LINEB_REAK? EOF?;
-entity: UPPER_CHAR? (CHAR | event | hook)+;
+entity: UPPER_CHAR? (CHAR | event | hook)+; // include the keywords
 event: CREATE | UPDATE | DELETE | READ;
 hook: (BEFORE | ON | AFTER);
 
 Operator: (AND | OR) -> skip;
-
-// fragment EntityNamePart: [A-Z_][a-z0-9]+;
 
 fragment A: [aA]; // match either an 'a' or 'A'
 fragment B: [bB];
