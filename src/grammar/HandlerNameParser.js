@@ -1,6 +1,6 @@
 // Generated from HandlerName.g4 by ANTLR 4.10.1
 // jshint ignore: start
-import antlr4 from '../../vendor/antlr4.js';
+import antlr4 from './vendor/antlr4.js';
 import HandlerNameListener from './HandlerNameListener';
 const serializedATN = [4,1,15,53,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,1,0,1,0,
 3,0,11,8,0,4,0,13,8,0,11,0,12,0,14,1,0,1,0,3,0,19,8,0,4,0,21,8,0,11,0,12,

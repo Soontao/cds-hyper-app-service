@@ -1,9 +1,9 @@
 // @ts-nocheck
 import { EventHook, EventName, memorized } from 'cds-internal-tool';
-import antlr4 from '../../vendor/antlr4';
 import HandlerNameLexer from './HandlerNameLexer';
 import HandlerNameListener from "./HandlerNameListener";
 import HandlerNameParser from './HandlerNameParser';
+import antlr4 from './vendor/antlr4';
 
 
 interface HandlerNameInformation {
