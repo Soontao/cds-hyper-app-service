@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { getFunctionArgNames } from "../src/HandlerInjector";
+import { getFunctionArgNames } from "../src/Injector";
 
 describe("Injector Test Suite", () => {
 
@@ -37,6 +37,25 @@ describe("Injector Test Suite", () => {
       "arg1",
       "arg99",
     ]);
+  });
+
+  it('should support class level function', () => {
+
+    class C {
+      async a(arg0: any, arg1: any, arg99: any) { }
+      b(arg0: any, arg1: any, arg99: any) { }
+      e = (arg0: any, arg1: any, arg99: any) => { }
+      f = async (arg0: any, arg1: any, arg99: any) => { }
+    }
+    const c = new C()
+    for (const methodName of ['a', 'b', 'e', 'f']) {
+      expect(getFunctionArgNames(c[methodName])).toStrictEqual([
+        "arg0",
+        "arg1",
+        "arg99",
+      ])
+    }
+
   });
 
 });

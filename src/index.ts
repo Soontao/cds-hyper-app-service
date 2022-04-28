@@ -1,8 +1,8 @@
 import { CDS, cwdRequire, groupByKeyPrefix } from "cds-internal-tool";
 import path from "path";
-import { createInjectableHandler } from "./HandlerInjector";
-export * from "./EntityHandlers";
+import { createInjectableHandler } from "./Injector";
 export { HyperApplicationService } from "./HyperApplicationService";
+export * from "./HyperEntityHandlers";
 
 const ANNOTATION = "@impl";
 

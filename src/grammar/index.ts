@@ -1,14 +1,15 @@
-import { EventHook, EventName, memorized } from "cds-internal-tool";
+import { cwdRequireCDS, EventHook, EventName, memorized } from "cds-internal-tool";
 import HandlerNameLexer from "./HandlerNameLexer";
 import HandlerNameListener from "./HandlerNameListener";
 import HandlerNameParser from "./HandlerNameParser";
 import antlr4 from "./vendor/antlr4";
 
 
-interface HandlerNameInformation {
+type HandlerNameInformation = {
   hooks: Array<EventHook>;
   events: Array<EventName>
   entity?: string;
+  valid: boolean;
 }
 
 class HandlerNameInformationListener extends HandlerNameListener {
@@ -47,7 +48,7 @@ class HandlerNameInformationListener extends HandlerNameListener {
    * get the final information
    */
   public information(): HandlerNameInformation {
-    const info: HandlerNameInformation = { hooks: this.hooks, events: this.events };
+    const info: HandlerNameInformation = { hooks: this.hooks, events: this.events, valid: true };
     if (this.entity !== undefined) {
       info.entity = this.entity;
     }
@@ -56,14 +57,23 @@ class HandlerNameInformationListener extends HandlerNameListener {
 }
 
 
-export const parseHandlerName = memorized(function parseName(name: string) {
-  const chars = new antlr4.InputStream(name);
-  const lexer = new HandlerNameLexer(chars);
-  const tokens = new antlr4.CommonTokenStream(lexer);
-  const parser = new HandlerNameParser(tokens);
-  parser["buildParseTrees"] = true;
-  const listener = new HandlerNameInformationListener();
-  const tree = parser.name();
-  antlr4.tree.ParseTreeWalker.DEFAULT.walk(listener, tree);
-  return listener.information();
+/**
+ * parse handler information from function name, return {valid:true} is name looks like a handler
+ */
+export const parseHandlerName = memorized(function (name: string) {
+  try {
+    const chars = new antlr4.InputStream(name);
+    const lexer = new HandlerNameLexer(chars);
+    const tokens = new antlr4.CommonTokenStream(lexer);
+    const parser = new HandlerNameParser(tokens);
+    parser["buildParseTrees"] = true;
+    const listener = new HandlerNameInformationListener();
+    const tree = parser.name();
+    antlr4.tree.ParseTreeWalker.DEFAULT.walk(listener, tree);
+    return listener.information();
+  } catch (error) {
+    cwdRequireCDS().log("cds-hyper-impl").debug("parse name", name, "failed, not a valid handler name");
+    return { valid: false, events: [], hooks: [] };
+  }
+
 });

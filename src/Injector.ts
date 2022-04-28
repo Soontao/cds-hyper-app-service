@@ -18,6 +18,7 @@ export type HandlerInjectorOptions = {
   entity?: EntityDefinition
 };
 
+const PARSE_CONFIGURATION = { ecmaVersion: "latest" };
 /**
  * get arg names from function
  * 
@@ -25,8 +26,19 @@ export type HandlerInjectorOptions = {
  * @returns {Array<string>} the arg name list of the target function
  */
 export const getFunctionArgNames = memorized(function (f: AnyFunction) {
-  // TODO: support class method
-  const tree = parse(f.toString(), { ecmaVersion: "latest" });
+  let tree: any;
+  try {
+    tree = parse(f.toString(), PARSE_CONFIGURATION);
+  } catch (error) {
+    let fString = f.toString().trimStart();
+    if (fString.startsWith("async")) {
+      fString = `async function ${fString.slice("async".length)}`;
+    } else {
+      fString = `function ${fString}`;
+    }
+    tree = parse(fString, PARSE_CONFIGURATION);
+  }
+
   const params = tree.body[0]?.expression?.params ?? tree?.body?.[0]?.params;
   return params?.map((param: any) => param.name) ?? [];
 });
