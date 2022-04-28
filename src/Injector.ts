@@ -20,12 +20,13 @@ export type HandlerInjectorOptions = {
 
 const PARSE_CONFIGURATION = { ecmaVersion: "latest" };
 /**
- * get arg names from function
+ * get argument names from function object
  * 
  * @param {AnyFunction} f any type function, support arrow, async, plain
  * @returns {Array<string>} the arg name list of the target function
  */
 export const getFunctionArgNames = memorized(function (f: AnyFunction) {
+  // TODO: rest arguments support
   let tree: any;
   try {
     tree = parse(f.toString(), PARSE_CONFIGURATION);

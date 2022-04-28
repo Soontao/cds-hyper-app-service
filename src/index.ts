@@ -1,8 +1,9 @@
 import { CDS, cwdRequire, groupByKeyPrefix } from "cds-internal-tool";
 import path from "path";
+import { HyperEntityHandler } from "./HyperEntityHandler";
 import { createInjectableHandler } from "./Injector";
 export { HyperApplicationService } from "./HyperApplicationService";
-export * from "./HyperEntityHandlers";
+export * from "./HyperEntityHandler";
 
 const ANNOTATION = "@impl";
 
@@ -17,12 +18,28 @@ export function supportHyperImpl(cds: CDS) {
 
       srv.prepend(srv => {
 
+        const srvRequire = (...paths: Array<any>) => cwdRequire(
+          path.join(
+            cds["options"].project,
+            path.dirname(srv.definition["@source"]),
+            ...paths
+          )
+        );
+
         for (const entity of srv.entities) {
 
           const impl = groupByKeyPrefix(entity, ANNOTATION);
 
           if (typeof impl === "string") {
-            //
+            const entityHandler = srvRequire(impl);
+            // TODO: support
+            if (entityHandler.prototype instanceof HyperEntityHandler) {
+              // TODO: cache make handler is singleton globally
+              const handler: HyperEntityHandler = new entityHandler({ entity });
+              handler.mount(srv);
+              continue;
+            }
+            // TODO: warn
           }
           if (typeof impl === "object") {
             const hooks = Object.keys(impl) as Array<any>;
@@ -42,13 +59,7 @@ export function supportHyperImpl(cds: CDS) {
               for (const [event, implRelativePath] of Object.entries(impl[hook])) {
 
                 const EVENT = String(event).toUpperCase();
-                const implHandler = cwdRequire(
-                  path.join(
-                    cds["options"].project,
-                    path.dirname(srv.definition["@source"]),
-                    implRelativePath as string
-                  )
-                );
+                const implHandler = srvRequire(implRelativePath);
 
                 const register = (handler: any) => srv[hook](
                   EVENT,

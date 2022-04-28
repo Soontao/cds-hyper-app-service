@@ -7,7 +7,7 @@ describe("Fundamental Test Suite", () => {
   it("should support start server", async () => {
     const response = await axios.get("/demo/$metadata");
     expect(response.status).toBe(200);
-    expect(response.data).toMatch(/People/);
+    expect(response.data).toMatch(/Peoples/);
   });
 
   it("should support simple handler with plain '@impl.on.create'", async () => {
