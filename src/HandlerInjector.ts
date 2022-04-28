@@ -3,7 +3,8 @@ import {
   EntityDefinition,
   EventHook,
   Logger,
-  memorized
+  memorized,
+  mustBeArray
 } from "cds-internal-tool";
 import { parse } from "espree";
 import { CDSContextBase } from "./CDSContextBase";
@@ -60,19 +61,19 @@ export class HandlerInjector extends CDSContextBase {
       case "on":
         this.argsExtractor = (...args: Array<any>) => {
           const [req, next] = args;
-          return { req, next, data: req.data };
+          return { req, next, data: mustBeArray(req.data) };
         };
         break;
       case "before":
         this.argsExtractor = (...args: Array<any>) => {
           const [req] = args;
-          return { req, data: req.data };
+          return { req, data: mustBeArray(req.data) };
         };
         break;
       case "after":
         this.argsExtractor = (...args: Array<any>) => {
           const [data, req] = args;
-          return { req, data };
+          return { req, data: mustBeArray(data) };
         };
         break;
       default:
@@ -88,11 +89,14 @@ export class HandlerInjector extends CDSContextBase {
     const handlerContext = Object.assign(
       {},
       {
+        get context() { return this.cds.context; },
         service: this.service,
         hook: this.hook,
         cds: this.cds,
         entity: this.entity,
         logger: this.handlerLogger,
+        db: this.db,
+        model: this.model,
       },
       this.argsExtractor(...args)
     );

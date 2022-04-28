@@ -17,10 +17,10 @@ service DemoService {
   }
 
 
-  // @impl : {
-  //   before : {create : './impl/animal/beforeBookCreate.js'},
-  //   on     : {delete : './impl/animal/onBookDelete.js'}
-  // }
+  @impl : {
+    before : {create : './impl/book/beforeBookCreate.js'},
+    after  : {read : './impl/book/afterBookRead.js'}
+  }
   entity Book : cuid {
     Name  : String(255);
     Price : Decimal;

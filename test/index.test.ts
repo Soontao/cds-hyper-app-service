@@ -16,4 +16,15 @@ describe("Fundamental Test Suite", () => {
     expect(response.data.Name).toBe("dog1");
   });
 
+  it('should support create book with before and after', async () => {
+    let response = await axios.post('/demo/Book', { Name: 'book_1' })
+    expect(response.status).toBe(500)
+    response = await axios.post('/demo/Book', { Name: 'book_long_cat_1-0001' })
+    expect(response.status).toBe(201)
+    expect(response.data).toMatchObject({ Name: 'book_long_cat_1-0001' })
+    response = await axios.get(`/demo/Book(${response.data.ID})`)
+    expect(response.status).toBe(200)
+    expect(response.data).toMatchObject({ Name: 'book_long_cat_1-0001_afterRead' })
+  });
+
 });

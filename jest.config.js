@@ -12,6 +12,7 @@ module.exports = {
     "!**/node_modules/**"
   ],
   coveragePathIgnorePatterns: [
+    "src/grammar/vendor",
     "node_modules/",
     "src/grammar/HandlerName*.js",
   ],
