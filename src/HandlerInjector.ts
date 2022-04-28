@@ -25,6 +25,7 @@ export type HandlerInjectorOptions = {
  * @returns {Array<string>} the arg name list of the target function
  */
 export const getFunctionArgNames = memorized(function (f: AnyFunction) {
+  // TODO: support class method
   const tree = parse(f.toString(), { ecmaVersion: "latest" });
   const params = tree.body[0]?.expression?.params ?? tree?.body?.[0]?.params;
   return params?.map((param: any) => param.name) ?? [];

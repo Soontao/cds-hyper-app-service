@@ -2,6 +2,7 @@ import { CDS, cwdRequire, groupByKeyPrefix } from "cds-internal-tool";
 import path from "path";
 import { createInjectableHandler } from "./HandlerInjector";
 export * from "./EntityHandlers";
+export { HyperApplicationService } from "./HyperApplicationService";
 
 const ANNOTATION = "@impl";
 
@@ -48,7 +49,7 @@ export function supportHyperImpl(cds: CDS) {
                     implRelativePath as string
                   )
                 );
-                
+
                 const register = (handler: any) => srv[hook](
                   EVENT,
                   entity,

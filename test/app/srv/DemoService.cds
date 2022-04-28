@@ -1,8 +1,6 @@
 using {cuid} from '@sap/cds/common';
 
-@assert.unique : {unique_name : [Name]}
 service DemoService {
-
 
   @impl.on.create : './deep/onAnimalCreate.js'
   entity Animal : cuid {

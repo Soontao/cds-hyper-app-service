@@ -12,7 +12,8 @@ module.exports = class PeopleEntityHandlers extends EntityHandlers {
    * @param {EntityDefinition} entity
    * @param {ApplicationService} service
    */
-  beforeCreate(req, context, db, entity, service) {
+  beforeCreate = async (req, context, db, entity, service) => {
+
 
   }
 
