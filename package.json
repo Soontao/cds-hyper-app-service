@@ -23,8 +23,8 @@
     "coverage": "npm test -- --coverage --no-cache"
   },
   "dependencies": {
-    "acron": "^1.0.5",
-    "cds-internal-tool": "^0.0.11"
+    "cds-internal-tool": "^0.0.11",
+    "espree": "^9.3.1"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^16.2.1",

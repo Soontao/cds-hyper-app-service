@@ -5,3 +5,4 @@ jest.config.js
 test/app
 src/grammar/*.js
 src/grammar/vendor
+test

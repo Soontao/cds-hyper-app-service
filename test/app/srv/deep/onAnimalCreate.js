@@ -6,7 +6,7 @@
  * @param {Function} next 
  * @returns 
  */
-module.exports = function (req, next) {
+module.exports = function f(req, next) {
   req.data.Name = req.data.Name + "1"
   return next()
 }
