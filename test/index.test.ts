@@ -10,5 +10,10 @@ describe("Fundamental Test Suite", () => {
     expect(response.data).toMatch(/People/);
   });
 
+  it("should support simple handler with plain '@impl.on.create'", async () => {
+    const response = await axios.post("/demo/Animal", { Name: "dog" });
+    expect(response.status).toBe(201);
+    expect(response.data.Name).toBe("dog1");
+  });
 
 });
