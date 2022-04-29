@@ -1,5 +1,4 @@
 import { ApplicationService, EntityDefinition } from "cds-internal-tool";
-import { CDSContextBase } from "./CDSContextBase";
 import { registerForObject } from "./register";
 
 
@@ -10,12 +9,11 @@ import { registerForObject } from "./register";
  * the sub-class will be `singleton` globally (controlled by `cds-hyper-impl` framework)
  * 
  */
-export abstract class HyperEntityHandler extends CDSContextBase {
+export abstract class HyperEntityHandler {
 
   protected entity?: EntityDefinition;
 
   constructor(options: { entity: EntityDefinition; }) {
-    super();
     this.entity = options.entity;
   }
 

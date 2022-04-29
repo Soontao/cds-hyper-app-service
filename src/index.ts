@@ -1,5 +1,6 @@
 import { CDS, cwdRequire, groupByKeyPrefix } from "cds-internal-tool";
 import path from "path";
+import { VALUES_HOOK_LIST } from "./constants";
 import { HyperEntityHandler } from "./HyperEntityHandler";
 import { createInjectableHandler } from "./Injector";
 export { HyperApplicationService } from "./HyperApplicationService";
@@ -9,7 +10,6 @@ const ANNOTATION = "@impl";
 
 
 export function supportHyperImpl(cds: CDS) {
-  const logger = cds.log("cds-hyper-impl");
 
   cds.on("serving", srv => {
 
@@ -42,19 +42,9 @@ export function supportHyperImpl(cds: CDS) {
             // TODO: warn
           }
           if (typeof impl === "object") {
-            const hooks = Object.keys(impl) as Array<any>;
+            const hooks = Object.keys(impl).filter(h => VALUES_HOOK_LIST.includes(h)) as Array<any>;
+           
             for (const hook of hooks) {
-
-              if (typeof srv[hook] !== "function") {
-                logger.warn(
-                  "hook",
-                  hook,
-                  "is not in service",
-                  srv.name,
-                  "skip process"
-                );
-                continue;
-              }
 
               for (const [event, implRelativePath] of Object.entries(impl[hook])) {
 

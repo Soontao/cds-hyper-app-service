@@ -9,15 +9,17 @@
 
 ## Features
 
-- [ ] HyperApplicationService
+- [x] HyperApplicationService
   - [ ] combine with HyperEntityHandler
   - [ ] sub-class methods support
   - [ ] with namespace
-- [ ] HyperEntityHandler
+- [x] HyperEntityHandler
   - [ ] test with re-used entity handler
   - [ ] sub-class methods support
-- [ ] HyperHandler
+- [x] HyperHandler
   - [ ] bound/unbound action/function support
-- [ ] parameter injection
+- [x] parameter injection
   - [ ] rest arguments
+  - [ ] documentation for `data` in different hooks
+  - [ ] optional to verify handler parameters are injectable (runtime or startup)
 - [ ] namespace support

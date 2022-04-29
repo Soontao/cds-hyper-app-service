@@ -1,15 +1,29 @@
 import {
-  ApplicationService,
-  EntityDefinition,
-  EventHook,
-  Logger,
-  memorized,
-  mustBeArray
+  ApplicationService, EntityDefinition,
+  EventContext,
+  EventHook, memorized,
+  mustBeArray,
+  Request
 } from "cds-internal-tool";
 import { parse } from "espree";
 import { CDSContextBase } from "./CDSContextBase";
+import { VALUES_HOOK } from "./constants";
 
 type AnyFunction = (...args: Array<any>) => any
+
+export type NativeHandlerArgsExtractor = (...args: Array<any>) => { req: EventContext, data?: Array<any>, next?: any };
+
+const NATIVE_HANDLER_ARGS_EXTRACTORS = {
+  [VALUES_HOOK.ON]: (req: EventContext, next: any) => {
+    return { req, next, data: mustBeArray(req["data"]) };
+  },
+  [VALUES_HOOK.BEFORE]: (req: EventContext) => {
+    return { req, data: mustBeArray(req["data"]) };
+  },
+  [VALUES_HOOK.AFTER]: (data: any, req: EventContext) => {
+    return { req, data: mustBeArray(data) };
+  },
+};
 
 export type HandlerInjectorOptions = {
   handler: AnyFunction,
@@ -44,6 +58,55 @@ export const getFunctionArgNames = memorized(function (f: AnyFunction) {
   return params?.map((param: any) => param.name) ?? [];
 });
 
+export class InjectContext extends CDSContextBase {
+
+
+  #req: Request;
+
+  #data: Array<any>;
+
+  #entity: EntityDefinition;
+
+  #next?: AnyFunction;
+
+  constructor({ entity, service, hook, req, data, next }) {
+    super();
+    this.#entity = entity;
+    this.#req = req;
+    this.#data = data;
+    this.#next = next;
+    this.logger = this.cds.log(
+      [service?.name, hook, entity?.name].filter(v => v !== undefined).join("-")
+    );
+  }
+
+  get entity() {
+    return this.#entity;
+  }
+
+  get req() {
+    return this.#req;
+  }
+
+  get data() {
+    return this.#data;
+  }
+
+  get next() {
+    return this.#next;
+  }
+
+  get context() { return this.cds.context; }
+
+  get user() { return this.#req.user; }
+
+  get tenant() { return this.#req.tenant; }
+
+  get locale() { return this.#req.locale; }
+
+
+}
+
 export class HandlerInjector extends CDSContextBase {
 
   protected service: ApplicationService;
@@ -54,9 +117,8 @@ export class HandlerInjector extends CDSContextBase {
 
   protected entity?: EntityDefinition;
 
-  protected handlerLogger: Logger;
 
-  private argsExtractor: (...args: Array<any>) => any;
+  private nativeHandlerArgsExtractor: NativeHandlerArgsExtractor;
 
   private argNames: Array<string>;
 
@@ -66,55 +128,37 @@ export class HandlerInjector extends CDSContextBase {
     this.hook = options.hook;
     this.handler = options.handler;
     this.entity = options.entity;
-    this.handlerLogger = this.cds.log(
-      this.entity === undefined ? "" : `${this.hook}${this.entity?.name}`
-    );
+
     this.argNames = getFunctionArgNames(options.handler);
 
-    switch (this.hook) {
-      case "on":
-        this.argsExtractor = (...args: Array<any>) => {
-          const [req, next] = args;
-          return { req, next, data: mustBeArray(req.data) };
-        };
-        break;
-      case "before":
-        this.argsExtractor = (...args: Array<any>) => {
-          const [req] = args;
-          return { req, data: mustBeArray(req.data) };
-        };
-        break;
-      case "after":
-        this.argsExtractor = (...args: Array<any>) => {
-          const [data, req] = args;
-          return { req, data: mustBeArray(data) };
-        };
-        break;
-      default:
-        this.logger.warn("not supported hook", this.hook);
-        throw new Error(`hook not supported ${this.hook}`);
+    this.nativeHandlerArgsExtractor = NATIVE_HANDLER_ARGS_EXTRACTORS[this.hook];
+
+    if (this.nativeHandlerArgsExtractor === undefined) {
+      this.logger.warn("not supported hook", this.hook);
+      throw new Error(`hook not supported ${this.hook}`);
     }
+
+  }
+
+  private createCtx(...args: Array<any>) {
+    const { req, data, next } = this.nativeHandlerArgsExtractor(...args);
+    return new InjectContext({
+      entity: this.entity,
+      service: this.service,
+      hook: this.hook,
+      req,
+      data,
+      next
+    });
   }
 
   public handle(...args: Array<any>): any {
     if (this.argNames.length === 0) {
       return this.handler();
     }
-    const handlerContext = Object.assign(
-      {},
-      {
-        get context() { return this.cds.context; },
-        service: this.service,
-        hook: this.hook,
-        cds: this.cds,
-        entity: this.entity,
-        logger: this.handlerLogger,
-        db: this.db,
-        model: this.model,
-      },
-      this.argsExtractor(...args)
-    );
-    const realArgs = this.argNames.map(argName => handlerContext[argName]);
+
+    const ctx = this.createCtx(...args);
+    const realArgs = this.argNames.map(argName => ctx[argName]);
     return this.handler(...realArgs);
   }
 
