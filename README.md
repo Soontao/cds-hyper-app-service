@@ -63,6 +63,7 @@ module.exports = class DemoHyperServiceImpl extends HyperApplicationService {
 - [x] parameter injection
   - [ ] rest arguments
   - [ ] documentation for `data` in different hooks
+  - [ ] behavior change for `each` parameter
   - [ ] optional to verify handler parameters are injectable (runtime or startup)
 - [x] handler name parser
   - [x] `on/before/after` hooks
