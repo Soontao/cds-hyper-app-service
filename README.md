@@ -56,7 +56,7 @@ module.exports = class DemoHyperServiceImpl extends HyperApplicationService {
   - [ ] sub-class methods support
   - [ ] with namespace
 - [x] HyperEntityHandler
-  - [ ] `singleton` - test with re-used entity handler
+  - [ ] test with re-used entity handler (for different projection)
   - [ ] sub-class methods support
 - [x] HyperHandler
   - [ ] bound/unbound action/function support
