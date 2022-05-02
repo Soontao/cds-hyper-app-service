@@ -81,6 +81,7 @@ module.exports = class DemoServiceImpl extends HyperApplicationService {
   - [ ] raw object implementation
 - [x] HyperHandler
   - [ ] bound/unbound action/function support
+  - [ ] warning if with entity name
 - [x] framework `cds.requires.impl` support
   - [ ] markdown doc update
 - [x] parameter injection
