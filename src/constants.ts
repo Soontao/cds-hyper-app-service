@@ -6,3 +6,5 @@ export const VALUES_HOOK = {
 };
 
 export const VALUES_HOOK_LIST = Object.values(VALUES_HOOK);
+
+export const ANNOTATION_IMPL = "@impl";

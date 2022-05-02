@@ -1,4 +1,4 @@
-const { HyperApplicationService } = require("../../../../src")
+const HyperApplicationService = require("../../../../src")
 
 module.exports = class DemoHyperServiceImpl extends HyperApplicationService {
 

@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
 import { cwdRequireCDS, DatabaseService, Logger } from "cds-internal-tool";
-import { registerForObject } from "./register";
+import { HyperEntityHandler } from "./HyperEntityHandler";
+import { registerForObject, registerForService } from "./register";
+
 
 
 /**
@@ -15,7 +17,9 @@ import { registerForObject } from "./register";
  * * parameter injection
  * * built-in logger
  */
-export class HyperApplicationService extends cwdRequireCDS().ApplicationService {
+class HyperApplicationService extends cwdRequireCDS().ApplicationService {
+
+  public static HyperEntityHandler = HyperEntityHandler;
 
   protected logger: Logger;
 
@@ -30,10 +34,11 @@ export class HyperApplicationService extends cwdRequireCDS().ApplicationService 
   }
 
   async init(): Promise<any> {
+    registerForService(this);
     registerForObject(this, this);
     await super.init();
   }
 
 }
 
-export default HyperApplicationService;
+export = HyperApplicationService

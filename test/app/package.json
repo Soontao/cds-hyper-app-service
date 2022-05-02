@@ -1,5 +1,9 @@
 {
   "cds": {
-    "requires": {}
+    "requires": {
+      "app-service": {
+        "impl": "../../src"
+      }
+    }
   }
 }

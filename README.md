@@ -9,16 +9,34 @@
 
 ## Get Started
 
+> install dependency
+
 ```bash
 npm i -S cds-hyper-impl
 ```
+
+> overwrite the `app-service` implementation
+
+```json
+{
+  "cds": {
+    "requires": {
+      "app-service": {
+        "impl": "cds-hyper-impl"
+      }
+    }
+  }
+}
+```
+
+> define a cds service
 
 ```groovy
 using {cuid} from '@sap/cds/common';
 
 @path : '/hyper'
-@impl : './impl/DemoHyperServiceImpl.js'
-service DemoHyperService {
+@impl : './impl/DemoServiceImpl.js'
+service DemoService {
 
   entity Human : cuid {
     Name : String(255);
@@ -28,10 +46,12 @@ service DemoHyperService {
 }
 ```
 
+> impl it
+
 ```js
 const { HyperApplicationService } = require("cds-hyper-impl")
 
-module.exports = class DemoHyperServiceImpl extends HyperApplicationService {
+module.exports = class DemoServiceImpl extends HyperApplicationService {
   /**
    * 
    * @param {Array} data 
@@ -60,6 +80,7 @@ module.exports = class DemoHyperServiceImpl extends HyperApplicationService {
   - [ ] sub-class methods support
 - [x] HyperHandler
   - [ ] bound/unbound action/function support
+- [x] framework `cds.requires.impl` support
 - [x] parameter injection
   - [ ] rest arguments
   - [ ] documentation for `data` in different hooks
@@ -73,6 +94,8 @@ module.exports = class DemoHyperServiceImpl extends HyperApplicationService {
   - [x] single entity
   - [ ] optional entity
   - [ ] multi entities
+- [ ] simple DAO interface like JPA
+  - [ ] inject by name
 - [ ] namespace support
 
 ## [CHANGELOG](./CHANGELOG.md)
