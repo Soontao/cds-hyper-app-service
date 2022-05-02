@@ -23,6 +23,7 @@ export function registerForService(srv: ApplicationService) {
 
     const impl = groupByKeyPrefix(entity, ANNOTATION_IMPL);
 
+    // impl by single module
     if (typeof impl === "string") {
       const entityHandler = srvRequire(impl);
       // TODO: support
@@ -32,8 +33,11 @@ export function registerForService(srv: ApplicationService) {
         handler.mount(srv);
         continue;
       }
+      // TODO: raw object register directly
       // TODO: warn
     }
+
+    // impl by many modules
     if (typeof impl === "object") {
       const hooks = Object.keys(impl).filter(h => VALUES_HOOK_LIST.includes(h)) as Array<any>;
 
