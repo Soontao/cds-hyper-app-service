@@ -90,6 +90,8 @@ module.exports = class DemoServiceImpl extends HyperApplicationService {
   - [ ] documentation for `data` in different hooks
   - [ ] behavior change for `each` parameter
   - [ ] optional to verify handler parameters are injectable (runtime or startup)
+  - [ ] `cds.Service` injection
+  - [ ] documentation
 - [x] handler name parser
   - [x] `on/before/after` hooks
   - [x] multi hooks
