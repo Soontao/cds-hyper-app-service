@@ -96,6 +96,7 @@ module.exports = class DemoServiceImpl extends HyperApplicationService {
   - [x] single entity
   - [ ] optional entity
   - [ ] multi entities
+  - [ ] order
 - [ ] simple DAO interface like JPA
   - [ ] inject by name
 - [ ] namespace support
