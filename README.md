@@ -78,9 +78,11 @@ module.exports = class DemoServiceImpl extends HyperApplicationService {
 - [x] HyperEntityHandler
   - [ ] test with re-used entity handler (for different projection)
   - [ ] sub-class methods support
+  - [ ] raw object implementation
 - [x] HyperHandler
   - [ ] bound/unbound action/function support
 - [x] framework `cds.requires.impl` support
+  - [ ] markdown doc update
 - [x] parameter injection
   - [ ] rest arguments
   - [ ] documentation for `data` in different hooks
@@ -97,6 +99,7 @@ module.exports = class DemoServiceImpl extends HyperApplicationService {
 - [ ] simple DAO interface like JPA
   - [ ] inject by name
 - [ ] namespace support
+- [ ] duplicated handler check
 
 ## [CHANGELOG](./CHANGELOG.md)
 
