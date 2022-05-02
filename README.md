@@ -59,6 +59,7 @@ module.exports = class DemoServiceImpl extends HyperApplicationService {
    */
   // defined hook/event/entity by function name
   // with parameter name based injection
+  // == `srv.before('CREATE', 'Human', async (data, req) => { ... })`
   async beforeCreateHuman(data, req) {
     for (const item of data) {
       if (item.Name.length > 10) {
