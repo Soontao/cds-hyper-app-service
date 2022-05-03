@@ -1,7 +1,7 @@
 import {
   ApplicationService, EntityDefinition,
   EventContext,
-  EventHook, memorized,
+  EventHook, Logger, memorized,
   mustBeArray,
   Request
 } from "cds-internal-tool";
@@ -60,7 +60,6 @@ export const getFunctionArgNames = memorized(function (f: AnyFunction) {
 
 export class InjectContext extends CDSContextBase {
 
-
   #req: Request;
 
   #data: Array<any>;
@@ -69,15 +68,21 @@ export class InjectContext extends CDSContextBase {
 
   #next?: AnyFunction;
 
+  #logger: Logger;
+
   constructor({ entity, service, hook, req, data, next }) {
     super();
     this.#entity = entity;
     this.#req = req;
     this.#data = data;
     this.#next = next;
-    this.logger = this.cds.log(
+    this.#logger = this.cds.log(
       [service?.name, hook, entity?.name].filter(v => v !== undefined).join("-")
     );
+  }
+
+  get logger() {
+    return this.#logger;
   }
 
   get entity() {
@@ -86,6 +91,14 @@ export class InjectContext extends CDSContextBase {
 
   get req() {
     return this.#req;
+  }
+
+  get request(): import("express").Request {
+    return this.#req?._?.req;
+  }
+
+  get response(): import("express").Response {
+    return this.#req?._?.res;
   }
 
   get data() {
@@ -134,7 +147,6 @@ export class HandlerInjector extends CDSContextBase {
     this.nativeHandlerArgsExtractor = NATIVE_HANDLER_ARGS_EXTRACTORS[this.hook];
 
     if (this.nativeHandlerArgsExtractor === undefined) {
-      this.logger.warn("not supported hook", this.hook);
       throw new Error(`hook not supported ${this.hook}`);
     }
 

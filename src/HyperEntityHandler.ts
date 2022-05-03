@@ -11,10 +11,10 @@ import { registerForObject } from "./register";
  */
 export abstract class HyperEntityHandler {
 
-  protected entity?: EntityDefinition;
+  #entity: EntityDefinition;
 
   constructor(options: { entity: EntityDefinition; }) {
-    this.entity = options.entity;
+    this.#entity = options.entity;
   }
 
   /**
@@ -23,7 +23,7 @@ export abstract class HyperEntityHandler {
    * @param service 
    */
   public mount(service: ApplicationService) {
-    registerForObject(this, service, this.entity);
+    registerForObject(this, service, this.#entity);
   }
 
 }

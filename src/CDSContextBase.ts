@@ -1,4 +1,4 @@
-import { CDS, cwdRequireCDS, Logger } from "cds-internal-tool";
+import { CDS, cwdRequireCDS } from "cds-internal-tool";
 
 
 /**
@@ -8,11 +8,8 @@ export abstract class CDSContextBase {
 
   protected cds: CDS;
 
-  protected logger: Logger;
-
   constructor() {
     this.cds = cwdRequireCDS();
-    this.logger = this.cds.log(this.constructor.name);
   }
 
   protected get db() {

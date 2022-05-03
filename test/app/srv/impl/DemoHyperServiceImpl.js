@@ -31,10 +31,11 @@ module.exports = class DemoHyperServiceImpl extends HyperApplicationService {
   /**
    * 
    * @param {import("cds-internal-tool").EntityDefinition} entity 
+   * @param {import("cds-internal-tool").Logger} logger
    * @returns 
    */
-  async onDeleteHuman(entity, req) {
-    this.logger.debug("reject entity", entity.name)
+  async onDeleteHuman(entity, req, logger) {
+    logger.debug("reject entity", entity.name)
     return req.reject(400, "delete is not allowed")
   }
 
