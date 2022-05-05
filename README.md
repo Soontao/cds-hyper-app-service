@@ -156,9 +156,18 @@ module.exports = function beforeBookCreate(req, data) {
 
 ## Why we need `cds-hyper-impl`
 
+### Better Test
+
 Register the handler with declarative approach so that we no longer need the `srv.on` anymore, besides developers don't need write test cases for the registration code lines.
 
-in another hand, developer could test the handler most efficiency because the handlers will be much more like a pure function, so the input/output could be test easier.
+In another hand, developer could test the handler **much more efficiency** because the handlers will be much more like a pure function, so the input/output could be test easier.
+
+### Entity Focused Handlers
+
+With `HyperEntityHandler`, developer could create entity oriented handlers and re-use them in different `ApplicationService`, because in CAP development, projection of single entity in many different services is really common.
+
+Additionally, it support `sub-class` and `extending`, so developer could re-use logics for `draft-enabled` and `normal` odata services.
+
 
 ## Features
 
