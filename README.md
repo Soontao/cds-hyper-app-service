@@ -163,7 +163,8 @@ in another hand, developer could test the handler most efficiency because the ha
 ## Features
 
 - [x] HyperApplicationService
-  - [ ] combine with HyperEntityHandler
+  - [x] combine with HyperEntityHandler
+  - [x] dynamic transactional `this`
   - [ ] sub-class methods support
   - [ ] with namespace
 - [x] HyperEntityHandler
@@ -174,7 +175,7 @@ in another hand, developer could test the handler most efficiency because the ha
   - [ ] bound/unbound action/function support
   - [ ] warning if with entity name
 - [x] framework `cds.requires.impl` support
-  - [ ] markdown doc update
+  - [x] markdown doc update
 - [x] parameter injection
   - [ ] rest arguments
   - [ ] documentation for `data` in different hooks
@@ -193,7 +194,6 @@ in another hand, developer could test the handler most efficiency because the ha
   - [ ] order
 - [ ] simple DAO interface like JPA
   - [ ] inject by name
-- [ ] namespace support
 - [ ] duplicated handler check
 
 ## [CHANGELOG](./CHANGELOG.md)
