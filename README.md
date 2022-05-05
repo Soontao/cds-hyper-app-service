@@ -79,23 +79,15 @@ module.exports = class DemoServiceImpl extends HyperApplicationService {
 
 ```groovy
 service DemoService {
-
   @impl : './impl/PeopleEntityHandler.js'
   entity Peoples as projection on People;
-
 }
-
 ```
 
 > impl entity handler
 
 ```js
-const { Request, EventContext, DatabaseService, EntityDefinition, ApplicationService } = require("cds-internal-tool")
-const { HyperEntityHandler } = require("cds-hyper-impl")
-
 module.exports = class PeopleEntityHandlers extends HyperEntityHandler {
-
-
   /**
    * 
    * @param {Request} req 
@@ -114,10 +106,7 @@ module.exports = class PeopleEntityHandlers extends HyperEntityHandler {
       }
     }
   }
-
-
 }
-
 ```
 
 ### Option 3 - Single Event Handler
