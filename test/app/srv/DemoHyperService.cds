@@ -1,4 +1,5 @@
 using {cuid} from '@sap/cds/common';
+using {People} from '../db/db';
 
 
 @path : '/hyper'
@@ -9,5 +10,8 @@ service DemoHyperService {
     Name : String(255);
     Age  : Integer;
   }
+
+  @impl : './impl/PeopleEntityHandler.js'
+  entity Peoples as projection on People;
 
 }

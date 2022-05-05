@@ -29,6 +29,8 @@ npm i -S cds-hyper-impl
 }
 ```
 
+### Option 1 - Service Handler
+
 > define a cds service
 
 ```groovy
@@ -65,6 +67,88 @@ module.exports = class DemoServiceImpl extends HyperApplicationService {
       if (item.Name.length > 10) {
         return req.reject(400, 'human name length should not exceed 10 chars')
       }
+    }
+  }
+}
+```
+
+### Option 2 - Entity Handler
+
+
+> define service with entity handler
+
+```groovy
+service DemoService {
+
+  @impl : './impl/PeopleEntityHandler.js'
+  entity Peoples as projection on People;
+
+}
+
+```
+
+> impl entity handler
+
+```js
+const { Request, EventContext, DatabaseService, EntityDefinition, ApplicationService } = require("cds-internal-tool")
+const { HyperEntityHandler } = require("cds-hyper-impl")
+
+module.exports = class PeopleEntityHandlers extends HyperEntityHandler {
+
+
+  /**
+   * 
+   * @param {Request} req 
+   * @param {EventContext} context 
+   * @param {DatabaseService} db 
+   * @param {EntityDefinition} entity
+   * @param {ApplicationService} service
+   * @param {Array} data
+   * @param {import("express").Request} request
+   * @param {import("express").Response} response
+   */
+  async beforeCreate(req, context, db, entity, service, data, request, response) {
+    for (const item of data) {
+      if (item.Name.length <= 10) {
+        return req.reject(400, "length people name is not enough")
+      }
+    }
+  }
+
+
+}
+
+```
+
+### Options 3 - single event handler
+
+> define the impl location
+
+```groovy
+service DemoService {
+  @impl : {
+    before : {create : './impl/book/beforeBookCreate.js'},
+  }
+  entity Book : cuid {
+    Name  : String(255);
+    Price : Decimal;
+  }
+
+}
+```
+
+> impl in single module which export a function
+
+```js
+/**
+ * 
+ * @param {import("cds-internal-tool").Request} req 
+ * @param {Array} data
+ */
+module.exports = function beforeBookCreate(req, data) {
+  for (const item of data) {
+    if (item.Name.length <= 10) {
+      return req.reject("length book name is not enough")
     }
   }
 }

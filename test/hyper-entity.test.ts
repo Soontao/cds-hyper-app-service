@@ -6,9 +6,15 @@ describe('Hyper Entity Handler Test Suite', () => {
 
 
   it('should support validate by entity service', async () => {
-    const response = await axios.post('/demo/Peoples', { Name: 'theo' })
+    let response = await axios.post('/demo/Peoples', { Name: 'theo' })
+    expect(response.status).toBe(400)
+    expect(response.data.error.message).toBe("length people name is not enough")
+    // another
+    response = await axios.post('/hyper/Peoples', { Name: 'theo' })
     expect(response.status).toBe(400)
     expect(response.data.error.message).toBe("length people name is not enough")
   });
+
+
 
 });
