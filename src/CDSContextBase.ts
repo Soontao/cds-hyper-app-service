@@ -24,7 +24,4 @@ export abstract class CDSContextBase {
     return this.cds.model;
   }
 
-  protected get context() {
-    return this.cds.context;
-  }
 }

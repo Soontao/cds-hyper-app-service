@@ -17,6 +17,10 @@
       "args": [
         "--runInBand"
       ],
+      "skipFiles": [
+        "<node_internals>/**",
+        "internal/**",
+      ],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",

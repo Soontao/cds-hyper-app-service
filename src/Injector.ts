@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import {
-  ApplicationService, EntityDefinition,
+  EntityDefinition,
   EventContext,
   EventHook, Logger, memorized,
   mustBeArray,
-  Request
+  Request,
+  Service
 } from "cds-internal-tool";
 import { parse } from "espree";
 import { CDSContextBase } from "./CDSContextBase";
@@ -13,7 +15,7 @@ type AnyFunction = (...args: Array<any>) => any
 
 export type NativeHandlerArgsExtractor = (...args: Array<any>) => { req: EventContext, data?: Array<any>, next?: any };
 
-const NATIVE_HANDLER_ARGS_EXTRACTORS = {
+const NATIVE_HANDLER_ARGS_EXTRACTORS: { [key: string]: NativeHandlerArgsExtractor } = {
   [VALUES_HOOK.ON]: (req: EventContext, next: any) => {
     return { req, next, data: mustBeArray(req["data"]) };
   },
@@ -26,10 +28,13 @@ const NATIVE_HANDLER_ARGS_EXTRACTORS = {
 };
 
 export type HandlerInjectorOptions = {
-  handler: AnyFunction,
-  service: ApplicationService,
+  handler: AnyFunction;
   hook: EventHook;
-  entity?: EntityDefinition
+  entity?: EntityDefinition;
+  /**
+   * this arg for handler when executing
+   */
+  thisArg?: any;
 };
 
 const PARSE_CONFIGURATION = { ecmaVersion: "latest" };
@@ -66,6 +71,8 @@ export class InjectContext extends CDSContextBase {
 
   #entity: EntityDefinition;
 
+  #service: Service;
+
   #next?: AnyFunction;
 
   #logger: Logger;
@@ -76,6 +83,7 @@ export class InjectContext extends CDSContextBase {
     this.#req = req;
     this.#data = data;
     this.#next = next;
+    this.#service = service;
     this.#logger = this.cds.log(
       [service?.name, hook, entity?.name].filter(v => v !== undefined).join("-")
     );
@@ -91,6 +99,10 @@ export class InjectContext extends CDSContextBase {
 
   get req() {
     return this.#req;
+  }
+
+  get service() {
+    return this.#service;
   }
 
   get request(): import("express").Request {
@@ -109,7 +121,9 @@ export class InjectContext extends CDSContextBase {
     return this.#next;
   }
 
-  get context() { return this.cds.context; }
+  get context() {
+    return this.#service["context"];
+  }
 
   get user() { return this.#req.user; }
 
@@ -120,63 +134,29 @@ export class InjectContext extends CDSContextBase {
 
 }
 
-export class HandlerInjector extends CDSContextBase {
 
-  protected service: ApplicationService;
+export function createInjectableHandler({ entity, hook, handler, thisArg }: HandlerInjectorOptions) {
+  const argsExtractor = NATIVE_HANDLER_ARGS_EXTRACTORS[hook];
 
-  protected handler: AnyFunction;
-
-  protected hook: EventHook;
-
-  protected entity?: EntityDefinition;
-
-
-  private nativeHandlerArgsExtractor: NativeHandlerArgsExtractor;
-
-  private argNames: Array<string>;
-
-  constructor(options: HandlerInjectorOptions) {
-    super();
-    this.service = options.service;
-    this.hook = options.hook;
-    this.handler = options.handler;
-    this.entity = options.entity;
-
-    this.argNames = getFunctionArgNames(options.handler);
-
-    this.nativeHandlerArgsExtractor = NATIVE_HANDLER_ARGS_EXTRACTORS[this.hook];
-
-    if (this.nativeHandlerArgsExtractor === undefined) {
-      throw new Error(`hook not supported ${this.hook}`);
-    }
-
+  if (argsExtractor === undefined) {
+    throw new Error(`hook not supported ${hook}`);
   }
 
-  private createCtx(...args: Array<any>) {
-    const { req, data, next } = this.nativeHandlerArgsExtractor(...args);
-    return new InjectContext({
-      entity: this.entity,
-      service: this.service,
-      hook: this.hook,
+  const argNames = getFunctionArgNames(handler);
+
+  return async function (...args: Array<any>): Promise<any> {
+    const { req, data, next } = argsExtractor(...args);
+    const ctx = new InjectContext({
+      entity,
+      // @ts-ignore
+      service: this,
+      hook,
       req,
       data,
       next
     });
-  }
-
-  public handle(...args: Array<any>): any {
-    if (this.argNames.length === 0) {
-      return this.handler();
-    }
-
-    const ctx = this.createCtx(...args);
-    const realArgs = this.argNames.map(argName => ctx[argName]);
-    return this.handler(...realArgs);
-  }
-
-}
-
-export function createInjectableHandler(options: HandlerInjectorOptions) {
-  const injector = new HandlerInjector(options);
-  return injector.handle.bind(injector);
+    const realArgs = argNames.map((argName: string) => ctx[argName]);
+    // @ts-ignore
+    return handler.call(thisArg ?? this, ...realArgs);
+  };
 }
