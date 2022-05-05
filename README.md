@@ -120,7 +120,7 @@ module.exports = class PeopleEntityHandlers extends HyperEntityHandler {
 
 ```
 
-### Options 3 - single event handler
+### Option 3 - Single Event Handler
 
 > define the impl location
 
@@ -153,6 +153,12 @@ module.exports = function beforeBookCreate(req, data) {
   }
 }
 ```
+
+## Why we need `cds-hyper-impl`
+
+Register the handler with declarative approach so that we no longer need the `srv.on` anymore, besides developers don't need write test cases for the registration code lines.
+
+in another hand, developer could test the handler most efficiency because the handlers will be much more like a pure function, so the input/output could be test easier.
 
 ## Features
 
