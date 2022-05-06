@@ -34,25 +34,19 @@ npm i -S cds-hyper-impl
 > define a cds service
 
 ```groovy
-using {cuid} from '@sap/cds/common';
-
 @path : '/hyper'
 @impl : './impl/DemoServiceImpl.js'
 service DemoService {
-
   entity Human : cuid {
     Name : String(255);
     Age  : Integer;
   }
-
 }
 ```
 
 > impl it
 
 ```js
-const { HyperApplicationService } = require("cds-hyper-impl")
-
 module.exports = class DemoServiceImpl extends HyperApplicationService {
   /**
    * 
