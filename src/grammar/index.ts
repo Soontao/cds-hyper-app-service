@@ -72,7 +72,7 @@ export const parseHandlerName = memorized(function (name: string) {
     antlr4.tree.ParseTreeWalker.DEFAULT.walk(listener, tree);
     return listener.information();
   } catch (error) {
-    cwdRequireCDS().log("cds-hyper-impl").debug("parse name", name, "failed, not a valid handler name");
+    cwdRequireCDS().log("cds-hyper-app-service").debug("parse name", name, "failed, not a valid handler name");
     return { valid: false, events: [], hooks: [] };
   }
 

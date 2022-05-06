@@ -2,17 +2,17 @@
 
 > hyper service implementation layer for CAP nodejs runtime
 
-[![npm](https://img.shields.io/npm/v/cds-hyper-impl)](https://www.npmjs.com/package/cds-hyper-impl)
-![license](https://img.shields.io/npm/l/cds-hyper-impl)
-![npm type definitions](https://img.shields.io/npm/types/cds-hyper-impl)
-[![codecov](https://codecov.io/gh/Soontao/cds-hyper-impl/branch/main/graph/badge.svg?token=upomv9gmft)](https://codecov.io/gh/Soontao/cds-hyper-impl)
+[![npm](https://img.shields.io/npm/v/cds-hyper-app-service)](https://www.npmjs.com/package/cds-hyper-app-service)
+![license](https://img.shields.io/npm/l/cds-hyper-app-service)
+![npm type definitions](https://img.shields.io/npm/types/cds-hyper-app-service)
+[![codecov](https://codecov.io/gh/Soontao/cds-hyper-app-service/branch/main/graph/badge.svg?token=upomv9gmft)](https://codecov.io/gh/Soontao/cds-hyper-app-service)
 
 ## Get Started
 
 > install dependency
 
 ```bash
-npm i -S cds-hyper-impl
+npm i -S cds-hyper-app-service
 ```
 
 > overwrite the `app-service` implementation
@@ -22,7 +22,7 @@ npm i -S cds-hyper-impl
   "cds": {
     "requires": {
       "app-service": {
-        "impl": "cds-hyper-impl"
+        "impl": "cds-hyper-app-service"
       }
     }
   }
@@ -137,7 +137,7 @@ module.exports = function beforeBookCreate(req, data) {
 }
 ```
 
-## Benefits of `cds-hyper-impl`
+## Benefits of `cds-hyper-app-service`
 
 ### Efficiency Development & Better Test
 

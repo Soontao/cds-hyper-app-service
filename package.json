@@ -1,5 +1,5 @@
 {
-  "name": "cds-hyper-impl",
+  "name": "cds-hyper-app-service",
   "version": "0.0.1",
   "main": "lib/index.js",
   "description": "enhanced @impl annotation for CAP nodejs runtime",

@@ -6,7 +6,7 @@ import { registerForObject } from "./register";
  * 
  * handler for specific entity
  * 
- * the sub-class will be `singleton` globally (controlled by `cds-hyper-impl` framework)
+ * the sub-class will be `singleton` globally (controlled by `cds-hyper-app-service` framework)
  * 
  */
 export abstract class HyperEntityHandler {
