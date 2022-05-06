@@ -137,9 +137,9 @@ module.exports = function beforeBookCreate(req, data) {
 }
 ```
 
-## Why we need `cds-hyper-impl`
+## Benefits of `cds-hyper-impl`
 
-### Better Test
+### Efficiency Development & Better Test
 
 Register the handler with declarative approach so that we no longer need the `srv.on` anymore, besides developers don't need write test cases for the registration code lines.
 
@@ -151,6 +151,9 @@ With `HyperEntityHandler`, developer could create entity oriented handlers and r
 
 Additionally, it support `sub-class` and `extending`, so developer could re-use logics for `draft-enabled` and `normal` odata services.
 
+### Parameter Injection
+
+Popular parameter injection, with some type re-format, make CAP development much more flexible
 
 ## Features
 
@@ -186,6 +189,7 @@ Additionally, it support `sub-class` and `extending`, so developer could re-use 
   - [ ] order
 - [ ] simple DAO interface like JPA
   - [ ] inject by name
+- [ ] AOP programming for with proxy ?
 - [ ] duplicated handler check
 
 ## [CHANGELOG](./CHANGELOG.md)
