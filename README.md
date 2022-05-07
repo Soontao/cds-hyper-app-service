@@ -5,7 +5,7 @@
 [![npm](https://img.shields.io/npm/v/cds-hyper-app-service)](https://www.npmjs.com/package/cds-hyper-app-service)
 ![license](https://img.shields.io/npm/l/cds-hyper-app-service)
 ![npm type definitions](https://img.shields.io/npm/types/cds-hyper-app-service)
-[![codecov](https://codecov.io/gh/Soontao/cds-hyper-app-service/branch/main/graph/badge.svg?token=upomv9gmft)](https://codecov.io/gh/Soontao/cds-hyper-app-service)
+[![codecov](https://codecov.io/gh/Soontao/cds-hyper-app-service/branch/master/graph/badge.svg?token=Q2YdgKmU2r)](https://codecov.io/gh/Soontao/cds-hyper-app-service)
 
 ## Get Started
 
