@@ -14,12 +14,48 @@ export default class HandlerNameListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
-	// Enter a parse tree produced by HandlerNameParser#entity.
-	enterEntity(ctx) {
+	// Enter a parse tree produced by HandlerNameParser#eventHandler.
+	enterEventHandler(ctx) {
 	}
 
-	// Exit a parse tree produced by HandlerNameParser#entity.
-	exitEntity(ctx) {
+	// Exit a parse tree produced by HandlerNameParser#eventHandler.
+	exitEventHandler(ctx) {
+	}
+
+
+	// Enter a parse tree produced by HandlerNameParser#actionHandler.
+	enterActionHandler(ctx) {
+	}
+
+	// Exit a parse tree produced by HandlerNameParser#actionHandler.
+	exitActionHandler(ctx) {
+	}
+
+
+	// Enter a parse tree produced by HandlerNameParser#entityName.
+	enterEntityName(ctx) {
+	}
+
+	// Exit a parse tree produced by HandlerNameParser#entityName.
+	exitEntityName(ctx) {
+	}
+
+
+	// Enter a parse tree produced by HandlerNameParser#actionName.
+	enterActionName(ctx) {
+	}
+
+	// Exit a parse tree produced by HandlerNameParser#actionName.
+	exitActionName(ctx) {
+	}
+
+
+	// Enter a parse tree produced by HandlerNameParser#freeName.
+	enterFreeName(ctx) {
+	}
+
+	// Exit a parse tree produced by HandlerNameParser#freeName.
+	exitFreeName(ctx) {
 	}
 
 

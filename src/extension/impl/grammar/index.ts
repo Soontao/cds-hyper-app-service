@@ -9,6 +9,7 @@ type HandlerNameInformation = {
   hooks: Array<EventHook>;
   events: Array<EventName>
   entity?: string;
+  actions?: Array<string>;
   valid: boolean;
 }
 
@@ -20,9 +21,14 @@ class HandlerNameInformationListener extends HandlerNameListener {
 
   private hooks: Array<EventHook> = [];
 
+  private actions: Array<string> = [];
+
   exitHook(ctx: any): void {
     // only direct level hook
-    if (ctx.parentCtx instanceof HandlerNameParser.NameContext) {
+    if (
+      ctx.parentCtx instanceof HandlerNameParser.EventHandlerContext ||
+      ctx.parentCtx instanceof HandlerNameParser.ActionHandlerContext
+    ) {
       const hook = ctx.getText();
       if (hook !== undefined) {
         this.hooks.push(String(hook).toLowerCase() as any);
@@ -37,7 +43,14 @@ class HandlerNameInformationListener extends HandlerNameListener {
     }
   }
 
-  exitEntity(ctx: any): void {
+  exitActionName(ctx: any): void {
+    const action = ctx.getText();
+    if (action !== undefined) {
+      this.actions.push(action);
+    }
+  }
+
+  exitEntityName(ctx: any): void {
     const entity = ctx.getText();
     if (entity !== undefined) {
       this.entity = entity;
@@ -48,7 +61,7 @@ class HandlerNameInformationListener extends HandlerNameListener {
    * get the final information
    */
   public information(): HandlerNameInformation {
-    const info: HandlerNameInformation = { hooks: this.hooks, events: this.events, valid: true };
+    const info: HandlerNameInformation = { hooks: this.hooks, events: this.events, actions: this.actions, valid: true };
     if (this.entity !== undefined) {
       info.entity = this.entity;
     }

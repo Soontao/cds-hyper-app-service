@@ -54,7 +54,7 @@ module.exports = class DemoServiceImpl extends HyperApplicationService {
   // defined hook/event/entity by function name
   // with parameter name based injection
   // == `srv.before('CREATE', 'Human', async (data, req) => { ... })`
-  async beforeCreateHuman(data, req) {
+  async beforeCreateForHuman(data, req) {
     for (const item of data) {
       if (item.Name.length > 10) {
         return req.reject(400, 'human name length should not exceed 10 chars')

@@ -7,7 +7,7 @@ module.exports = class DemoHyperServiceImpl extends HyperApplicationService {
    * @param {Array} data 
    * @param {import("cds-internal-tool").Request} req
    */
-  async beforeCreateHuman(data, req) {
+  async beforeCreateForHuman(data, req) {
     for (const item of data) {
       if (item.Name.length > 10) {
         return req.reject(400, 'human name length should not exceed 10 chars')
@@ -20,7 +20,7 @@ module.exports = class DemoHyperServiceImpl extends HyperApplicationService {
    * @param {Array} data
    * @param {Function} next 
    */
-  onCreateHuman(data, next) {
+  onCreateForHuman(data, next) {
     for (const item of data) {
       item.Name = item.Name + "_processed_by_on_handler"
     }
@@ -34,7 +34,7 @@ module.exports = class DemoHyperServiceImpl extends HyperApplicationService {
    * @param {import("cds-internal-tool").Logger} logger
    * @returns 
    */
-  async onDeleteHuman(entity, req, logger) {
+  async onDeleteForHuman(entity, req, logger) {
     logger.debug("reject entity", entity.name)
     return req.reject(400, "delete is not allowed")
   }

@@ -5,8 +5,8 @@
       "name": "debug grammer",
       "type": "antlr-debug",
       "request": "launch",
-      "grammar": "${workspaceFolder}/src/grammar/HandlerName.g4",
-      "input": "${workspaceFolder}/src/grammar/example.txt",
+      "grammar": "${workspaceFolder}/src/extension/impl/grammar/HandlerName.g4",
+      "input": "${workspaceFolder}/src/extension/impl/grammar/example.txt",
       "visualParseTree": true,
       "printParseTree": true
     },

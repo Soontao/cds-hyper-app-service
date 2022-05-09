@@ -1,11 +1,32 @@
 grammar HandlerName;
 
-name: (hook UNDER_SCORE?)+ ((event UNDER_SCORE?)+)? UNDER_SCORE? entity? LINEB_REAK? EOF?;
-entity: UPPER_CHAR? (CHAR | event | hook)+; // include the keywords
-event: CREATE | UPDATE | DELETE | READ;
-hook: (BEFORE | ON | AFTER);
+name: (actionHandler | eventHandler) LINE_BREAK? EOF?;
 
-Operator: (AND | OR) -> skip;
+eventHandler: hook event? (FOR entityName+)?;
+
+actionHandler:
+	hook (ACTION | FUNCTION) actionName (FOR entityName+)?;
+
+entityName: freeName;
+actionName: freeName;
+
+// include the keywords
+freeName:
+	UPPER_CHAR? (CHAR | event | hook | ACTION | FUNCTION | FOR)+;
+
+event:
+	CREATE
+	| UPDATE
+	| DELETE
+	| READ
+	| POST
+	| PATCH
+	| GET
+	| NEW
+	| EDIT
+	| SAVE
+	| CANCEL;
+hook: (BEFORE | ON | AFTER);
 
 fragment A: [aA]; // match either an 'a' or 'A'
 fragment B: [bB];
@@ -35,19 +56,33 @@ fragment Y: [yY];
 fragment Z: [zZ];
 
 WS: [ \n\u000D] -> skip;
-LINEB_REAK: ('\r'? '\n') -> skip;
-UNDER_SCORE: '_';
+LINE_BREAK: ('\r'? '\n') -> skip;
+UNDER_SCORE: '_' -> skip;
 UPPER_CHAR: [A-Z];
 CHAR: .;
 
+ACTION: A C T I O N;
+FUNCTION: F U N C T I O N;
+
+// CRUD
 CREATE: C R E A T E;
 UPDATE: U P D A T E;
 DELETE: D E L E T E;
 READ: R E A D;
 
+// HTTP
+POST: P O S T;
+GET: G E T;
+PATCH: P A T C H;
+
+// FIORI DRAFT: https://cap.cloud.sap/docs/node.js/app-services#-draft-related-events
+NEW: N E W;
+EDIT: E D I T;
+SAVE: S A V E;
+CANCEL: C A N C E L;
+
 BEFORE: B E F O R E;
 ON: O N;
 AFTER: A F T E R;
 
-AND: A N D;
-OR: O R;
+FOR: F O R;
