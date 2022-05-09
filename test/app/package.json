@@ -4,7 +4,11 @@
       "app-service": {
         "impl": "../../src",
         "exts": [
-          "impl"
+          "impl",
+          {
+            "impl": "./srv/ext/DemoExt.js",
+            "loggerName": "demoLogger"
+          }
         ]
       }
     }
