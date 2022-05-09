@@ -3,6 +3,6 @@ commitlint.config.js
 node_modules
 jest.config.js
 test/app
-src/grammar/*.js
-src/grammar/vendor
+src/**/grammar/*.js
+src/**/grammar/vendor
 test
