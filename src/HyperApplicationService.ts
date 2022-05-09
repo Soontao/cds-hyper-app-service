@@ -10,13 +10,8 @@ const cds = cwdRequireCDS();
 /**
  * HyperApplicationService
  * 
- * sub-class of `cds.ApplicationService`
+ * support extensions for `ApplicationService`
  * 
- * support 
- * 
- * * function name parser and automatically register
- * * parameter injection
- * * built-in logger
  */
 export class HyperApplicationService extends cds.ApplicationService {
 

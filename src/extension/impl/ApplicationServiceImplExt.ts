@@ -4,6 +4,10 @@ import { registerForObject, registerForService } from "./register";
 
 /**
  * support hyper @impl annotations
+ * 
+ * * function name parser and automatically register
+ * * parameter injection
+ * * built-in logger
  */
 export class ApplicationServiceImplExt extends ApplicationServiceExt {
 
