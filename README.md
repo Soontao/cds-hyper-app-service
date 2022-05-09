@@ -37,7 +37,7 @@ npm i -S cds-hyper-app-service
 
 ## Built-in Extensions
 
-- [Hyper Impl](./src/extension/impl/) - enhanced `@impl` annotation for entity/handler level
+- [Hyper Impl](https://github.com/Soontao/cds-hyper-app-service/tree/main/src/extension/impl) - enhanced `@impl` annotation for entity/handler level
 
 ## Features
 
