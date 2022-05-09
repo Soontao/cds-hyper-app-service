@@ -165,14 +165,13 @@ Popular parameter injection, with some type re-format, make CAP development much
   - [ ] sub-class methods support
   - [ ] raw object implementation
 - [x] HyperHandler
-  - [ ] bound/unbound action/function support
   - [ ] warning if with entity name
 - [x] framework `cds.requires.impl` support
   - [x] markdown doc update
 - [x] parameter injection
   - [ ] rest arguments
   - [ ] documentation for `data` in different hooks
-  - [ ] behavior change for `each` parameter
+  - [x] behavior change for `each` parameter
   - [ ] optional to verify handler parameters are injectable (runtime or startup)
   - [ ] `cds.Service` injection
   - [ ] documentation
@@ -180,10 +179,11 @@ Popular parameter injection, with some type re-format, make CAP development much
   - [x] `on/before/after` hooks
   - [x] multi hooks
   - [x] CRUD events
-  - [ ] DRAFT events
+  - [x] DRAFT events
   - [x] single entity
-  - [ ] optional entity
-  - [ ] multi entities
+  - [x] optional entity
+  - [x] bound/unbound action/function support
+  - [ ] case in-sensitive action match
   - [ ] order
 - [ ] simple DAO interface like JPA
   - [ ] inject by name

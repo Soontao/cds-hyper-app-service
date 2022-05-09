@@ -18,4 +18,10 @@ describe("Hyper Service Test Suite", () => {
     expect(response.data.error.message).toBe("delete is not allowed")
   });
 
+  it('should support invoke action', async () => {
+    const response = await axios.post('/hyper/Echo', { value: 'hello hyper-app-service' })
+    expect(response.status).toBe(200)
+    expect(response.data.value).toBe('hello hyper-app-service')
+  });
+
 });

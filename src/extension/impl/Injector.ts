@@ -1,11 +1,11 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/no-this-alias */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import {
   EntityDefinition,
   EventContext,
   EventHook, Logger, memorized,
-  mustBeArray,
-  Request,
-  Service
+  mustBeArray, Service
 } from "cds-internal-tool";
 import { parse } from "espree";
 import { CDSContextBase } from "./CDSContextBase";
@@ -20,10 +20,10 @@ const NATIVE_HANDLER_ARGS_EXTRACTORS: { [key: string]: NativeHandlerArgsExtracto
     return { req, next, data: mustBeArray(req["data"]) };
   },
   [VALUES_HOOK.BEFORE]: (req: EventContext) => {
-    return { req, data: mustBeArray(req["data"]) };
+    return { req, data: mustBeArray(req["data"]), next: () => { } };
   },
   [VALUES_HOOK.AFTER]: (data: any, req: EventContext) => {
-    return { req, data: mustBeArray(data) };
+    return { req, data: mustBeArray(data), next: () => { } };
   },
 };
 
@@ -35,6 +35,7 @@ export type HandlerInjectorOptions = {
    * this arg for handler when executing
    */
   thisArg?: any;
+  each: boolean;
 };
 
 const PARSE_CONFIGURATION = { ecmaVersion: "latest" };
@@ -63,13 +64,22 @@ export const getFunctionArgNames = memorized(function (f: AnyFunction) {
   return params?.map((param: any) => param.name) ?? [];
 });
 
+interface InjectContextOptions<DATA = Array<any>> {
+  entity?: EntityDefinition;
+  service: Service;
+  hook: EventHook;
+  req?: EventContext;
+  data?: DATA;
+  next: AnyFunction;
+}
+
 export class InjectContext extends CDSContextBase {
 
-  #req: Request;
+  #req?: EventContext;
 
-  #data: Array<any>;
+  #data: any;
 
-  #entity: EntityDefinition;
+  #entity?: EntityDefinition;
 
   #service: Service;
 
@@ -77,7 +87,7 @@ export class InjectContext extends CDSContextBase {
 
   #logger: Logger;
 
-  constructor({ entity, service, hook, req, data, next }) {
+  constructor({ entity, service, hook, req, data, next }: InjectContextOptions) {
     super();
     this.#entity = entity;
     this.#req = req;
@@ -106,10 +116,12 @@ export class InjectContext extends CDSContextBase {
   }
 
   get request(): import("express").Request {
+    // @ts-ignore
     return this.#req?._?.req;
   }
 
   get response(): import("express").Response {
+    // @ts-ignore
     return this.#req?._?.res;
   }
 
@@ -125,17 +137,25 @@ export class InjectContext extends CDSContextBase {
     return this.#service["context"];
   }
 
-  get user() { return this.#req.user; }
+  get user() { return this.#req?.user; }
 
-  get tenant() { return this.#req.tenant; }
+  get tenant() { return this.#req?.tenant; }
 
-  get locale() { return this.#req.locale; }
+  get locale() { return this.#req?.locale; }
+
+  public getArgs(argNames: Array<string>) {
+    return argNames.map((argName: string) => this[argName]);
+  }
 
 
 }
 
+function newInjectContext(opt: InjectContextOptions) {
+  return new InjectContext(opt);
+}
 
-export function createInjectableHandler({ entity, hook, handler, thisArg }: HandlerInjectorOptions) {
+
+export function createInjectableHandler({ entity, hook, handler, thisArg, each }: HandlerInjectorOptions) {
   const argsExtractor = NATIVE_HANDLER_ARGS_EXTRACTORS[hook];
 
   if (argsExtractor === undefined) {
@@ -144,19 +164,22 @@ export function createInjectableHandler({ entity, hook, handler, thisArg }: Hand
 
   const argNames = getFunctionArgNames(handler);
 
+  const invokeHandler = (service: any, req: EventContext, data: any, next: any, thisValue: any) => {
+    const ctx = newInjectContext({ entity, service, hook, req, data, next });
+    return handler.apply(thisValue, ctx.getArgs(argNames));
+  };
+
   return async function (...args: Array<any>): Promise<any> {
     const { req, data, next } = argsExtractor(...args);
-    const ctx = new InjectContext({
-      entity,
-      // @ts-ignore
-      service: this,
-      hook,
-      req,
-      data,
-      next
-    });
-    const realArgs = argNames.map((argName: string) => ctx[argName]);
     // @ts-ignore
-    return handler.call(thisArg ?? this, ...realArgs);
+    const service = this, thisValue = thisArg ?? this;
+
+    if (each && argNames.includes("data")) {
+      return Promise.all((data ?? []).map(item => invokeHandler(service, req, item, next, thisValue)));
+    }
+
+    return invokeHandler(service, req, data, next, thisValue);
   };
+
+
 }

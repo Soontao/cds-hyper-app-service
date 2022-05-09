@@ -39,4 +39,8 @@ module.exports = class DemoHyperServiceImpl extends HyperApplicationService {
     return req.reject(400, "delete is not allowed")
   }
 
+  onEachActionEcho(data) {
+    return data.value
+  }
+
 }

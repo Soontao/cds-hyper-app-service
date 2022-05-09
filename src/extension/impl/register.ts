@@ -74,7 +74,8 @@ export function registerForService(srv: ApplicationService) {
             createInjectableHandler({
               hook,
               entity,
-              handler
+              handler,
+              each: false,
             })
           );
 
@@ -124,7 +125,7 @@ export function registerForObject(object: any, service: ApplicationService, enti
     if (handlerInfo.valid === true) {
       for (const hook of handlerInfo.hooks) {
         (service[hook] as any)(
-          handlerInfo.events,
+          [...handlerInfo.events, ...handlerInfo.actions],
           entity === undefined ? handlerInfo.entity : entity,
           createInjectableHandler({
             handler,
@@ -133,6 +134,7 @@ export function registerForObject(object: any, service: ApplicationService, enti
               handlerInfo.entity !== undefined ? object?.entities?.[handlerInfo.entity] : undefined
             ),
             thisArg: object instanceof HyperEntityHandler ? object : undefined,
+            each: handlerInfo.each,
           })
         );
       }

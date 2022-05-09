@@ -2,17 +2,26 @@ grammar HandlerName;
 
 name: (actionHandler | eventHandler) LINE_BREAK? EOF?;
 
-eventHandler: hook event? (FOR entityName+)?;
+eventHandler: hook each? event? (FOR entityName)?;
 
 actionHandler:
-	hook (ACTION | FUNCTION) actionName (FOR entityName+)?;
+	hook each? (ACTION | FUNCTION) actionName (FOR entityName)?;
 
 entityName: freeName;
 actionName: freeName;
 
+each: EACH;
+
 // include the keywords
 freeName:
-	UPPER_CHAR? (CHAR | event | hook | ACTION | FUNCTION | FOR)+;
+	UPPER_CHAR? (
+		CHAR
+		| event
+		| hook
+		| keywords
+		| ACTION
+		| FUNCTION
+	)+;
 
 event:
 	CREATE
@@ -26,7 +35,10 @@ event:
 	| EDIT
 	| SAVE
 	| CANCEL;
+
 hook: (BEFORE | ON | AFTER);
+
+keywords: FOR | EACH;
 
 fragment A: [aA]; // match either an 'a' or 'A'
 fragment B: [bB];
@@ -86,3 +98,4 @@ ON: O N;
 AFTER: A F T E R;
 
 FOR: F O R;
+EACH: E A C H;

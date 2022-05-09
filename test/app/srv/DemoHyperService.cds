@@ -14,4 +14,6 @@ service DemoHyperService {
   @impl : './impl/PeopleEntityHandler.js'
   entity Peoples as projection on People;
 
+  action Echo(value : String(255)) returns String(255);
+
 }

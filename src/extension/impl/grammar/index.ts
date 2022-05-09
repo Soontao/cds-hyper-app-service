@@ -8,9 +8,10 @@ import antlr4 from "./vendor/antlr4";
 type HandlerNameInformation = {
   hooks: Array<EventHook>;
   events: Array<EventName>
+  actions: Array<string>;
   entity?: string;
-  actions?: Array<string>;
   valid: boolean;
+  each: boolean;
 }
 
 class HandlerNameInformationListener extends HandlerNameListener {
@@ -22,6 +23,8 @@ class HandlerNameInformationListener extends HandlerNameListener {
   private hooks: Array<EventHook> = [];
 
   private actions: Array<string> = [];
+
+  private each = false;
 
   exitHook(ctx: any): void {
     // only direct level hook
@@ -57,11 +60,21 @@ class HandlerNameInformationListener extends HandlerNameListener {
     }
   }
 
+  exitEach(_ctx: any): void {
+    this.each = true;
+  }
+
   /**
    * get the final information
    */
   public information(): HandlerNameInformation {
-    const info: HandlerNameInformation = { hooks: this.hooks, events: this.events, actions: this.actions, valid: true };
+    const info: HandlerNameInformation = {
+      hooks: this.hooks,
+      events: this.events,
+      actions: this.actions,
+      valid: true,
+      each: this.each,
+    };
     if (this.entity !== undefined) {
       info.entity = this.entity;
     }
@@ -94,7 +107,7 @@ export const parseHandlerName = memorized(function (name: string) {
     return info;
   } catch (error) {
     logger.debug("parse handler name", name, "failed, not a valid handler name");
-    return { valid: false, events: [], hooks: [] };
+    return { valid: false, events: [], hooks: [], actions: [], entity: undefined, each: false };
   }
 
 

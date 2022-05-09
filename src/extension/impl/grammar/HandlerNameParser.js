@@ -2,28 +2,29 @@
 // jshint ignore: start
 import antlr4 from './vendor/antlr4.js';
 import HandlerNameListener from './HandlerNameListener';
-const serializedATN = [4,1,22,71,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,
-2,5,7,5,2,6,7,6,2,7,7,7,1,0,1,0,3,0,19,8,0,1,0,3,0,22,8,0,1,0,3,0,25,8,0,
-1,1,1,1,3,1,29,8,1,1,1,1,1,4,1,33,8,1,11,1,12,1,34,3,1,37,8,1,1,2,1,2,1,
-2,1,2,1,2,4,2,44,8,2,11,2,12,2,45,3,2,48,8,2,1,3,1,3,1,4,1,4,1,5,3,5,55,
-8,5,1,5,1,5,1,5,1,5,1,5,1,5,4,5,63,8,5,11,5,12,5,64,1,6,1,6,1,7,1,7,1,7,
-0,0,8,0,2,4,6,8,10,12,14,0,3,1,0,6,7,1,0,8,18,1,0,19,21,77,0,18,1,0,0,0,
-2,26,1,0,0,0,4,38,1,0,0,0,6,49,1,0,0,0,8,51,1,0,0,0,10,54,1,0,0,0,12,66,
-1,0,0,0,14,68,1,0,0,0,16,19,3,4,2,0,17,19,3,2,1,0,18,16,1,0,0,0,18,17,1,
-0,0,0,19,21,1,0,0,0,20,22,5,2,0,0,21,20,1,0,0,0,21,22,1,0,0,0,22,24,1,0,
-0,0,23,25,5,0,0,1,24,23,1,0,0,0,24,25,1,0,0,0,25,1,1,0,0,0,26,28,3,14,7,
-0,27,29,3,12,6,0,28,27,1,0,0,0,28,29,1,0,0,0,29,36,1,0,0,0,30,32,5,22,0,
-0,31,33,3,6,3,0,32,31,1,0,0,0,33,34,1,0,0,0,34,32,1,0,0,0,34,35,1,0,0,0,
-35,37,1,0,0,0,36,30,1,0,0,0,36,37,1,0,0,0,37,3,1,0,0,0,38,39,3,14,7,0,39,
-40,7,0,0,0,40,47,3,8,4,0,41,43,5,22,0,0,42,44,3,6,3,0,43,42,1,0,0,0,44,45,
-1,0,0,0,45,43,1,0,0,0,45,46,1,0,0,0,46,48,1,0,0,0,47,41,1,0,0,0,47,48,1,
-0,0,0,48,5,1,0,0,0,49,50,3,10,5,0,50,7,1,0,0,0,51,52,3,10,5,0,52,9,1,0,0,
-0,53,55,5,4,0,0,54,53,1,0,0,0,54,55,1,0,0,0,55,62,1,0,0,0,56,63,5,5,0,0,
-57,63,3,12,6,0,58,63,3,14,7,0,59,63,5,6,0,0,60,63,5,7,0,0,61,63,5,22,0,0,
-62,56,1,0,0,0,62,57,1,0,0,0,62,58,1,0,0,0,62,59,1,0,0,0,62,60,1,0,0,0,62,
-61,1,0,0,0,63,64,1,0,0,0,64,62,1,0,0,0,64,65,1,0,0,0,65,11,1,0,0,0,66,67,
-7,1,0,0,67,13,1,0,0,0,68,69,7,2,0,0,69,15,1,0,0,0,11,18,21,24,28,34,36,45,
-47,54,62,64];
+const serializedATN = [4,1,23,77,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,
+2,5,7,5,2,6,7,6,2,7,7,7,2,8,7,8,2,9,7,9,1,0,1,0,3,0,23,8,0,1,0,3,0,26,8,
+0,1,0,3,0,29,8,0,1,1,1,1,3,1,33,8,1,1,1,3,1,36,8,1,1,1,1,1,3,1,40,8,1,1,
+2,1,2,3,2,44,8,2,1,2,1,2,1,2,1,2,3,2,50,8,2,1,3,1,3,1,4,1,4,1,5,1,5,1,6,
+3,6,59,8,6,1,6,1,6,1,6,1,6,1,6,1,6,4,6,67,8,6,11,6,12,6,68,1,7,1,7,1,8,1,
+8,1,9,1,9,1,9,0,0,10,0,2,4,6,8,10,12,14,16,18,0,4,1,0,6,7,1,0,8,18,1,0,19,
+21,1,0,22,23,81,0,22,1,0,0,0,2,30,1,0,0,0,4,41,1,0,0,0,6,51,1,0,0,0,8,53,
+1,0,0,0,10,55,1,0,0,0,12,58,1,0,0,0,14,70,1,0,0,0,16,72,1,0,0,0,18,74,1,
+0,0,0,20,23,3,4,2,0,21,23,3,2,1,0,22,20,1,0,0,0,22,21,1,0,0,0,23,25,1,0,
+0,0,24,26,5,2,0,0,25,24,1,0,0,0,25,26,1,0,0,0,26,28,1,0,0,0,27,29,5,0,0,
+1,28,27,1,0,0,0,28,29,1,0,0,0,29,1,1,0,0,0,30,32,3,16,8,0,31,33,3,10,5,0,
+32,31,1,0,0,0,32,33,1,0,0,0,33,35,1,0,0,0,34,36,3,14,7,0,35,34,1,0,0,0,35,
+36,1,0,0,0,36,39,1,0,0,0,37,38,5,22,0,0,38,40,3,6,3,0,39,37,1,0,0,0,39,40,
+1,0,0,0,40,3,1,0,0,0,41,43,3,16,8,0,42,44,3,10,5,0,43,42,1,0,0,0,43,44,1,
+0,0,0,44,45,1,0,0,0,45,46,7,0,0,0,46,49,3,8,4,0,47,48,5,22,0,0,48,50,3,6,
+3,0,49,47,1,0,0,0,49,50,1,0,0,0,50,5,1,0,0,0,51,52,3,12,6,0,52,7,1,0,0,0,
+53,54,3,12,6,0,54,9,1,0,0,0,55,56,5,23,0,0,56,11,1,0,0,0,57,59,5,4,0,0,58,
+57,1,0,0,0,58,59,1,0,0,0,59,66,1,0,0,0,60,67,5,5,0,0,61,67,3,14,7,0,62,67,
+3,16,8,0,63,67,3,18,9,0,64,67,5,6,0,0,65,67,5,7,0,0,66,60,1,0,0,0,66,61,
+1,0,0,0,66,62,1,0,0,0,66,63,1,0,0,0,66,64,1,0,0,0,66,65,1,0,0,0,67,68,1,
+0,0,0,68,66,1,0,0,0,68,69,1,0,0,0,69,13,1,0,0,0,70,71,7,1,0,0,71,15,1,0,
+0,0,72,73,7,2,0,0,73,17,1,0,0,0,74,75,7,3,0,0,75,19,1,0,0,0,11,22,25,28,
+32,35,39,43,49,58,66,68];
 
 
 const atn = new antlr4.atn.ATNDeserializer().deserialize(serializedATN);
@@ -40,9 +41,10 @@ export default class HandlerNameParser extends antlr4.Parser {
                              "CHAR", "ACTION", "FUNCTION", "CREATE", "UPDATE", 
                              "DELETE", "READ", "POST", "GET", "PATCH", "NEW", 
                              "EDIT", "SAVE", "CANCEL", "BEFORE", "ON", "AFTER", 
-                             "FOR" ];
+                             "FOR", "EACH" ];
     static ruleNames = [ "name", "eventHandler", "actionHandler", "entityName", 
-                         "actionName", "freeName", "event", "hook" ];
+                         "actionName", "each", "freeName", "event", "hook", 
+                         "keywords" ];
 
     constructor(input) {
         super(input);
@@ -64,34 +66,34 @@ export default class HandlerNameParser extends antlr4.Parser {
 	    var _la = 0; // Token type
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 18;
+	        this.state = 22;
 	        this._errHandler.sync(this);
 	        var la_ = this._interp.adaptivePredict(this._input,0,this._ctx);
 	        switch(la_) {
 	        case 1:
-	            this.state = 16;
+	            this.state = 20;
 	            this.actionHandler();
 	            break;
 
 	        case 2:
-	            this.state = 17;
+	            this.state = 21;
 	            this.eventHandler();
 	            break;
 
 	        }
-	        this.state = 21;
+	        this.state = 25;
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
 	        if(_la===HandlerNameParser.LINE_BREAK) {
-	            this.state = 20;
+	            this.state = 24;
 	            this.match(HandlerNameParser.LINE_BREAK);
 	        }
 
-	        this.state = 24;
+	        this.state = 28;
 	        this._errHandler.sync(this);
 	        var la_ = this._interp.adaptivePredict(this._input,2,this._ctx);
 	        if(la_===1) {
-	            this.state = 23;
+	            this.state = 27;
 	            this.match(HandlerNameParser.EOF);
 
 	        }
@@ -117,32 +119,32 @@ export default class HandlerNameParser extends antlr4.Parser {
 	    var _la = 0; // Token type
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 26;
+	        this.state = 30;
 	        this.hook();
-	        this.state = 28;
+	        this.state = 32;
+	        this._errHandler.sync(this);
+	        _la = this._input.LA(1);
+	        if(_la===HandlerNameParser.EACH) {
+	            this.state = 31;
+	            this.each();
+	        }
+
+	        this.state = 35;
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
 	        if((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << HandlerNameParser.CREATE) | (1 << HandlerNameParser.UPDATE) | (1 << HandlerNameParser.DELETE) | (1 << HandlerNameParser.READ) | (1 << HandlerNameParser.POST) | (1 << HandlerNameParser.GET) | (1 << HandlerNameParser.PATCH) | (1 << HandlerNameParser.NEW) | (1 << HandlerNameParser.EDIT) | (1 << HandlerNameParser.SAVE) | (1 << HandlerNameParser.CANCEL))) !== 0)) {
-	            this.state = 27;
+	            this.state = 34;
 	            this.event();
 	        }
 
-	        this.state = 36;
+	        this.state = 39;
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
 	        if(_la===HandlerNameParser.FOR) {
-	            this.state = 30;
+	            this.state = 37;
 	            this.match(HandlerNameParser.FOR);
-	            this.state = 32; 
-	            this._errHandler.sync(this);
-	            _la = this._input.LA(1);
-	            do {
-	                this.state = 31;
-	                this.entityName();
-	                this.state = 34; 
-	                this._errHandler.sync(this);
-	                _la = this._input.LA(1);
-	            } while((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << HandlerNameParser.UPPER_CHAR) | (1 << HandlerNameParser.CHAR) | (1 << HandlerNameParser.ACTION) | (1 << HandlerNameParser.FUNCTION) | (1 << HandlerNameParser.CREATE) | (1 << HandlerNameParser.UPDATE) | (1 << HandlerNameParser.DELETE) | (1 << HandlerNameParser.READ) | (1 << HandlerNameParser.POST) | (1 << HandlerNameParser.GET) | (1 << HandlerNameParser.PATCH) | (1 << HandlerNameParser.NEW) | (1 << HandlerNameParser.EDIT) | (1 << HandlerNameParser.SAVE) | (1 << HandlerNameParser.CANCEL) | (1 << HandlerNameParser.BEFORE) | (1 << HandlerNameParser.ON) | (1 << HandlerNameParser.AFTER) | (1 << HandlerNameParser.FOR))) !== 0));
+	            this.state = 38;
+	            this.entityName();
 	        }
 
 	    } catch (re) {
@@ -167,9 +169,17 @@ export default class HandlerNameParser extends antlr4.Parser {
 	    var _la = 0; // Token type
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 38;
+	        this.state = 41;
 	        this.hook();
-	        this.state = 39;
+	        this.state = 43;
+	        this._errHandler.sync(this);
+	        _la = this._input.LA(1);
+	        if(_la===HandlerNameParser.EACH) {
+	            this.state = 42;
+	            this.each();
+	        }
+
+	        this.state = 45;
 	        _la = this._input.LA(1);
 	        if(!(_la===HandlerNameParser.ACTION || _la===HandlerNameParser.FUNCTION)) {
 	        this._errHandler.recoverInline(this);
@@ -178,24 +188,16 @@ export default class HandlerNameParser extends antlr4.Parser {
 	        	this._errHandler.reportMatch(this);
 	            this.consume();
 	        }
-	        this.state = 40;
+	        this.state = 46;
 	        this.actionName();
-	        this.state = 47;
+	        this.state = 49;
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
 	        if(_la===HandlerNameParser.FOR) {
-	            this.state = 41;
+	            this.state = 47;
 	            this.match(HandlerNameParser.FOR);
-	            this.state = 43; 
-	            this._errHandler.sync(this);
-	            _la = this._input.LA(1);
-	            do {
-	                this.state = 42;
-	                this.entityName();
-	                this.state = 45; 
-	                this._errHandler.sync(this);
-	                _la = this._input.LA(1);
-	            } while((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << HandlerNameParser.UPPER_CHAR) | (1 << HandlerNameParser.CHAR) | (1 << HandlerNameParser.ACTION) | (1 << HandlerNameParser.FUNCTION) | (1 << HandlerNameParser.CREATE) | (1 << HandlerNameParser.UPDATE) | (1 << HandlerNameParser.DELETE) | (1 << HandlerNameParser.READ) | (1 << HandlerNameParser.POST) | (1 << HandlerNameParser.GET) | (1 << HandlerNameParser.PATCH) | (1 << HandlerNameParser.NEW) | (1 << HandlerNameParser.EDIT) | (1 << HandlerNameParser.SAVE) | (1 << HandlerNameParser.CANCEL) | (1 << HandlerNameParser.BEFORE) | (1 << HandlerNameParser.ON) | (1 << HandlerNameParser.AFTER) | (1 << HandlerNameParser.FOR))) !== 0));
+	            this.state = 48;
+	            this.entityName();
 	        }
 
 	    } catch (re) {
@@ -219,7 +221,7 @@ export default class HandlerNameParser extends antlr4.Parser {
 	    this.enterRule(localctx, 6, HandlerNameParser.RULE_entityName);
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 49;
+	        this.state = 51;
 	        this.freeName();
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
@@ -242,8 +244,31 @@ export default class HandlerNameParser extends antlr4.Parser {
 	    this.enterRule(localctx, 8, HandlerNameParser.RULE_actionName);
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 51;
+	        this.state = 53;
 	        this.freeName();
+	    } catch (re) {
+	    	if(re instanceof antlr4.error.RecognitionException) {
+		        localctx.exception = re;
+		        this._errHandler.reportError(this, re);
+		        this._errHandler.recover(this, re);
+		    } else {
+		    	throw re;
+		    }
+	    } finally {
+	        this.exitRule();
+	    }
+	    return localctx;
+	}
+
+
+
+	each() {
+	    let localctx = new EachContext(this, this._ctx, this.state);
+	    this.enterRule(localctx, 10, HandlerNameParser.RULE_each);
+	    try {
+	        this.enterOuterAlt(localctx, 1);
+	        this.state = 55;
+	        this.match(HandlerNameParser.EACH);
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
 		        localctx.exception = re;
@@ -262,29 +287,29 @@ export default class HandlerNameParser extends antlr4.Parser {
 
 	freeName() {
 	    let localctx = new FreeNameContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 10, HandlerNameParser.RULE_freeName);
+	    this.enterRule(localctx, 12, HandlerNameParser.RULE_freeName);
 	    var _la = 0; // Token type
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 54;
+	        this.state = 58;
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
 	        if(_la===HandlerNameParser.UPPER_CHAR) {
-	            this.state = 53;
+	            this.state = 57;
 	            this.match(HandlerNameParser.UPPER_CHAR);
 	        }
 
-	        this.state = 62; 
+	        this.state = 66; 
 	        this._errHandler.sync(this);
 	        var _alt = 1;
 	        do {
 	        	switch (_alt) {
 	        	case 1:
-	        		this.state = 62;
+	        		this.state = 66;
 	        		this._errHandler.sync(this);
 	        		switch(this._input.LA(1)) {
 	        		case HandlerNameParser.CHAR:
-	        		    this.state = 56;
+	        		    this.state = 60;
 	        		    this.match(HandlerNameParser.CHAR);
 	        		    break;
 	        		case HandlerNameParser.CREATE:
@@ -298,26 +323,27 @@ export default class HandlerNameParser extends antlr4.Parser {
 	        		case HandlerNameParser.EDIT:
 	        		case HandlerNameParser.SAVE:
 	        		case HandlerNameParser.CANCEL:
-	        		    this.state = 57;
+	        		    this.state = 61;
 	        		    this.event();
 	        		    break;
 	        		case HandlerNameParser.BEFORE:
 	        		case HandlerNameParser.ON:
 	        		case HandlerNameParser.AFTER:
-	        		    this.state = 58;
+	        		    this.state = 62;
 	        		    this.hook();
 	        		    break;
+	        		case HandlerNameParser.FOR:
+	        		case HandlerNameParser.EACH:
+	        		    this.state = 63;
+	        		    this.keywords();
+	        		    break;
 	        		case HandlerNameParser.ACTION:
-	        		    this.state = 59;
+	        		    this.state = 64;
 	        		    this.match(HandlerNameParser.ACTION);
 	        		    break;
 	        		case HandlerNameParser.FUNCTION:
-	        		    this.state = 60;
+	        		    this.state = 65;
 	        		    this.match(HandlerNameParser.FUNCTION);
-	        		    break;
-	        		case HandlerNameParser.FOR:
-	        		    this.state = 61;
-	        		    this.match(HandlerNameParser.FOR);
 	        		    break;
 	        		default:
 	        		    throw new antlr4.error.NoViableAltException(this);
@@ -326,7 +352,7 @@ export default class HandlerNameParser extends antlr4.Parser {
 	        	default:
 	        		throw new antlr4.error.NoViableAltException(this);
 	        	}
-	        	this.state = 64; 
+	        	this.state = 68; 
 	        	this._errHandler.sync(this);
 	        	_alt = this._interp.adaptivePredict(this._input,10, this._ctx);
 	        } while ( _alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER );
@@ -348,11 +374,11 @@ export default class HandlerNameParser extends antlr4.Parser {
 
 	event() {
 	    let localctx = new EventContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 12, HandlerNameParser.RULE_event);
+	    this.enterRule(localctx, 14, HandlerNameParser.RULE_event);
 	    var _la = 0; // Token type
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 66;
+	        this.state = 70;
 	        _la = this._input.LA(1);
 	        if(!((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << HandlerNameParser.CREATE) | (1 << HandlerNameParser.UPDATE) | (1 << HandlerNameParser.DELETE) | (1 << HandlerNameParser.READ) | (1 << HandlerNameParser.POST) | (1 << HandlerNameParser.GET) | (1 << HandlerNameParser.PATCH) | (1 << HandlerNameParser.NEW) | (1 << HandlerNameParser.EDIT) | (1 << HandlerNameParser.SAVE) | (1 << HandlerNameParser.CANCEL))) !== 0))) {
 	        this._errHandler.recoverInline(this);
@@ -379,13 +405,44 @@ export default class HandlerNameParser extends antlr4.Parser {
 
 	hook() {
 	    let localctx = new HookContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 14, HandlerNameParser.RULE_hook);
+	    this.enterRule(localctx, 16, HandlerNameParser.RULE_hook);
 	    var _la = 0; // Token type
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 68;
+	        this.state = 72;
 	        _la = this._input.LA(1);
 	        if(!((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << HandlerNameParser.BEFORE) | (1 << HandlerNameParser.ON) | (1 << HandlerNameParser.AFTER))) !== 0))) {
+	        this._errHandler.recoverInline(this);
+	        }
+	        else {
+	        	this._errHandler.reportMatch(this);
+	            this.consume();
+	        }
+	    } catch (re) {
+	    	if(re instanceof antlr4.error.RecognitionException) {
+		        localctx.exception = re;
+		        this._errHandler.reportError(this, re);
+		        this._errHandler.recover(this, re);
+		    } else {
+		    	throw re;
+		    }
+	    } finally {
+	        this.exitRule();
+	    }
+	    return localctx;
+	}
+
+
+
+	keywords() {
+	    let localctx = new KeywordsContext(this, this._ctx, this.state);
+	    this.enterRule(localctx, 18, HandlerNameParser.RULE_keywords);
+	    var _la = 0; // Token type
+	    try {
+	        this.enterOuterAlt(localctx, 1);
+	        this.state = 74;
+	        _la = this._input.LA(1);
+	        if(!(_la===HandlerNameParser.FOR || _la===HandlerNameParser.EACH)) {
 	        this._errHandler.recoverInline(this);
 	        }
 	        else {
@@ -432,15 +489,18 @@ HandlerNameParser.BEFORE = 19;
 HandlerNameParser.ON = 20;
 HandlerNameParser.AFTER = 21;
 HandlerNameParser.FOR = 22;
+HandlerNameParser.EACH = 23;
 
 HandlerNameParser.RULE_name = 0;
 HandlerNameParser.RULE_eventHandler = 1;
 HandlerNameParser.RULE_actionHandler = 2;
 HandlerNameParser.RULE_entityName = 3;
 HandlerNameParser.RULE_actionName = 4;
-HandlerNameParser.RULE_freeName = 5;
-HandlerNameParser.RULE_event = 6;
-HandlerNameParser.RULE_hook = 7;
+HandlerNameParser.RULE_each = 5;
+HandlerNameParser.RULE_freeName = 6;
+HandlerNameParser.RULE_event = 7;
+HandlerNameParser.RULE_hook = 8;
+HandlerNameParser.RULE_keywords = 9;
 
 class NameContext extends antlr4.ParserRuleContext {
 
@@ -507,6 +567,10 @@ class EventHandlerContext extends antlr4.ParserRuleContext {
 	    return this.getTypedRuleContext(HookContext,0);
 	};
 
+	each() {
+	    return this.getTypedRuleContext(EachContext,0);
+	};
+
 	event() {
 	    return this.getTypedRuleContext(EventContext,0);
 	};
@@ -515,15 +579,8 @@ class EventHandlerContext extends antlr4.ParserRuleContext {
 	    return this.getToken(HandlerNameParser.FOR, 0);
 	};
 
-	entityName = function(i) {
-	    if(i===undefined) {
-	        i = null;
-	    }
-	    if(i===null) {
-	        return this.getTypedRuleContexts(EntityNameContext);
-	    } else {
-	        return this.getTypedRuleContext(EntityNameContext,i);
-	    }
+	entityName() {
+	    return this.getTypedRuleContext(EntityNameContext,0);
 	};
 
 	enterRule(listener) {
@@ -573,19 +630,16 @@ class ActionHandlerContext extends antlr4.ParserRuleContext {
 	    return this.getToken(HandlerNameParser.FUNCTION, 0);
 	};
 
+	each() {
+	    return this.getTypedRuleContext(EachContext,0);
+	};
+
 	FOR() {
 	    return this.getToken(HandlerNameParser.FOR, 0);
 	};
 
-	entityName = function(i) {
-	    if(i===undefined) {
-	        i = null;
-	    }
-	    if(i===null) {
-	        return this.getTypedRuleContexts(EntityNameContext);
-	    } else {
-	        return this.getTypedRuleContext(EntityNameContext,i);
-	    }
+	entityName() {
+	    return this.getTypedRuleContext(EntityNameContext,0);
 	};
 
 	enterRule(listener) {
@@ -675,6 +729,41 @@ class ActionNameContext extends antlr4.ParserRuleContext {
 
 
 
+class EachContext extends antlr4.ParserRuleContext {
+
+    constructor(parser, parent, invokingState) {
+        if(parent===undefined) {
+            parent = null;
+        }
+        if(invokingState===undefined || invokingState===null) {
+            invokingState = -1;
+        }
+        super(parent, invokingState);
+        this.parser = parser;
+        this.ruleIndex = HandlerNameParser.RULE_each;
+    }
+
+	EACH() {
+	    return this.getToken(HandlerNameParser.EACH, 0);
+	};
+
+	enterRule(listener) {
+	    if(listener instanceof HandlerNameListener ) {
+	        listener.enterEach(this);
+		}
+	}
+
+	exitRule(listener) {
+	    if(listener instanceof HandlerNameListener ) {
+	        listener.exitEach(this);
+		}
+	}
+
+
+}
+
+
+
 class FreeNameContext extends antlr4.ParserRuleContext {
 
     constructor(parser, parent, invokingState) {
@@ -727,6 +816,17 @@ class FreeNameContext extends antlr4.ParserRuleContext {
 	    }
 	};
 
+	keywords = function(i) {
+	    if(i===undefined) {
+	        i = null;
+	    }
+	    if(i===null) {
+	        return this.getTypedRuleContexts(KeywordsContext);
+	    } else {
+	        return this.getTypedRuleContext(KeywordsContext,i);
+	    }
+	};
+
 	ACTION = function(i) {
 		if(i===undefined) {
 			i = null;
@@ -747,18 +847,6 @@ class FreeNameContext extends antlr4.ParserRuleContext {
 	        return this.getTokens(HandlerNameParser.FUNCTION);
 	    } else {
 	        return this.getToken(HandlerNameParser.FUNCTION, i);
-	    }
-	};
-
-
-	FOR = function(i) {
-		if(i===undefined) {
-			i = null;
-		}
-	    if(i===null) {
-	        return this.getTokens(HandlerNameParser.FOR);
-	    } else {
-	        return this.getToken(HandlerNameParser.FOR, i);
 	    }
 	};
 
@@ -898,12 +986,53 @@ class HookContext extends antlr4.ParserRuleContext {
 
 
 
+class KeywordsContext extends antlr4.ParserRuleContext {
+
+    constructor(parser, parent, invokingState) {
+        if(parent===undefined) {
+            parent = null;
+        }
+        if(invokingState===undefined || invokingState===null) {
+            invokingState = -1;
+        }
+        super(parent, invokingState);
+        this.parser = parser;
+        this.ruleIndex = HandlerNameParser.RULE_keywords;
+    }
+
+	FOR() {
+	    return this.getToken(HandlerNameParser.FOR, 0);
+	};
+
+	EACH() {
+	    return this.getToken(HandlerNameParser.EACH, 0);
+	};
+
+	enterRule(listener) {
+	    if(listener instanceof HandlerNameListener ) {
+	        listener.enterKeywords(this);
+		}
+	}
+
+	exitRule(listener) {
+	    if(listener instanceof HandlerNameListener ) {
+	        listener.exitKeywords(this);
+		}
+	}
+
+
+}
+
+
+
 
 HandlerNameParser.NameContext = NameContext; 
 HandlerNameParser.EventHandlerContext = EventHandlerContext; 
 HandlerNameParser.ActionHandlerContext = ActionHandlerContext; 
 HandlerNameParser.EntityNameContext = EntityNameContext; 
 HandlerNameParser.ActionNameContext = ActionNameContext; 
+HandlerNameParser.EachContext = EachContext; 
 HandlerNameParser.FreeNameContext = FreeNameContext; 
 HandlerNameParser.EventContext = EventContext; 
 HandlerNameParser.HookContext = HookContext; 
+HandlerNameParser.KeywordsContext = KeywordsContext; 

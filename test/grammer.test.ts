@@ -25,7 +25,17 @@ describe("Handler Name Grammar Test Suite", () => {
     expect(parseHandlerName("onUpdateForChildren")).toMatchObject({
       hooks: ["on"],
       events: ["UPDATE"],
-      entity: "Children"
+      entity: "Children",
+      each: false
+    });
+  });
+
+  it('should support Each', () => {
+    expect(parseHandlerName("onEachUpdateForChildren")).toMatchObject({
+      hooks: ["on"],
+      events: ["UPDATE"],
+      entity: "Children",
+      each: true,
     });
   });
 

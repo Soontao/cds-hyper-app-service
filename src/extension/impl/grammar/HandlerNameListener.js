@@ -50,6 +50,15 @@ export default class HandlerNameListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
+	// Enter a parse tree produced by HandlerNameParser#each.
+	enterEach(ctx) {
+	}
+
+	// Exit a parse tree produced by HandlerNameParser#each.
+	exitEach(ctx) {
+	}
+
+
 	// Enter a parse tree produced by HandlerNameParser#freeName.
 	enterFreeName(ctx) {
 	}
@@ -74,6 +83,15 @@ export default class HandlerNameListener extends antlr4.tree.ParseTreeListener {
 
 	// Exit a parse tree produced by HandlerNameParser#hook.
 	exitHook(ctx) {
+	}
+
+
+	// Enter a parse tree produced by HandlerNameParser#keywords.
+	enterKeywords(ctx) {
+	}
+
+	// Exit a parse tree produced by HandlerNameParser#keywords.
+	exitKeywords(ctx) {
 	}
 
 
