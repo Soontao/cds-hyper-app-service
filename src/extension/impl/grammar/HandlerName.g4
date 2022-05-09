@@ -13,15 +13,7 @@ actionName: freeName;
 each: EACH;
 
 // include the keywords
-freeName:
-	UPPER_CHAR? (
-		CHAR
-		| event
-		| hook
-		| keywords
-		| ACTION
-		| FUNCTION
-	)+;
+freeName: UPPER_CHAR? ( CHAR | event | hook | keywords | each)+;
 
 event:
 	CREATE
@@ -38,7 +30,7 @@ event:
 
 hook: (BEFORE | ON | AFTER);
 
-keywords: FOR | EACH;
+keywords: FOR | EACH | ACTION | FUNCTION;
 
 fragment A: [aA]; // match either an 'a' or 'A'
 fragment B: [bB];
