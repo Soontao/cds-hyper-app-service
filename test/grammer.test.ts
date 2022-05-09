@@ -1,4 +1,4 @@
-import { parseHandlerName } from "../src/grammar";
+import { parseHandlerName } from "../src/extension/impl/grammar";
 
 
 describe("Handler Name Grammar Test Suite", () => {

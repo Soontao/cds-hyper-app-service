@@ -2,7 +2,10 @@
   "cds": {
     "requires": {
       "app-service": {
-        "impl": "../../src"
+        "impl": "../../src",
+        "exts": [
+          "impl"
+        ]
       }
     }
   }
