@@ -17,7 +17,7 @@ npm i -S cds-hyper-app-service
 
 > overwrite the `app-service` implementation
 
-```json
+```json5
 {
   "cds": {
     "requires": {
