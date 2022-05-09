@@ -61,19 +61,29 @@ class HandlerNameInformationListener extends HandlerNameListener {
  * parse handler information from function name, return {valid:true} is name looks like a handler
  */
 export const parseHandlerName = memorized(function (name: string) {
+  const logger = cwdRequireCDS().log("cds-hyper-app-service");
+
+  logger.debug("parse handler name", name);
+
   try {
     const chars = new antlr4.InputStream(name);
     const lexer = new HandlerNameLexer(chars);
     const tokens = new antlr4.CommonTokenStream(lexer);
+    lexer?.["removeErrorListeners"]?.();
     const parser = new HandlerNameParser(tokens);
+    parser?.["removeErrorListeners"]?.();
     parser["buildParseTrees"] = true;
     const listener = new HandlerNameInformationListener();
     const tree = parser.name();
     antlr4.tree.ParseTreeWalker.DEFAULT.walk(listener, tree);
-    return listener.information();
+    const info = listener.information();
+    logger.debug("parse handler name succeed", name, "information", info);
+    return info;
   } catch (error) {
-    cwdRequireCDS().log("cds-hyper-app-service").debug("parse name", name, "failed, not a valid handler name");
+    logger.debug("parse handler name", name, "failed, not a valid handler name");
     return { valid: false, events: [], hooks: [] };
   }
+
+
 
 });

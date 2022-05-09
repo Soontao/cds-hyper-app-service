@@ -1,15 +1,35 @@
-import { ApplicationService, cwdRequire, cwdRequireCDS, EntityDefinition, groupByKeyPrefix } from "cds-internal-tool";
+import {
+  ApplicationService,
+  cwdRequire,
+  cwdRequireCDS,
+  EntityDefinition,
+  groupByKeyPrefix
+} from "cds-internal-tool";
 import path from "path";
+import HyperApplicationService from "../../HyperApplicationService";
 import { ANNOTATION_IMPL, VALUES_HOOK_LIST } from "./constants";
 import { parseHandlerName } from "./grammar";
 import { HyperEntityHandler } from "./HyperEntityHandler";
 import { createInjectableHandler } from "./Injector";
 
-const IGNORE_METHODS = ["operations", "entities", "init", "logger", "constructor"];
+const IGNORE_METHODS = ["init", "constructor"];
+
+const isBuiltInFunctions = (name: string) => {
+  const { ApplicationService } = cwdRequireCDS();
+  if (
+    typeof (
+      ApplicationService.prototype[name] ??
+      HyperApplicationService.prototype[name] ??
+      HyperEntityHandler.prototype[name]
+    ) === "function"
+  ) {
+    return true;
+  }
+  return false;
+};
 
 export function registerForService(srv: ApplicationService) {
   const cds = cwdRequireCDS();
-  
 
   const srvRequire = (...paths: Array<any>) => cwdRequire(
     path.join(
@@ -93,7 +113,8 @@ export function registerForObject(object: any, service: ApplicationService, enti
     .filter(
       p => !p.startsWith("_") && // not private
         !IGNORE_METHODS.includes(p) && // not ignored
-        typeof object[p] === "function" // is function
+        typeof object[p] === "function" && // is function
+        !isBuiltInFunctions(p) // is not built-in functions
     );
 
   for (const property of properties) {

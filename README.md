@@ -43,6 +43,7 @@ npm i -S cds-hyper-app-service
 
 - [x] `ApplicationServiceExt` concept
   - [x] optional `beforeInit`/`afterInit` method
+  - [ ] support options for `exts` node
   - [ ] more context data
   - [ ] documentation/example
 
