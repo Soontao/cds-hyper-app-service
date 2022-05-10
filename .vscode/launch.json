@@ -2,11 +2,20 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "debug grammer",
+      "name": "debug handler name grammer",
       "type": "antlr-debug",
       "request": "launch",
       "grammar": "${workspaceFolder}/src/extension/impl/grammar/HandlerName.g4",
       "input": "${workspaceFolder}/src/extension/impl/grammar/example.txt",
+      "visualParseTree": true,
+      "printParseTree": true
+    },
+    {
+      "name": "debug repository grammer",
+      "type": "antlr-debug",
+      "request": "launch",
+      "grammar": "${workspaceFolder}/src/extension/repo/grammar/Repository.g4",
+      "input": "${workspaceFolder}/src/extension/repo/grammar/example.txt",
       "visualParseTree": true,
       "printParseTree": true
     },
