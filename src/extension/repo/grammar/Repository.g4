@@ -1,6 +1,6 @@
 grammar Repository;
 
-query: findQuery LINE_BREAK? EOF;
+query: (findQuery | updateQuery | deleteQuery) LINE_BREAK? EOF;
 
 findQuery: find limitExpr? fieldExpr;
 
@@ -22,14 +22,7 @@ update: UPDATE BY?;
 
 delete: DELETE BY?;
 
-keywords:
-	FIND
-	| DELETE
-	| UPDATE
-	| BY
-	| ONE
-	| TOP
-	| K_SKIP;
+keywords: FIND | DELETE | UPDATE | BY | ONE | TOP | K_SKIP;
 
 literals: NULL | TRUE | FALSE;
 
