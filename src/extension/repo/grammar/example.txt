@@ -1,1 +1,1 @@
-deleteByAgeSkipAndPeopleIs
+findByNameOrAge

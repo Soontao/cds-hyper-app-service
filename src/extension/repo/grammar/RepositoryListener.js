@@ -41,6 +41,15 @@ export default class RepositoryListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
+	// Enter a parse tree produced by RepositoryParser#fieldExprList.
+	enterFieldExprList(ctx) {
+	}
+
+	// Exit a parse tree produced by RepositoryParser#fieldExprList.
+	exitFieldExprList(ctx) {
+	}
+
+
 	// Enter a parse tree produced by RepositoryParser#fieldExpr.
 	enterFieldExpr(ctx) {
 	}

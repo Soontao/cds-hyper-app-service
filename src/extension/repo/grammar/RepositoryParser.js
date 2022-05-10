@@ -2,36 +2,41 @@
 // jshint ignore: start
 import antlr4 from '../../base/vendor/antlr4.js';
 import RepositoryListener from './RepositoryListener';
-const serializedATN = [4,1,27,105,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,
+const serializedATN = [4,1,27,119,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,
 4,2,5,7,5,2,6,7,6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,
-2,13,7,13,2,14,7,14,1,0,1,0,3,0,33,8,0,1,0,1,0,1,1,1,1,3,1,39,8,1,1,1,1,
-1,1,2,1,2,1,2,1,3,1,3,1,3,1,4,1,4,4,4,51,8,4,11,4,12,4,52,1,4,3,4,56,8,4,
-1,4,1,4,1,4,3,4,61,8,4,1,5,1,5,1,5,1,5,1,5,3,5,68,8,5,3,5,70,8,5,1,6,3,6,
-73,8,6,1,6,1,6,1,6,1,6,4,6,79,8,6,11,6,12,6,80,1,7,1,7,3,7,85,8,7,1,8,1,
-8,3,8,89,8,8,1,9,1,9,3,9,93,8,9,1,10,1,10,1,11,1,11,1,12,1,12,1,13,1,13,
-1,14,1,14,1,14,0,0,15,0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,0,4,1,0,18,
-24,1,0,15,17,1,0,25,26,2,0,6,12,14,14,104,0,30,1,0,0,0,2,36,1,0,0,0,4,42,
-1,0,0,0,6,45,1,0,0,0,8,48,1,0,0,0,10,69,1,0,0,0,12,72,1,0,0,0,14,82,1,0,
-0,0,16,86,1,0,0,0,18,90,1,0,0,0,20,94,1,0,0,0,22,96,1,0,0,0,24,98,1,0,0,
-0,26,100,1,0,0,0,28,102,1,0,0,0,30,32,3,2,1,0,31,33,5,2,0,0,32,31,1,0,0,
-0,32,33,1,0,0,0,33,34,1,0,0,0,34,35,5,0,0,1,35,1,1,0,0,0,36,38,3,14,7,0,
-37,39,3,10,5,0,38,37,1,0,0,0,38,39,1,0,0,0,39,40,1,0,0,0,40,41,3,8,4,0,41,
-3,1,0,0,0,42,43,3,16,8,0,43,44,3,8,4,0,44,5,1,0,0,0,45,46,3,18,9,0,46,47,
-3,8,4,0,47,7,1,0,0,0,48,50,3,12,6,0,49,51,3,26,13,0,50,49,1,0,0,0,51,52,
-1,0,0,0,52,50,1,0,0,0,52,53,1,0,0,0,53,55,1,0,0,0,54,56,3,22,11,0,55,54,
-1,0,0,0,55,56,1,0,0,0,56,60,1,0,0,0,57,58,3,24,12,0,58,59,3,8,4,0,59,61,
-1,0,0,0,60,57,1,0,0,0,60,61,1,0,0,0,61,9,1,0,0,0,62,70,5,22,0,0,63,64,5,
-23,0,0,64,67,5,27,0,0,65,66,5,24,0,0,66,68,5,27,0,0,67,65,1,0,0,0,67,68,
-1,0,0,0,68,70,1,0,0,0,69,62,1,0,0,0,69,63,1,0,0,0,70,11,1,0,0,0,71,73,5,
-4,0,0,72,71,1,0,0,0,72,73,1,0,0,0,73,78,1,0,0,0,74,79,5,5,0,0,75,79,3,20,
-10,0,76,79,3,26,13,0,77,79,3,22,11,0,78,74,1,0,0,0,78,75,1,0,0,0,78,76,1,
-0,0,0,78,77,1,0,0,0,79,80,1,0,0,0,80,78,1,0,0,0,80,81,1,0,0,0,81,13,1,0,
-0,0,82,84,5,18,0,0,83,85,5,19,0,0,84,83,1,0,0,0,84,85,1,0,0,0,85,15,1,0,
-0,0,86,88,5,20,0,0,87,89,5,19,0,0,88,87,1,0,0,0,88,89,1,0,0,0,89,17,1,0,
-0,0,90,92,5,21,0,0,91,93,5,19,0,0,92,91,1,0,0,0,92,93,1,0,0,0,93,19,1,0,
-0,0,94,95,7,0,0,0,95,21,1,0,0,0,96,97,7,1,0,0,97,23,1,0,0,0,98,99,7,2,0,
-0,99,25,1,0,0,0,100,101,7,3,0,0,101,27,1,0,0,0,102,103,5,27,0,0,103,29,1,
-0,0,0,13,32,38,52,55,60,67,69,72,78,80,84,88,92];
+2,13,7,13,2,14,7,14,2,15,7,15,1,0,1,0,1,0,3,0,36,8,0,1,0,3,0,39,8,0,1,0,
+3,0,42,8,0,1,1,1,1,3,1,46,8,1,1,1,1,1,1,2,1,2,1,2,1,3,1,3,1,3,1,4,1,4,4,
+4,58,8,4,11,4,12,4,59,3,4,62,8,4,1,5,3,5,65,8,5,1,5,1,5,4,5,69,8,5,11,5,
+12,5,70,3,5,73,8,5,1,5,3,5,76,8,5,1,6,1,6,1,6,1,6,1,6,3,6,83,8,6,3,6,85,
+8,6,1,7,3,7,88,8,7,1,7,1,7,1,7,4,7,93,8,7,11,7,12,7,94,1,8,1,8,3,8,99,8,
+8,1,9,1,9,3,9,103,8,9,1,10,1,10,3,10,107,8,10,1,11,1,11,1,12,1,12,1,13,1,
+13,1,14,1,14,1,15,1,15,1,15,0,0,16,0,2,4,6,8,10,12,14,16,18,20,22,24,26,
+28,30,0,4,1,0,18,24,1,0,15,17,1,0,25,26,2,0,6,12,14,14,122,0,35,1,0,0,0,
+2,43,1,0,0,0,4,49,1,0,0,0,6,52,1,0,0,0,8,55,1,0,0,0,10,64,1,0,0,0,12,84,
+1,0,0,0,14,87,1,0,0,0,16,96,1,0,0,0,18,100,1,0,0,0,20,104,1,0,0,0,22,108,
+1,0,0,0,24,110,1,0,0,0,26,112,1,0,0,0,28,114,1,0,0,0,30,116,1,0,0,0,32,36,
+3,2,1,0,33,36,3,4,2,0,34,36,3,6,3,0,35,32,1,0,0,0,35,33,1,0,0,0,35,34,1,
+0,0,0,36,38,1,0,0,0,37,39,5,2,0,0,38,37,1,0,0,0,38,39,1,0,0,0,39,41,1,0,
+0,0,40,42,5,0,0,1,41,40,1,0,0,0,41,42,1,0,0,0,42,1,1,0,0,0,43,45,3,16,8,
+0,44,46,3,12,6,0,45,44,1,0,0,0,45,46,1,0,0,0,46,47,1,0,0,0,47,48,3,8,4,0,
+48,3,1,0,0,0,49,50,3,18,9,0,50,51,3,8,4,0,51,5,1,0,0,0,52,53,3,20,10,0,53,
+54,3,8,4,0,54,7,1,0,0,0,55,61,3,10,5,0,56,58,3,10,5,0,57,56,1,0,0,0,58,59,
+1,0,0,0,59,57,1,0,0,0,59,60,1,0,0,0,60,62,1,0,0,0,61,57,1,0,0,0,61,62,1,
+0,0,0,62,9,1,0,0,0,63,65,3,26,13,0,64,63,1,0,0,0,64,65,1,0,0,0,65,66,1,0,
+0,0,66,72,3,14,7,0,67,69,3,28,14,0,68,67,1,0,0,0,69,70,1,0,0,0,70,68,1,0,
+0,0,70,71,1,0,0,0,71,73,1,0,0,0,72,68,1,0,0,0,72,73,1,0,0,0,73,75,1,0,0,
+0,74,76,3,24,12,0,75,74,1,0,0,0,75,76,1,0,0,0,76,11,1,0,0,0,77,85,5,22,0,
+0,78,79,5,23,0,0,79,82,5,27,0,0,80,81,5,24,0,0,81,83,5,27,0,0,82,80,1,0,
+0,0,82,83,1,0,0,0,83,85,1,0,0,0,84,77,1,0,0,0,84,78,1,0,0,0,85,13,1,0,0,
+0,86,88,5,4,0,0,87,86,1,0,0,0,87,88,1,0,0,0,88,92,1,0,0,0,89,93,5,5,0,0,
+90,93,3,22,11,0,91,93,3,24,12,0,92,89,1,0,0,0,92,90,1,0,0,0,92,91,1,0,0,
+0,93,94,1,0,0,0,94,92,1,0,0,0,94,95,1,0,0,0,95,15,1,0,0,0,96,98,5,18,0,0,
+97,99,5,19,0,0,98,97,1,0,0,0,98,99,1,0,0,0,99,17,1,0,0,0,100,102,5,20,0,
+0,101,103,5,19,0,0,102,101,1,0,0,0,102,103,1,0,0,0,103,19,1,0,0,0,104,106,
+5,21,0,0,105,107,5,19,0,0,106,105,1,0,0,0,106,107,1,0,0,0,107,21,1,0,0,0,
+108,109,7,0,0,0,109,23,1,0,0,0,110,111,7,1,0,0,111,25,1,0,0,0,112,113,7,
+2,0,0,113,27,1,0,0,0,114,115,7,3,0,0,115,29,1,0,0,0,116,117,5,27,0,0,117,
+31,1,0,0,0,18,35,38,41,45,59,61,64,70,72,75,82,84,87,92,94,98,102,106];
 
 
 const atn = new antlr4.atn.ATNDeserializer().deserialize(serializedATN);
@@ -50,9 +55,9 @@ export default class RepositoryParser extends antlr4.Parser {
                              "FALSE", "FIND", "BY", "UPDATE", "DELETE", 
                              "ONE", "TOP", "K_SKIP", "AND", "OR", "NUMBER" ];
     static ruleNames = [ "query", "findQuery", "updateQuery", "deleteQuery", 
-                         "fieldExpr", "limitExpr", "identifier", "find", 
-                         "update", "delete", "keywords", "literals", "logic", 
-                         "operators", "number" ];
+                         "fieldExprList", "fieldExpr", "limitExpr", "identifier", 
+                         "find", "update", "delete", "keywords", "literals", 
+                         "logic", "operators", "number" ];
 
     constructor(input) {
         super(input);
@@ -74,18 +79,40 @@ export default class RepositoryParser extends antlr4.Parser {
 	    var _la = 0; // Token type
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 30;
-	        this.findQuery();
-	        this.state = 32;
+	        this.state = 35;
+	        this._errHandler.sync(this);
+	        switch(this._input.LA(1)) {
+	        case RepositoryParser.FIND:
+	            this.state = 32;
+	            this.findQuery();
+	            break;
+	        case RepositoryParser.UPDATE:
+	            this.state = 33;
+	            this.updateQuery();
+	            break;
+	        case RepositoryParser.DELETE:
+	            this.state = 34;
+	            this.deleteQuery();
+	            break;
+	        default:
+	            throw new antlr4.error.NoViableAltException(this);
+	        }
+	        this.state = 38;
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
 	        if(_la===RepositoryParser.LINE_BREAK) {
-	            this.state = 31;
+	            this.state = 37;
 	            this.match(RepositoryParser.LINE_BREAK);
 	        }
 
-	        this.state = 34;
-	        this.match(RepositoryParser.EOF);
+	        this.state = 41;
+	        this._errHandler.sync(this);
+	        var la_ = this._interp.adaptivePredict(this._input,2,this._ctx);
+	        if(la_===1) {
+	            this.state = 40;
+	            this.match(RepositoryParser.EOF);
+
+	        }
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
 		        localctx.exception = re;
@@ -107,18 +134,18 @@ export default class RepositoryParser extends antlr4.Parser {
 	    this.enterRule(localctx, 2, RepositoryParser.RULE_findQuery);
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 36;
+	        this.state = 43;
 	        this.find();
-	        this.state = 38;
+	        this.state = 45;
 	        this._errHandler.sync(this);
-	        var la_ = this._interp.adaptivePredict(this._input,1,this._ctx);
+	        var la_ = this._interp.adaptivePredict(this._input,3,this._ctx);
 	        if(la_===1) {
-	            this.state = 37;
+	            this.state = 44;
 	            this.limitExpr();
 
 	        }
-	        this.state = 40;
-	        this.fieldExpr();
+	        this.state = 47;
+	        this.fieldExprList();
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
 		        localctx.exception = re;
@@ -140,10 +167,10 @@ export default class RepositoryParser extends antlr4.Parser {
 	    this.enterRule(localctx, 4, RepositoryParser.RULE_updateQuery);
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 42;
+	        this.state = 49;
 	        this.update();
-	        this.state = 43;
-	        this.fieldExpr();
+	        this.state = 50;
+	        this.fieldExprList();
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
 		        localctx.exception = re;
@@ -165,10 +192,50 @@ export default class RepositoryParser extends antlr4.Parser {
 	    this.enterRule(localctx, 6, RepositoryParser.RULE_deleteQuery);
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 45;
+	        this.state = 52;
 	        this.delete_();
-	        this.state = 46;
+	        this.state = 53;
+	        this.fieldExprList();
+	    } catch (re) {
+	    	if(re instanceof antlr4.error.RecognitionException) {
+		        localctx.exception = re;
+		        this._errHandler.reportError(this, re);
+		        this._errHandler.recover(this, re);
+		    } else {
+		    	throw re;
+		    }
+	    } finally {
+	        this.exitRule();
+	    }
+	    return localctx;
+	}
+
+
+
+	fieldExprList() {
+	    let localctx = new FieldExprListContext(this, this._ctx, this.state);
+	    this.enterRule(localctx, 8, RepositoryParser.RULE_fieldExprList);
+	    var _la = 0; // Token type
+	    try {
+	        this.enterOuterAlt(localctx, 1);
+	        this.state = 55;
 	        this.fieldExpr();
+	        this.state = 61;
+	        this._errHandler.sync(this);
+	        _la = this._input.LA(1);
+	        if((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << RepositoryParser.UPPER_CHAR) | (1 << RepositoryParser.CHAR) | (1 << RepositoryParser.NULL) | (1 << RepositoryParser.TRUE) | (1 << RepositoryParser.FALSE) | (1 << RepositoryParser.FIND) | (1 << RepositoryParser.BY) | (1 << RepositoryParser.UPDATE) | (1 << RepositoryParser.DELETE) | (1 << RepositoryParser.ONE) | (1 << RepositoryParser.TOP) | (1 << RepositoryParser.K_SKIP) | (1 << RepositoryParser.AND) | (1 << RepositoryParser.OR))) !== 0)) {
+	            this.state = 57; 
+	            this._errHandler.sync(this);
+	            _la = this._input.LA(1);
+	            do {
+	                this.state = 56;
+	                this.fieldExpr();
+	                this.state = 59; 
+	                this._errHandler.sync(this);
+	                _la = this._input.LA(1);
+	            } while((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << RepositoryParser.UPPER_CHAR) | (1 << RepositoryParser.CHAR) | (1 << RepositoryParser.NULL) | (1 << RepositoryParser.TRUE) | (1 << RepositoryParser.FALSE) | (1 << RepositoryParser.FIND) | (1 << RepositoryParser.BY) | (1 << RepositoryParser.UPDATE) | (1 << RepositoryParser.DELETE) | (1 << RepositoryParser.ONE) | (1 << RepositoryParser.TOP) | (1 << RepositoryParser.K_SKIP) | (1 << RepositoryParser.AND) | (1 << RepositoryParser.OR))) !== 0));
+	        }
+
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
 		        localctx.exception = re;
@@ -187,40 +254,44 @@ export default class RepositoryParser extends antlr4.Parser {
 
 	fieldExpr() {
 	    let localctx = new FieldExprContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 8, RepositoryParser.RULE_fieldExpr);
+	    this.enterRule(localctx, 10, RepositoryParser.RULE_fieldExpr);
 	    var _la = 0; // Token type
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 48;
-	        this.identifier();
-	        this.state = 50; 
-	        this._errHandler.sync(this);
-	        _la = this._input.LA(1);
-	        do {
-	            this.state = 49;
-	            this.operators();
-	            this.state = 52; 
-	            this._errHandler.sync(this);
-	            _la = this._input.LA(1);
-	        } while((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << RepositoryParser.IS) | (1 << RepositoryParser.NOT) | (1 << RepositoryParser.EQUALS) | (1 << RepositoryParser.LIKE) | (1 << RepositoryParser.GREATER) | (1 << RepositoryParser.LESS) | (1 << RepositoryParser.BETWEEN) | (1 << RepositoryParser.IN))) !== 0));
-	        this.state = 55;
-	        this._errHandler.sync(this);
-	        _la = this._input.LA(1);
-	        if((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << RepositoryParser.NULL) | (1 << RepositoryParser.TRUE) | (1 << RepositoryParser.FALSE))) !== 0)) {
-	            this.state = 54;
-	            this.literals();
-	        }
-
-	        this.state = 60;
+	        this.state = 64;
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
 	        if(_la===RepositoryParser.AND || _la===RepositoryParser.OR) {
-	            this.state = 57;
+	            this.state = 63;
 	            this.logic();
-	            this.state = 58;
-	            this.fieldExpr();
 	        }
 
+	        this.state = 66;
+	        this.identifier();
+	        this.state = 72;
+	        this._errHandler.sync(this);
+	        _la = this._input.LA(1);
+	        if((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << RepositoryParser.IS) | (1 << RepositoryParser.NOT) | (1 << RepositoryParser.EQUALS) | (1 << RepositoryParser.LIKE) | (1 << RepositoryParser.GREATER) | (1 << RepositoryParser.LESS) | (1 << RepositoryParser.BETWEEN) | (1 << RepositoryParser.IN))) !== 0)) {
+	            this.state = 68; 
+	            this._errHandler.sync(this);
+	            _la = this._input.LA(1);
+	            do {
+	                this.state = 67;
+	                this.operators();
+	                this.state = 70; 
+	                this._errHandler.sync(this);
+	                _la = this._input.LA(1);
+	            } while((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << RepositoryParser.IS) | (1 << RepositoryParser.NOT) | (1 << RepositoryParser.EQUALS) | (1 << RepositoryParser.LIKE) | (1 << RepositoryParser.GREATER) | (1 << RepositoryParser.LESS) | (1 << RepositoryParser.BETWEEN) | (1 << RepositoryParser.IN))) !== 0));
+	        }
+
+	        this.state = 75;
+	        this._errHandler.sync(this);
+	        var la_ = this._interp.adaptivePredict(this._input,9,this._ctx);
+	        if(la_===1) {
+	            this.state = 74;
+	            this.literals();
+
+	        }
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
 		        localctx.exception = re;
@@ -239,29 +310,29 @@ export default class RepositoryParser extends antlr4.Parser {
 
 	limitExpr() {
 	    let localctx = new LimitExprContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 10, RepositoryParser.RULE_limitExpr);
+	    this.enterRule(localctx, 12, RepositoryParser.RULE_limitExpr);
 	    try {
-	        this.state = 69;
+	        this.state = 84;
 	        this._errHandler.sync(this);
 	        switch(this._input.LA(1)) {
 	        case RepositoryParser.ONE:
 	            this.enterOuterAlt(localctx, 1);
-	            this.state = 62;
+	            this.state = 77;
 	            this.match(RepositoryParser.ONE);
 	            break;
 	        case RepositoryParser.TOP:
 	            this.enterOuterAlt(localctx, 2);
-	            this.state = 63;
+	            this.state = 78;
 	            this.match(RepositoryParser.TOP);
-	            this.state = 64;
+	            this.state = 79;
 	            this.match(RepositoryParser.NUMBER);
-	            this.state = 67;
+	            this.state = 82;
 	            this._errHandler.sync(this);
-	            var la_ = this._interp.adaptivePredict(this._input,5,this._ctx);
+	            var la_ = this._interp.adaptivePredict(this._input,10,this._ctx);
 	            if(la_===1) {
-	                this.state = 65;
+	                this.state = 80;
 	                this.match(RepositoryParser.K_SKIP);
-	                this.state = 66;
+	                this.state = 81;
 	                this.match(RepositoryParser.NUMBER);
 
 	            }
@@ -287,29 +358,29 @@ export default class RepositoryParser extends antlr4.Parser {
 
 	identifier() {
 	    let localctx = new IdentifierContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 12, RepositoryParser.RULE_identifier);
+	    this.enterRule(localctx, 14, RepositoryParser.RULE_identifier);
 	    var _la = 0; // Token type
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 72;
+	        this.state = 87;
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
 	        if(_la===RepositoryParser.UPPER_CHAR) {
-	            this.state = 71;
+	            this.state = 86;
 	            this.match(RepositoryParser.UPPER_CHAR);
 	        }
 
-	        this.state = 78; 
+	        this.state = 92; 
 	        this._errHandler.sync(this);
 	        var _alt = 1;
 	        do {
 	        	switch (_alt) {
 	        	case 1:
-	        		this.state = 78;
+	        		this.state = 92;
 	        		this._errHandler.sync(this);
 	        		switch(this._input.LA(1)) {
 	        		case RepositoryParser.CHAR:
-	        		    this.state = 74;
+	        		    this.state = 89;
 	        		    this.match(RepositoryParser.CHAR);
 	        		    break;
 	        		case RepositoryParser.FIND:
@@ -319,24 +390,13 @@ export default class RepositoryParser extends antlr4.Parser {
 	        		case RepositoryParser.ONE:
 	        		case RepositoryParser.TOP:
 	        		case RepositoryParser.K_SKIP:
-	        		    this.state = 75;
+	        		    this.state = 90;
 	        		    this.keywords();
-	        		    break;
-	        		case RepositoryParser.IS:
-	        		case RepositoryParser.NOT:
-	        		case RepositoryParser.EQUALS:
-	        		case RepositoryParser.LIKE:
-	        		case RepositoryParser.GREATER:
-	        		case RepositoryParser.LESS:
-	        		case RepositoryParser.BETWEEN:
-	        		case RepositoryParser.IN:
-	        		    this.state = 76;
-	        		    this.operators();
 	        		    break;
 	        		case RepositoryParser.NULL:
 	        		case RepositoryParser.TRUE:
 	        		case RepositoryParser.FALSE:
-	        		    this.state = 77;
+	        		    this.state = 91;
 	        		    this.literals();
 	        		    break;
 	        		default:
@@ -346,9 +406,9 @@ export default class RepositoryParser extends antlr4.Parser {
 	        	default:
 	        		throw new antlr4.error.NoViableAltException(this);
 	        	}
-	        	this.state = 80; 
+	        	this.state = 94; 
 	        	this._errHandler.sync(this);
-	        	_alt = this._interp.adaptivePredict(this._input,9, this._ctx);
+	        	_alt = this._interp.adaptivePredict(this._input,14, this._ctx);
 	        } while ( _alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER );
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
@@ -368,16 +428,16 @@ export default class RepositoryParser extends antlr4.Parser {
 
 	find() {
 	    let localctx = new FindContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 14, RepositoryParser.RULE_find);
+	    this.enterRule(localctx, 16, RepositoryParser.RULE_find);
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 82;
+	        this.state = 96;
 	        this.match(RepositoryParser.FIND);
-	        this.state = 84;
+	        this.state = 98;
 	        this._errHandler.sync(this);
-	        var la_ = this._interp.adaptivePredict(this._input,10,this._ctx);
+	        var la_ = this._interp.adaptivePredict(this._input,15,this._ctx);
 	        if(la_===1) {
-	            this.state = 83;
+	            this.state = 97;
 	            this.match(RepositoryParser.BY);
 
 	        }
@@ -399,16 +459,16 @@ export default class RepositoryParser extends antlr4.Parser {
 
 	update() {
 	    let localctx = new UpdateContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 16, RepositoryParser.RULE_update);
+	    this.enterRule(localctx, 18, RepositoryParser.RULE_update);
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 86;
+	        this.state = 100;
 	        this.match(RepositoryParser.UPDATE);
-	        this.state = 88;
+	        this.state = 102;
 	        this._errHandler.sync(this);
-	        var la_ = this._interp.adaptivePredict(this._input,11,this._ctx);
+	        var la_ = this._interp.adaptivePredict(this._input,16,this._ctx);
 	        if(la_===1) {
-	            this.state = 87;
+	            this.state = 101;
 	            this.match(RepositoryParser.BY);
 
 	        }
@@ -430,16 +490,16 @@ export default class RepositoryParser extends antlr4.Parser {
 
 	delete_() {
 	    let localctx = new DeleteContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 18, RepositoryParser.RULE_delete);
+	    this.enterRule(localctx, 20, RepositoryParser.RULE_delete);
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 90;
+	        this.state = 104;
 	        this.match(RepositoryParser.DELETE);
-	        this.state = 92;
+	        this.state = 106;
 	        this._errHandler.sync(this);
-	        var la_ = this._interp.adaptivePredict(this._input,12,this._ctx);
+	        var la_ = this._interp.adaptivePredict(this._input,17,this._ctx);
 	        if(la_===1) {
-	            this.state = 91;
+	            this.state = 105;
 	            this.match(RepositoryParser.BY);
 
 	        }
@@ -461,11 +521,11 @@ export default class RepositoryParser extends antlr4.Parser {
 
 	keywords() {
 	    let localctx = new KeywordsContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 20, RepositoryParser.RULE_keywords);
+	    this.enterRule(localctx, 22, RepositoryParser.RULE_keywords);
 	    var _la = 0; // Token type
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 94;
+	        this.state = 108;
 	        _la = this._input.LA(1);
 	        if(!((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << RepositoryParser.FIND) | (1 << RepositoryParser.BY) | (1 << RepositoryParser.UPDATE) | (1 << RepositoryParser.DELETE) | (1 << RepositoryParser.ONE) | (1 << RepositoryParser.TOP) | (1 << RepositoryParser.K_SKIP))) !== 0))) {
 	        this._errHandler.recoverInline(this);
@@ -492,11 +552,11 @@ export default class RepositoryParser extends antlr4.Parser {
 
 	literals() {
 	    let localctx = new LiteralsContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 22, RepositoryParser.RULE_literals);
+	    this.enterRule(localctx, 24, RepositoryParser.RULE_literals);
 	    var _la = 0; // Token type
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 96;
+	        this.state = 110;
 	        _la = this._input.LA(1);
 	        if(!((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << RepositoryParser.NULL) | (1 << RepositoryParser.TRUE) | (1 << RepositoryParser.FALSE))) !== 0))) {
 	        this._errHandler.recoverInline(this);
@@ -523,11 +583,11 @@ export default class RepositoryParser extends antlr4.Parser {
 
 	logic() {
 	    let localctx = new LogicContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 24, RepositoryParser.RULE_logic);
+	    this.enterRule(localctx, 26, RepositoryParser.RULE_logic);
 	    var _la = 0; // Token type
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 98;
+	        this.state = 112;
 	        _la = this._input.LA(1);
 	        if(!(_la===RepositoryParser.AND || _la===RepositoryParser.OR)) {
 	        this._errHandler.recoverInline(this);
@@ -554,11 +614,11 @@ export default class RepositoryParser extends antlr4.Parser {
 
 	operators() {
 	    let localctx = new OperatorsContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 26, RepositoryParser.RULE_operators);
+	    this.enterRule(localctx, 28, RepositoryParser.RULE_operators);
 	    var _la = 0; // Token type
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 100;
+	        this.state = 114;
 	        _la = this._input.LA(1);
 	        if(!((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << RepositoryParser.IS) | (1 << RepositoryParser.NOT) | (1 << RepositoryParser.EQUALS) | (1 << RepositoryParser.LIKE) | (1 << RepositoryParser.GREATER) | (1 << RepositoryParser.LESS) | (1 << RepositoryParser.BETWEEN) | (1 << RepositoryParser.IN))) !== 0))) {
 	        this._errHandler.recoverInline(this);
@@ -585,10 +645,10 @@ export default class RepositoryParser extends antlr4.Parser {
 
 	number() {
 	    let localctx = new NumberContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 28, RepositoryParser.RULE_number);
+	    this.enterRule(localctx, 30, RepositoryParser.RULE_number);
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 102;
+	        this.state = 116;
 	        this.match(RepositoryParser.NUMBER);
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
@@ -640,17 +700,18 @@ RepositoryParser.RULE_query = 0;
 RepositoryParser.RULE_findQuery = 1;
 RepositoryParser.RULE_updateQuery = 2;
 RepositoryParser.RULE_deleteQuery = 3;
-RepositoryParser.RULE_fieldExpr = 4;
-RepositoryParser.RULE_limitExpr = 5;
-RepositoryParser.RULE_identifier = 6;
-RepositoryParser.RULE_find = 7;
-RepositoryParser.RULE_update = 8;
-RepositoryParser.RULE_delete = 9;
-RepositoryParser.RULE_keywords = 10;
-RepositoryParser.RULE_literals = 11;
-RepositoryParser.RULE_logic = 12;
-RepositoryParser.RULE_operators = 13;
-RepositoryParser.RULE_number = 14;
+RepositoryParser.RULE_fieldExprList = 4;
+RepositoryParser.RULE_fieldExpr = 5;
+RepositoryParser.RULE_limitExpr = 6;
+RepositoryParser.RULE_identifier = 7;
+RepositoryParser.RULE_find = 8;
+RepositoryParser.RULE_update = 9;
+RepositoryParser.RULE_delete = 10;
+RepositoryParser.RULE_keywords = 11;
+RepositoryParser.RULE_literals = 12;
+RepositoryParser.RULE_logic = 13;
+RepositoryParser.RULE_operators = 14;
+RepositoryParser.RULE_number = 15;
 
 class QueryContext extends antlr4.ParserRuleContext {
 
@@ -670,12 +731,20 @@ class QueryContext extends antlr4.ParserRuleContext {
 	    return this.getTypedRuleContext(FindQueryContext,0);
 	};
 
-	EOF() {
-	    return this.getToken(RepositoryParser.EOF, 0);
+	updateQuery() {
+	    return this.getTypedRuleContext(UpdateQueryContext,0);
+	};
+
+	deleteQuery() {
+	    return this.getTypedRuleContext(DeleteQueryContext,0);
 	};
 
 	LINE_BREAK() {
 	    return this.getToken(RepositoryParser.LINE_BREAK, 0);
+	};
+
+	EOF() {
+	    return this.getToken(RepositoryParser.EOF, 0);
 	};
 
 	enterRule(listener) {
@@ -713,8 +782,8 @@ class FindQueryContext extends antlr4.ParserRuleContext {
 	    return this.getTypedRuleContext(FindContext,0);
 	};
 
-	fieldExpr() {
-	    return this.getTypedRuleContext(FieldExprContext,0);
+	fieldExprList() {
+	    return this.getTypedRuleContext(FieldExprListContext,0);
 	};
 
 	limitExpr() {
@@ -756,8 +825,8 @@ class UpdateQueryContext extends antlr4.ParserRuleContext {
 	    return this.getTypedRuleContext(UpdateContext,0);
 	};
 
-	fieldExpr() {
-	    return this.getTypedRuleContext(FieldExprContext,0);
+	fieldExprList() {
+	    return this.getTypedRuleContext(FieldExprListContext,0);
 	};
 
 	enterRule(listener) {
@@ -795,8 +864,8 @@ class DeleteQueryContext extends antlr4.ParserRuleContext {
 	    return this.getTypedRuleContext(DeleteContext,0);
 	};
 
-	fieldExpr() {
-	    return this.getTypedRuleContext(FieldExprContext,0);
+	fieldExprList() {
+	    return this.getTypedRuleContext(FieldExprListContext,0);
 	};
 
 	enterRule(listener) {
@@ -808,6 +877,48 @@ class DeleteQueryContext extends antlr4.ParserRuleContext {
 	exitRule(listener) {
 	    if(listener instanceof RepositoryListener ) {
 	        listener.exitDeleteQuery(this);
+		}
+	}
+
+
+}
+
+
+
+class FieldExprListContext extends antlr4.ParserRuleContext {
+
+    constructor(parser, parent, invokingState) {
+        if(parent===undefined) {
+            parent = null;
+        }
+        if(invokingState===undefined || invokingState===null) {
+            invokingState = -1;
+        }
+        super(parent, invokingState);
+        this.parser = parser;
+        this.ruleIndex = RepositoryParser.RULE_fieldExprList;
+    }
+
+	fieldExpr = function(i) {
+	    if(i===undefined) {
+	        i = null;
+	    }
+	    if(i===null) {
+	        return this.getTypedRuleContexts(FieldExprContext);
+	    } else {
+	        return this.getTypedRuleContext(FieldExprContext,i);
+	    }
+	};
+
+	enterRule(listener) {
+	    if(listener instanceof RepositoryListener ) {
+	        listener.enterFieldExprList(this);
+		}
+	}
+
+	exitRule(listener) {
+	    if(listener instanceof RepositoryListener ) {
+	        listener.exitFieldExprList(this);
 		}
 	}
 
@@ -834,6 +945,14 @@ class FieldExprContext extends antlr4.ParserRuleContext {
 	    return this.getTypedRuleContext(IdentifierContext,0);
 	};
 
+	logic() {
+	    return this.getTypedRuleContext(LogicContext,0);
+	};
+
+	literals() {
+	    return this.getTypedRuleContext(LiteralsContext,0);
+	};
+
 	operators = function(i) {
 	    if(i===undefined) {
 	        i = null;
@@ -843,18 +962,6 @@ class FieldExprContext extends antlr4.ParserRuleContext {
 	    } else {
 	        return this.getTypedRuleContext(OperatorsContext,i);
 	    }
-	};
-
-	literals() {
-	    return this.getTypedRuleContext(LiteralsContext,0);
-	};
-
-	logic() {
-	    return this.getTypedRuleContext(LogicContext,0);
-	};
-
-	fieldExpr() {
-	    return this.getTypedRuleContext(FieldExprContext,0);
 	};
 
 	enterRule(listener) {
@@ -967,17 +1074,6 @@ class IdentifierContext extends antlr4.ParserRuleContext {
 	        return this.getTypedRuleContexts(KeywordsContext);
 	    } else {
 	        return this.getTypedRuleContext(KeywordsContext,i);
-	    }
-	};
-
-	operators = function(i) {
-	    if(i===undefined) {
-	        i = null;
-	    }
-	    if(i===null) {
-	        return this.getTypedRuleContexts(OperatorsContext);
-	    } else {
-	        return this.getTypedRuleContext(OperatorsContext,i);
 	    }
 	};
 
@@ -1370,6 +1466,7 @@ RepositoryParser.QueryContext = QueryContext;
 RepositoryParser.FindQueryContext = FindQueryContext; 
 RepositoryParser.UpdateQueryContext = UpdateQueryContext; 
 RepositoryParser.DeleteQueryContext = DeleteQueryContext; 
+RepositoryParser.FieldExprListContext = FieldExprListContext; 
 RepositoryParser.FieldExprContext = FieldExprContext; 
 RepositoryParser.LimitExprContext = LimitExprContext; 
 RepositoryParser.IdentifierContext = IdentifierContext; 

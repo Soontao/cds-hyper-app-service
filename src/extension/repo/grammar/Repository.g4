@@ -1,21 +1,21 @@
 grammar Repository;
 
-query: (findQuery | updateQuery | deleteQuery) LINE_BREAK? EOF;
+query: (findQuery | updateQuery | deleteQuery) LINE_BREAK? EOF?;
 
-findQuery: find limitExpr? fieldExpr;
+findQuery: find limitExpr? fieldExprList;
 
-updateQuery: update fieldExpr;
+updateQuery: update fieldExprList;
 
-deleteQuery: delete fieldExpr;
+deleteQuery: delete fieldExprList;
 
-fieldExpr:
-	identifier (operators+)? literals? (logic fieldExpr)?;
+fieldExprList: fieldExpr (fieldExpr+)?;
+
+fieldExpr: logic? identifier (operators+)? literals?;
 
 limitExpr: ONE | (TOP NUMBER (K_SKIP NUMBER)?);
 
 // include the keywords
-identifier:
-	UPPER_CHAR? (CHAR | keywords | operators | literals)+;
+identifier: UPPER_CHAR? (CHAR | keywords | literals)+;
 
 find: FIND BY?;
 
