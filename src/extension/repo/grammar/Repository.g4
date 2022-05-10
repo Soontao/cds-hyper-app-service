@@ -8,7 +8,8 @@ updateQuery: update fieldExpr;
 
 deleteQuery: delete fieldExpr;
 
-fieldExpr: identifier operators+ literals? (logic fieldExpr)?;
+fieldExpr:
+	identifier (operators+)? literals? (logic fieldExpr)?;
 
 limitExpr: ONE | (TOP NUMBER (K_SKIP NUMBER)?);
 

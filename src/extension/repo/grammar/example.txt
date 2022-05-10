@@ -1,1 +1,1 @@
-deleteByAgeIs
+deleteByAgeSkipAndPeopleIs
