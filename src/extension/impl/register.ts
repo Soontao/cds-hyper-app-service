@@ -2,8 +2,7 @@ import {
   ApplicationService,
   cwdRequire,
   cwdRequireCDS,
-  EntityDefinition,
-  groupByKeyPrefix
+  EntityDefinition, groupByKeyPrefix
 } from "cds-internal-tool";
 import path from "path";
 import HyperApplicationService from "../../HyperApplicationService";

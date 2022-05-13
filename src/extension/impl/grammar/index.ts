@@ -7,8 +7,13 @@ import HandlerNameParser from "./HandlerNameParser";
 
 type HandlerNameInformation = {
   hooks: Array<EventHook>;
-  events: Array<EventName>
+  /**
+   * raw events name
+   */
+  events: Array<EventName>;
+  /** raw action names */
   actions: Array<string>;
+  /** raw entity name */
   entity?: string;
   valid: boolean;
   each: boolean;

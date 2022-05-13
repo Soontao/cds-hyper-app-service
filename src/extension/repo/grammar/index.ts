@@ -1,11 +1,13 @@
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { CQN, cwdRequireCDS, EntityDefinition, memorized } from "cds-internal-tool";
+import { cwdRequireCDS, EntityDefinition, fuzzy, memorized } from "cds-internal-tool";
+import { DELETE, INSERT, SELECT, UPDATE } from "cds-internal-tool/lib/types/ql";
 import antlr4 from "../../base/vendor/antlr4";
 import RepositoryLexer from "./RepositoryLexer";
 import RepositoryListener from "./RepositoryListener";
 import RepositoryParser from "./RepositoryParser";
 
+type Query = SELECT<any> | UPDATE<any> | INSERT<any> | DELETE<any>
 
 class RepositoryInformationListener extends RepositoryListener {
 
@@ -13,9 +15,9 @@ class RepositoryInformationListener extends RepositoryListener {
 
   private cds = cwdRequireCDS();
 
-  private createQuery!: () => CQN;
+  private createQuery!: () => Query;
 
-  private params: Array<(query: CQN, args: any) => void> = [];
+  private params: Array<(query: Query, args: any) => void> = [];
 
   private argIndex = 0;
 
@@ -83,6 +85,11 @@ class RepositoryInformationListener extends RepositoryListener {
 
   enterFieldExpr(ctx: any): void {
     const fieldName = ctx.identifier().getText(); // TODO: map and check field is exist on entity or not
+    const elementDef = fuzzy.findElement(this.entity, fieldName);
+    if (elementDef === undefined) {
+      throw new Error(`the field '${fieldName}' is not in entity ${this.entity.name}`);
+    }
+    const elementName = elementDef.name;
 
     const operators: Array<string> = ctx.operators().length === 0 ?
       ["EQUALS"] :
@@ -93,8 +100,8 @@ class RepositoryInformationListener extends RepositoryListener {
       const [op] = operators;
       if (op === "EQUALS" || op === "IS" || op === "LIKE") {
         const curArgIndex = this.nextArgIndex();
-        this.params.push((query: CQN, args: Array<any>) => {
-          query[this.toCQNLogic(rawLogic, curArgIndex)]({ [fieldName]: { [this.toCQNOp(op)]: args[curArgIndex] } });
+        this.params.push((query: Query, args: Array<any>) => {
+          query[this.toCQNLogic(rawLogic, curArgIndex)]({ [elementName]: { [this.toCQNOp(op)]: args[curArgIndex] } });
         });
       }
     }
@@ -102,7 +109,7 @@ class RepositoryInformationListener extends RepositoryListener {
   }
 
 
-  public toQuery(...args: Array<any>): CQN {
+  public toQuery(...args: Array<any>): Query {
     const query = this.createQuery();
     // TODO: debug param values
     this.params.forEach(param => param(query, args));
@@ -114,29 +121,35 @@ class RepositoryInformationListener extends RepositoryListener {
   }
 }
 
+class ThrowErrorListener extends antlr4.error.ErrorListener {
+  syntaxError(_recognizer: any, _offendingSymbol: any, line: string, column: string, msg: string, _e: any) {
+    throw new Error("Syntax Error: line " + line + ":" + column + " " + msg);
+  }
+}
 
-
-export const createRepositoryParser = (entity: EntityDefinition) => memorized(function (methodName: string) {
+export const createRepositoryParser = (entity: EntityDefinition) => memorized(function (repoName: string) {
   const logger = cwdRequireCDS().log("cds-hyper-app-service");
 
-  logger.debug("parse repository query", methodName);
+  logger.debug("parse repository query", repoName);
 
   try {
-    const chars = new antlr4.InputStream(methodName);
+    const chars = new antlr4.InputStream(repoName);
     const lexer = new RepositoryLexer(chars);
     const tokens = new antlr4.CommonTokenStream(lexer);
     // TODO: error messages
-    // lexer?.["removeErrorListeners"]?.();
+    lexer?.["removeErrorListeners"]?.();
     const parser = new RepositoryParser(tokens);
-    // parser?.["removeErrorListeners"]?.();
+    parser?.["removeErrorListeners"]?.();
+    parser?.["addErrorListener"](new ThrowErrorListener());
     parser["buildParseTrees"] = true;
     const listener = new RepositoryInformationListener(entity);
     const tree = parser.query();
     antlr4.tree.ParseTreeWalker.DEFAULT.walk(listener, tree);
-    logger.debug("parse repository query succeed", methodName);
+    logger.debug("parse repository query succeed", repoName);
     return (...args: Array<any>) => listener.toQuery(...args);
   } catch (error) {
-    logger.debug("parse repository query", methodName, "failed, not a valid repository query");
+    logger.debug("parse repository query", repoName, "failed, not a valid repository query", error);
+    throw error;
   }
 
 });

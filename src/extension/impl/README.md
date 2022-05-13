@@ -185,6 +185,7 @@ Popular parameter injection, with some type re-format, make CAP development much
   - [x] bound/unbound action/function support
   - [ ] case in-sensitive action match
   - [ ] order
+  - [ ] support messaging event name
 - [ ] simple DAO interface like JPA
   - [ ] inject by name
 - [ ] AOP programming for with proxy ?
