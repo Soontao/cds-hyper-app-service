@@ -10,10 +10,10 @@ deleteQuery: delete fieldExprList;
 
 fieldExprList: fieldExpr (fieldExpr+)?;
 
-fieldExpr: logic? identifier (operators+)? literals?;
+fieldExpr: logic? identifier (operators+)? literal?;
 
 // include the keywords
-identifier: UPPER_CHAR? (CHAR | keywords | literals)+;
+identifier: UPPER_CHAR? (CHAR | keywords | literal)+;
 
 find: FIND limitExpr? BY?;
 
@@ -29,7 +29,7 @@ delete: DELETE BY?;
 
 keywords: FIND | DELETE | UPDATE | BY | ONE | TOP | K_SKIP;
 
-literals: NULL | TRUE | FALSE;
+literal: NULL | TRUE | FALSE;
 
 logic: AND | OR;
 

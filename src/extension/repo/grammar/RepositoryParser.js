@@ -58,7 +58,7 @@ export default class RepositoryParser extends antlr4.Parser {
     static ruleNames = [ "query", "findQuery", "updateQuery", "deleteQuery", 
                          "fieldExprList", "fieldExpr", "identifier", "find", 
                          "limitExpr", "topExpr", "skipExpr", "update", "delete", 
-                         "keywords", "literals", "logic", "operators" ];
+                         "keywords", "literal", "logic", "operators" ];
 
     constructor(input) {
         super(input);
@@ -282,7 +282,7 @@ export default class RepositoryParser extends antlr4.Parser {
 	        var la_ = this._interp.adaptivePredict(this._input,8,this._ctx);
 	        if(la_===1) {
 	            this.state = 73;
-	            this.literals();
+	            this.literal();
 
 	        }
 	    } catch (re) {
@@ -342,7 +342,7 @@ export default class RepositoryParser extends antlr4.Parser {
 	        		case RepositoryParser.TRUE:
 	        		case RepositoryParser.FALSE:
 	        		    this.state = 81;
-	        		    this.literals();
+	        		    this.literal();
 	        		    break;
 	        		default:
 	        		    throw new antlr4.error.NoViableAltException(this);
@@ -597,9 +597,9 @@ export default class RepositoryParser extends antlr4.Parser {
 
 
 
-	literals() {
-	    let localctx = new LiteralsContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 28, RepositoryParser.RULE_literals);
+	literal() {
+	    let localctx = new LiteralContext(this, this._ctx, this.state);
+	    this.enterRule(localctx, 28, RepositoryParser.RULE_literal);
 	    var _la = 0; // Token type
 	    try {
 	        this.enterOuterAlt(localctx, 1);
@@ -734,7 +734,7 @@ RepositoryParser.RULE_skipExpr = 10;
 RepositoryParser.RULE_update = 11;
 RepositoryParser.RULE_delete = 12;
 RepositoryParser.RULE_keywords = 13;
-RepositoryParser.RULE_literals = 14;
+RepositoryParser.RULE_literal = 14;
 RepositoryParser.RULE_logic = 15;
 RepositoryParser.RULE_operators = 16;
 
@@ -970,8 +970,8 @@ class FieldExprContext extends antlr4.ParserRuleContext {
 	    return this.getTypedRuleContext(LogicContext,0);
 	};
 
-	literals() {
-	    return this.getTypedRuleContext(LiteralsContext,0);
+	literal() {
+	    return this.getTypedRuleContext(LiteralContext,0);
 	};
 
 	operators = function(i) {
@@ -1043,14 +1043,14 @@ class IdentifierContext extends antlr4.ParserRuleContext {
 	    }
 	};
 
-	literals = function(i) {
+	literal = function(i) {
 	    if(i===undefined) {
 	        i = null;
 	    }
 	    if(i===null) {
-	        return this.getTypedRuleContexts(LiteralsContext);
+	        return this.getTypedRuleContexts(LiteralContext);
 	    } else {
-	        return this.getTypedRuleContext(LiteralsContext,i);
+	        return this.getTypedRuleContext(LiteralContext,i);
 	    }
 	};
 
@@ -1372,7 +1372,7 @@ class KeywordsContext extends antlr4.ParserRuleContext {
 
 
 
-class LiteralsContext extends antlr4.ParserRuleContext {
+class LiteralContext extends antlr4.ParserRuleContext {
 
     constructor(parser, parent, invokingState) {
         if(parent===undefined) {
@@ -1383,7 +1383,7 @@ class LiteralsContext extends antlr4.ParserRuleContext {
         }
         super(parent, invokingState);
         this.parser = parser;
-        this.ruleIndex = RepositoryParser.RULE_literals;
+        this.ruleIndex = RepositoryParser.RULE_literal;
     }
 
 	NULL() {
@@ -1400,13 +1400,13 @@ class LiteralsContext extends antlr4.ParserRuleContext {
 
 	enterRule(listener) {
 	    if(listener instanceof RepositoryListener ) {
-	        listener.enterLiterals(this);
+	        listener.enterLiteral(this);
 		}
 	}
 
 	exitRule(listener) {
 	    if(listener instanceof RepositoryListener ) {
-	        listener.exitLiterals(this);
+	        listener.exitLiteral(this);
 		}
 	}
 
@@ -1532,6 +1532,6 @@ RepositoryParser.SkipExprContext = SkipExprContext;
 RepositoryParser.UpdateContext = UpdateContext; 
 RepositoryParser.DeleteContext = DeleteContext; 
 RepositoryParser.KeywordsContext = KeywordsContext; 
-RepositoryParser.LiteralsContext = LiteralsContext; 
+RepositoryParser.LiteralContext = LiteralContext; 
 RepositoryParser.LogicContext = LogicContext; 
 RepositoryParser.OperatorsContext = OperatorsContext; 

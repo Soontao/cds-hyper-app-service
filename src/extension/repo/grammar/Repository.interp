@@ -73,7 +73,7 @@ skipExpr
 update
 delete
 keywords
-literals
+literal
 logic
 operators
 

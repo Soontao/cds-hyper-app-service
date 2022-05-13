@@ -131,12 +131,12 @@ export default class RepositoryListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
-	// Enter a parse tree produced by RepositoryParser#literals.
-	enterLiterals(ctx) {
+	// Enter a parse tree produced by RepositoryParser#literal.
+	enterLiteral(ctx) {
 	}
 
-	// Exit a parse tree produced by RepositoryParser#literals.
-	exitLiterals(ctx) {
+	// Exit a parse tree produced by RepositoryParser#literal.
+	exitLiteral(ctx) {
 	}
 
 

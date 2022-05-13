@@ -52,6 +52,19 @@ class RepositoryInformationListener extends RepositoryListener {
     return "=";
   }
 
+  private toLit(lit: string): any {
+    switch (lit.toLowerCase()) {
+      case "null":
+        return null;
+      case "true":
+        return true;
+      case "false":
+        return false;
+      default:
+        break;
+    }
+  }
+
 
   enterFindQuery(): void {
     this.createQuery = () => {
@@ -95,14 +108,23 @@ class RepositoryInformationListener extends RepositoryListener {
       ["EQUALS"] :
       ctx.operators().map((op: any) => op.getText().toUpperCase());
 
+    const lit = ctx.literal()?.getText();
+
     const rawLogic = (ctx.logic()?.getText?.() ?? "AND").toLowerCase();
     if (operators.length === 1) {
       const [op] = operators;
       if (op === "EQUALS" || op === "IS" || op === "LIKE") {
-        const curArgIndex = this.nextArgIndex();
-        this.params.push((query: Query, args: Array<any>) => {
-          query[this.toCQNLogic(rawLogic, curArgIndex)]({ [elementName]: { [this.toCQNOp(op)]: args[curArgIndex] } });
-        });
+        if (lit) {
+          this.params.push((query: Query) => {
+            query[this.toCQNLogic(rawLogic, this.argIndex)]({ [elementName]: { [this.toCQNOp(op)]: this.toLit(lit) } });
+          });
+        } else {
+          const curArgIndex = this.nextArgIndex();
+          this.params.push((query: Query, args: Array<any>) => {
+            query[this.toCQNLogic(rawLogic, curArgIndex)]({ [elementName]: { [this.toCQNOp(op)]: args[curArgIndex] } });
+          });
+        }
+
       }
     }
     // TODO: concern about two values op like BETWEEN
@@ -127,13 +149,13 @@ class ThrowErrorListener extends antlr4.error.ErrorListener {
   }
 }
 
-export const createRepositoryParser = (entity: EntityDefinition) => memorized(function (repoName: string) {
+export const createRepositoryParser = (entity: EntityDefinition) => memorized(function (repoMethodName: string) {
   const logger = cwdRequireCDS().log("cds-hyper-app-service");
 
-  logger.debug("parse repository query", repoName);
+  logger.debug("parse repository query", repoMethodName);
 
   try {
-    const chars = new antlr4.InputStream(repoName);
+    const chars = new antlr4.InputStream(repoMethodName);
     const lexer = new RepositoryLexer(chars);
     const tokens = new antlr4.CommonTokenStream(lexer);
     // TODO: error messages
@@ -145,10 +167,10 @@ export const createRepositoryParser = (entity: EntityDefinition) => memorized(fu
     const listener = new RepositoryInformationListener(entity);
     const tree = parser.query();
     antlr4.tree.ParseTreeWalker.DEFAULT.walk(listener, tree);
-    logger.debug("parse repository query succeed", repoName);
+    logger.debug("parse repository query succeed", repoMethodName);
     return (...args: Array<any>) => listener.toQuery(...args);
   } catch (error) {
-    logger.debug("parse repository query", repoName, "failed, not a valid repository query", error);
+    logger.debug("parse repository query", repoMethodName, "failed, not a valid repository query", error);
     throw error;
   }
 
