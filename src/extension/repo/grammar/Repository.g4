@@ -2,7 +2,7 @@ grammar Repository;
 
 query: (findQuery | updateQuery | deleteQuery) LINE_BREAK? EOF?;
 
-findQuery: find limitExpr? fieldExprList;
+findQuery: find fieldExprList;
 
 updateQuery: update fieldExprList;
 
@@ -12,12 +12,16 @@ fieldExprList: fieldExpr (fieldExpr+)?;
 
 fieldExpr: logic? identifier (operators+)? literals?;
 
-limitExpr: ONE | (TOP NUMBER (K_SKIP NUMBER)?);
-
 // include the keywords
 identifier: UPPER_CHAR? (CHAR | keywords | literals)+;
 
-find: FIND BY?;
+find: FIND (limitExpr BY);
+
+limitExpr: ONE | (topExpr skipExpr?);
+
+topExpr: TOP NUMBER;
+
+skipExpr: K_SKIP NUMBER;
 
 update: UPDATE BY?;
 
@@ -39,12 +43,11 @@ operators:
 	| IN
 	| LIKE;
 
-number: NUMBER;
-
 WS: [ \n\u000D] -> skip;
 LINE_BREAK: ('\r'? '\n') -> skip;
 UNDER_SCORE: '_' -> skip;
 UPPER_CHAR: [A-Z];
+NUMBER: DIGIT+;
 CHAR: .;
 
 IS: I S;
@@ -72,7 +75,7 @@ K_SKIP: S K I P;
 
 AND: A N D;
 OR: O R;
-NUMBER: DIGIT+;
+
 
 fragment DIGIT: ('0' ..'9');
 

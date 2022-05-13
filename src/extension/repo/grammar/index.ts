@@ -19,6 +19,8 @@ class RepositoryInformationListener extends RepositoryListener {
 
   private argIndex = 0;
 
+  private limit?: { one?: boolean, rows?: number, offset?: number };
+
   constructor(entity: EntityDefinition) {
     super();
     this.entity = entity;
@@ -50,7 +52,33 @@ class RepositoryInformationListener extends RepositoryListener {
 
 
   enterFindQuery(): void {
-    this.createQuery = () => this.cds.ql.SELECT(this.entity);
+    this.createQuery = () => {
+      if (this.limit?.one === true) {
+        return this.cds.ql.SELECT.one.from(this.entity);
+      }
+      return this.cds.ql.SELECT.from(this.entity);
+    };
+  }
+
+  enterUpdateQuery(): void {
+    this.createQuery = () => this.cds.ql.UPDATE.entity(this.entity);
+  }
+
+  enterDeleteQuery(): void {
+    this.createQuery = () => this.cds.ql.DELETE.from(this.entity);
+  }
+
+  enterLimitExpr(ctx: any): void {
+    if (ctx.ONE() !== null) {
+      this.limit = { one: true };
+    }
+    if (ctx.topExpr()) {
+      this.limit = {};
+      this.limit.rows = parseInt(ctx.topExpr().NUMBER().getText(), 10);
+      if (ctx.skipExpr()) {
+        this.limit.offset = parseInt(ctx.skipExpr().NUMBER().getText(), 10);
+      }
+    }
   }
 
   enterFieldExpr(ctx: any): void {
@@ -60,12 +88,13 @@ class RepositoryInformationListener extends RepositoryListener {
       ["EQUALS"] :
       ctx.operators().map((op: any) => op.getText().toUpperCase());
 
-    const rawLogic = (ctx.logic()?.getText() ?? "AND").toLowerCase();
+    const rawLogic = (ctx.logic()?.getText?.() ?? "AND").toLowerCase();
     if (operators.length === 1) {
-      if (operators[0] === "EQUALS" || operators[0] === "IS" || operators[0] === "LIKE") {
+      const [op] = operators;
+      if (op === "EQUALS" || op === "IS" || op === "LIKE") {
         const curArgIndex = this.nextArgIndex();
         this.params.push((query: CQN, args: Array<any>) => {
-          query[this.toCQNLogic(rawLogic, curArgIndex)]({ [fieldName]: { [this.toCQNOp(operators[0])]: args[curArgIndex] } });
+          query[this.toCQNLogic(rawLogic, curArgIndex)]({ [fieldName]: { [this.toCQNOp(op)]: args[curArgIndex] } });
         });
       }
     }
@@ -73,10 +102,14 @@ class RepositoryInformationListener extends RepositoryListener {
   }
 
 
-  toQuery(...args: Array<any>): CQN {
+  public toQuery(...args: Array<any>): CQN {
     const query = this.createQuery();
     // TODO: debug param values
     this.params.forEach(param => param(query, args));
+    if (this.limit !== undefined) {
+      // @ts-ignore
+      query.limit(this.limit.rows, this.limit.offset);
+    }
     return query;
   }
 }
@@ -92,6 +125,7 @@ export const createRepositoryParser = (entity: EntityDefinition) => memorized(fu
     const chars = new antlr4.InputStream(methodName);
     const lexer = new RepositoryLexer(chars);
     const tokens = new antlr4.CommonTokenStream(lexer);
+    // TODO: error messages
     // lexer?.["removeErrorListeners"]?.();
     const parser = new RepositoryParser(tokens);
     // parser?.["removeErrorListeners"]?.();

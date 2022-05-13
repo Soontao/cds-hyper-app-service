@@ -1,6 +1,26 @@
 import { cwdRequireCDS, EntityDefinition } from "cds-internal-tool";
 import { createRepositoryParser } from "./grammar";
 
+export abstract class BaseRepository<T = any> {
+
+  protected entity: EntityDefinition;
+
+  protected cds = cwdRequireCDS();
+
+  constructor(entity: EntityDefinition) {
+    this.entity = entity;
+  }
+
+  public find(example: T): Promise<Array<T>> {
+    return this.cds.run(this.cds.ql.SELECT.from(this.entity).where(example));
+  }
+
+  public findOne(example: T): Promise<T> {
+    return this.cds.run(this.cds.ql.SELECT.one.from(this.entity).where(example));
+  }
+
+}
+
 
 export function createRepository(entity: EntityDefinition) {
 

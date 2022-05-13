@@ -59,15 +59,6 @@ export default class RepositoryListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
-	// Enter a parse tree produced by RepositoryParser#limitExpr.
-	enterLimitExpr(ctx) {
-	}
-
-	// Exit a parse tree produced by RepositoryParser#limitExpr.
-	exitLimitExpr(ctx) {
-	}
-
-
 	// Enter a parse tree produced by RepositoryParser#identifier.
 	enterIdentifier(ctx) {
 	}
@@ -83,6 +74,33 @@ export default class RepositoryListener extends antlr4.tree.ParseTreeListener {
 
 	// Exit a parse tree produced by RepositoryParser#find.
 	exitFind(ctx) {
+	}
+
+
+	// Enter a parse tree produced by RepositoryParser#limitExpr.
+	enterLimitExpr(ctx) {
+	}
+
+	// Exit a parse tree produced by RepositoryParser#limitExpr.
+	exitLimitExpr(ctx) {
+	}
+
+
+	// Enter a parse tree produced by RepositoryParser#topExpr.
+	enterTopExpr(ctx) {
+	}
+
+	// Exit a parse tree produced by RepositoryParser#topExpr.
+	exitTopExpr(ctx) {
+	}
+
+
+	// Enter a parse tree produced by RepositoryParser#skipExpr.
+	enterSkipExpr(ctx) {
+	}
+
+	// Exit a parse tree produced by RepositoryParser#skipExpr.
+	exitSkipExpr(ctx) {
 	}
 
 
@@ -137,15 +155,6 @@ export default class RepositoryListener extends antlr4.tree.ParseTreeListener {
 
 	// Exit a parse tree produced by RepositoryParser#operators.
 	exitOperators(ctx) {
-	}
-
-
-	// Enter a parse tree produced by RepositoryParser#number.
-	enterNumber(ctx) {
-	}
-
-	// Exit a parse tree produced by RepositoryParser#number.
-	exitNumber(ctx) {
 	}
 
 

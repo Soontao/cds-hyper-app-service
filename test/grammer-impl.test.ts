@@ -18,7 +18,6 @@ describe("Handler Name Grammar Test Suite", () => {
       "OnUpdateForPeople",
       "On_Read_For_Animal",
     ].map(parseHandlerName)
-
   });
 
   it("should support multi hooks", () => {
