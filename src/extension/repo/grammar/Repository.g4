@@ -10,7 +10,7 @@ deleteQuery: delete fieldExprList;
 
 fieldExprList: fieldExpr (fieldExpr+)?;
 
-fieldExpr: logic? identifier (operators+)? literal?;
+fieldExpr: logic? identifier operators? literal?;
 
 // include the keywords
 identifier: UPPER_CHAR? (CHAR | keywords | literal)+;
@@ -35,13 +35,19 @@ logic: AND | OR;
 
 operators:
 	IS
-	| NOT
+	| IS NOT
 	| EQUALS
+	| NOT EQUALS
 	| GREATER
+	| GREATER THAN
 	| LESS
+	| LESS THAN
 	| BETWEEN
+	| NOT BETWEEN
 	| IN
-	| LIKE;
+	| NOT IN
+	| LIKE
+	| NOT LIKE;
 
 WS: [ \n\u000D] -> skip;
 LINE_BREAK: ('\r'? '\n') -> skip;

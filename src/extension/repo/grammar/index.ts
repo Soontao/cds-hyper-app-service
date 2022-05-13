@@ -42,10 +42,18 @@ class RepositoryInformationListener extends RepositoryListener {
 
   private toCQNOp(op: string): string {
     switch (op) {
-      case "EQUALS": case "IS":
+      case "EQUALS":
         return "=";
+      case "NOTEQUALS":
+        return "!=";
+      case "IS":
+        return "is";
+      case "ISNOT":
+        return "is not";
       case "LIKE":
         return "like";
+      case "IN":
+        return "in";
       default:
         break;
     }
@@ -100,32 +108,31 @@ class RepositoryInformationListener extends RepositoryListener {
     const fieldName = ctx.identifier().getText(); // TODO: map and check field is exist on entity or not
     const elementDef = fuzzy.findElement(this.entity, fieldName);
     if (elementDef === undefined) {
-      throw new Error(`the field '${fieldName}' is not in entity ${this.entity.name}`);
+      throw new Error(`the field '${fieldName}' is not in entity '${this.entity.name}'`);
     }
     const elementName = elementDef.name;
 
-    const operators: Array<string> = ctx.operators().length === 0 ?
-      ["EQUALS"] :
-      ctx.operators().map((op: any) => op.getText().toUpperCase());
+    const op: string = String(ctx.operators()?.getText() ?? "EQUALS").toUpperCase();
 
     const lit = ctx.literal()?.getText();
 
     const rawLogic = (ctx.logic()?.getText?.() ?? "AND").toLowerCase();
-    if (operators.length === 1) {
-      const [op] = operators;
-      if (op === "EQUALS" || op === "IS" || op === "LIKE") {
-        if (lit) {
-          this.params.push((query: Query) => {
-            query[this.toCQNLogic(rawLogic, this.argIndex)]({ [elementName]: { [this.toCQNOp(op)]: this.toLit(lit) } });
-          });
-        } else {
-          const curArgIndex = this.nextArgIndex();
-          this.params.push((query: Query, args: Array<any>) => {
-            query[this.toCQNLogic(rawLogic, curArgIndex)]({ [elementName]: { [this.toCQNOp(op)]: args[curArgIndex] } });
-          });
-        }
 
-      }
+    if (lit) {
+      this.params.push((query: Query) => {
+        const litVal = this.toLit(lit);
+        if (litVal === null) {
+          query[this.toCQNLogic(rawLogic, this.argIndex)](`${elementName} ${this.toCQNOp(op)} null`);
+        } else {
+          query[this.toCQNLogic(rawLogic, this.argIndex)](`${elementName} ${this.toCQNOp(op)}`, this.toLit(lit));
+        }
+      });
+    }
+    else {
+      const curArgIndex = this.nextArgIndex();
+      this.params.push((query: Query, args: Array<any>) => {
+        query[this.toCQNLogic(rawLogic, curArgIndex)](`${elementName} ${this.toCQNOp(op)}`, args[curArgIndex]);
+      });
     }
     // TODO: concern about two values op like BETWEEN
   }
