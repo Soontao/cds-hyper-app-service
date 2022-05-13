@@ -1,1 +1,1 @@
-findTop5ByName
+deleteByName

@@ -15,7 +15,7 @@ fieldExpr: logic? identifier (operators+)? literals?;
 // include the keywords
 identifier: UPPER_CHAR? (CHAR | keywords | literals)+;
 
-find: FIND (limitExpr BY);
+find: FIND limitExpr? BY?;
 
 limitExpr: ONE | (topExpr skipExpr?);
 
@@ -75,7 +75,6 @@ K_SKIP: S K I P;
 
 AND: A N D;
 OR: O R;
-
 
 fragment DIGIT: ('0' ..'9');
 
