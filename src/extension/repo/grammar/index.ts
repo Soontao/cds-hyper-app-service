@@ -156,6 +156,12 @@ class ThrowErrorListener extends antlr4.error.ErrorListener {
   }
 }
 
+/**
+ * parser for methods in repository
+ * 
+ * @param entity 
+ * @returns 
+ */
 export const createRepositoryParser = (entity: EntityDefinition) => memorized(function (repoMethodName: string) {
   const logger = cwdRequireCDS().log("cds-hyper-app-service");
 
