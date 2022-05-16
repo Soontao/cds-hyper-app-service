@@ -7,7 +7,7 @@ import {
   EventHook, Logger, memorized,
   mustBeArray, Service
 } from "cds-internal-tool";
-import { parse } from "espree";
+import { parseJs } from "../base/utils";
 import { CDSContextBase } from "./CDSContextBase";
 import { VALUES_HOOK } from "./constants";
 
@@ -38,7 +38,6 @@ export type HandlerInjectorOptions = {
   each: boolean;
 };
 
-const PARSE_CONFIGURATION = { ecmaVersion: "latest" };
 /**
  * get argument names from function object
  * 
@@ -49,7 +48,7 @@ export const getFunctionArgNames = memorized(function (f: AnyFunction) {
   // TODO: rest arguments support
   let tree: any;
   try {
-    tree = parse(f.toString(), PARSE_CONFIGURATION);
+    tree = parseJs(f.toString());
   } catch (error) {
     let fString = f.toString().trimStart();
     if (fString.startsWith("async")) {
@@ -57,7 +56,7 @@ export const getFunctionArgNames = memorized(function (f: AnyFunction) {
     } else {
       fString = `function ${fString}`;
     }
-    tree = parse(fString, PARSE_CONFIGURATION);
+    tree = parseJs(fString);
   }
 
   const params = tree.body[0]?.expression?.params ?? tree?.body?.[0]?.params;

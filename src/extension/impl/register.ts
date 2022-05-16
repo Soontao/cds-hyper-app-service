@@ -1,11 +1,9 @@
 import {
-  ApplicationService,
-  cwdRequire,
-  cwdRequireCDS,
-  EntityDefinition, groupByKeyPrefix
+  ApplicationService, cwdRequireCDS,
+  EntityDefinition, groupByKeyPrefix, ServiceDefinition
 } from "cds-internal-tool";
-import path from "path";
 import HyperApplicationService from "../../HyperApplicationService";
+import { createSrvRequire } from "../base/utils";
 import { ANNOTATION_IMPL, VALUES_HOOK_LIST } from "./constants";
 import { parseHandlerName } from "./grammar";
 import { HyperEntityHandler } from "./HyperEntityHandler";
@@ -28,15 +26,8 @@ const isBuiltInFunctions = (name: string) => {
 };
 
 export function registerForService(srv: ApplicationService) {
-  const cds = cwdRequireCDS();
 
-  const srvRequire = (...paths: Array<any>) => cwdRequire(
-    path.join(
-      cds["options"].project,
-      path.dirname(srv.definition["@source"]),
-      ...paths
-    )
-  );
+  const srvRequire = createSrvRequire(srv.definition as ServiceDefinition);
 
   for (const entity of srv.entities) {
 

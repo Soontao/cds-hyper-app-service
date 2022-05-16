@@ -1,50 +1,80 @@
 /* eslint-disable max-len */
-import { cwdRequireCDS, EntityDefinition } from "cds-internal-tool";
+import { cwdRequire, cwdRequireCDS, EntityDefinition } from "cds-internal-tool";
 import { createRepositoryParser } from "./grammar";
+import { isEmptyFunction } from "./utils";
 
 export class BaseRepository<T = any> {
 
   protected cds = cwdRequireCDS();
 
-  #entity: EntityDefinition;
+  private _entity: EntityDefinition;
 
-  #methodParser: ReturnType<typeof createRepositoryParser>;
+  private _methodParser: ReturnType<typeof createRepositoryParser>;
 
-  public getEntity() { return this.#entity; }
+  public getEntity() { return this._entity; }
 
-  public getMethodParser() { return this.#methodParser; }
+  public getMethodParser() { return this._methodParser; }
 
   constructor(entity: EntityDefinition) {
-    this.#entity = entity;
-    this.#methodParser = createRepositoryParser(entity);
+    this._entity = entity;
+    this._methodParser = createRepositoryParser(entity);
   }
 
   public find(example: Partial<T>): Promise<Array<T>> {
-    return this.cds.run(this.cds.ql.SELECT.from(this.#entity).where(example));
+    return this.cds.run(this.cds.ql.SELECT.from(this.getEntity()).where(example));
   }
 
   public findOne(example: Partial<T>): Promise<T> {
-    return this.cds.run(this.cds.ql.SELECT.one.from(this.#entity).where(example));
+    return this.cds.run(this.cds.ql.SELECT.one.from(this.getEntity()).where(example));
+  }
+
+  public create(example: Partial<T>): Promise<T> {
+    return this.cds.run(this.cds.ql.INSERT.into(this.getEntity()).entries(example)).then(() => example) as any;
+  }
+
+  public delete(example: Partial<T>): Promise<void> {
+    return this.cds.run(this.cds.ql.DELETE.from(this.getEntity()).where(example));
+  }
+
+  public update(example: Partial<T>, key: string | number | object): Promise<void> {
+    return this.cds.run(this.cds.ql.UPDATE.entity(this.getEntity(), key).set(example));
   }
 
 }
 
 export function createRepository<T extends BaseRepository, I = any>(entity: EntityDefinition, repoClass?: new (...args: Array<any>) => T): T & I {
 
+  // TODO: cache for entity
   const cds = cwdRequireCDS();
 
-  const repo = new (repoClass ?? BaseRepository)(entity);
-  
+  let repo: BaseRepository;
+
+  const repoImpl = entity["@cds.hyper.repo"];
+
+  if (repoImpl !== undefined) {
+    repo = new (cwdRequire(entity, repoImpl))(entity);
+  } else {
+    repo = new (repoClass ?? BaseRepository)(entity);
+  }
+
+
   return new Proxy(repo, {
     get: (baseRepo, prop) => {
       // if have that property
-      if (prop in baseRepo) { return baseRepo[prop]; }
+      const target = baseRepo[prop];
+      if (typeof target === "function") {
+        if (!isEmptyFunction(target)) {
+          return baseRepo[prop];
+        }
+      }
+
+      if (target !== undefined && typeof target !== "function") { return target; }
+
       // if not have method
       if (typeof prop === "string") {
         const buildQuery = repo.getMethodParser()(prop);
         if (buildQuery !== undefined) {
           const query = (...args: Array<any>) => cds.run(buildQuery(...args));
-          query.name = prop;
           baseRepo[prop] = query;
           return query;
         } else {

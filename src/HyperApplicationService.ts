@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
-import { ApplicationService, cdsProjectRequire, cwdRequireCDS, memorized } from "cds-internal-tool";
+import { ApplicationService, cdsProjectRequire, cwdRequireCDS, EntityDefinition, memorized } from "cds-internal-tool";
+import { mustBeCDSDefinition } from "cds-internal-tool/lib/assert";
 import * as extensions from "./extension";
 import { ApplicationServiceExt } from "./extension";
+import { BaseRepository, createRepository } from "./extension/repo/Repository";
 
 
 const cds = cwdRequireCDS();
@@ -54,6 +56,19 @@ export class HyperApplicationService extends cds.ApplicationService {
     for (const ext of exts) { await ext.beforeInit(); }
     await super.init();
     for (const ext of exts) { await ext.afterInit(); }
+
+  }
+
+  public getRepository<T = any>(entity: EntityDefinition): BaseRepository<T>
+
+  public getRepository<T = any>(entity: string): BaseRepository<T>
+
+  public getRepository(entity: any) {
+    if (typeof entity === "string") { entity = this.entities[entity]; }
+
+    mustBeCDSDefinition(entity);
+
+    return createRepository(entity);
   }
 
 }

@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { cwdRequireCDS } from "cds-internal-tool";
+import { isEmptyFunction } from "../src/extension/repo";
 import { createRepositoryParser } from "../src/extension/repo/grammar";
 
 
@@ -71,7 +72,7 @@ describe("Repository Grammar Test Suite", () => {
     expect(parse("findByActiveNotEqualsFalse")()).toStrictEqual(cds.ql.SELECT.from("Demo").where({ active: { ['!=']: false } }))
     expect(parse("findByActiveNotEqualsNull")()).toStrictEqual(cds.ql.SELECT.from("Demo").where({ active: { ['!=']: null } }))
   });
-  
+
   it('should support is null', () => {
     expect(parse("findByActiveIsNull")()).toStrictEqual(cds.ql.SELECT.from("Demo").where`active is null`)
     expect(parse("findByActiveIsNotNull")()).toStrictEqual(cds.ql.SELECT.from("Demo").where`active is not null`)
@@ -83,6 +84,41 @@ describe("Repository Grammar Test Suite", () => {
 
   it('should raise error when not have column', () => {
     expect(() => parse('findByHeight')).toThrow(`the field 'Height' is not in entity 'Demo'`)
+  });
+
+  it('should support check function is empty or not', () => {
+    function a() { }
+    async function aa(params) { }
+    async function aac(params) {
+      // TODO: 
+      // left empty for auto proxy
+    }
+    const b = () => { }
+    const ba = async () => { }
+    const bac = async () => {
+      // left empty for auto proxy
+    }
+
+    const ci = new class {
+      async cam() {
+        // TODO: update later
+      }
+      cm() {
+        // with comments
+      }
+      async cb(a, b) {
+        return a + b
+      }
+    }
+
+    for (const f of [a, aa, aac, b, ba, bac, ci.cam, ci.cm]) {
+      expect(isEmptyFunction(f)).toBeTruthy()
+    }
+
+    for (const f of [ci.cb]) {
+      expect(isEmptyFunction(f)).toBeFalsy()
+    }
+    
   });
 
 
