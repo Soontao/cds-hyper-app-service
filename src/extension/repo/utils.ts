@@ -1,12 +1,14 @@
 
-import { memorized } from "cds-internal-tool";
+import { assert, memorized } from "cds-internal-tool";
 import { parseJs } from "../base/utils";
 
 /**
  * check function body is empty or not
  */
 export const isEmptyFunction = memorized((f: any) => {
-  // TODO: assert is function
+
+  assert.mustBeFunction(f);
+  
   let tree: any;
   let fString = f.toString().trim();
   try {

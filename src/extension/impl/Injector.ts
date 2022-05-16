@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import {
+  assert,
   EntityDefinition,
   EventContext,
   EventHook, Logger, memorized,
@@ -45,6 +46,9 @@ export type HandlerInjectorOptions = {
  * @returns {Array<string>} the arg name list of the target function
  */
 export const getFunctionArgNames = memorized(function (f: AnyFunction) {
+
+  assert.mustBeFunction(f);
+  
   // TODO: rest arguments support
   let tree: any;
   try {
