@@ -24,6 +24,13 @@ describe("Fundamental Test Suite", () => {
     const inst3 = await repo.findOneByName('Cat Meow')
     expect(inst3).toMatchObject(inst)
 
+    const [inst4] = await repo.find({ Age: 1 })
+    expect(inst4).toMatchObject(inst)
+    const affectedRows = await repo.update({ Name: "Cat Updated" }, inst.ID)
+    expect(affectedRows).toBe(1)
+
+    const result = await repo.remove({ ID: inst.ID })
+    expect(result).toBe(1)
   });
 
 

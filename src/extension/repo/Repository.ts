@@ -32,11 +32,11 @@ export class BaseRepository<T = any> {
     return this.cds.run(this.cds.ql.INSERT.into(this.getEntity()).entries(example)).then(() => example) as any;
   }
 
-  public delete(example: Partial<T>): Promise<void> {
+  public remove(example: Partial<T>): Promise<number> {
     return this.cds.run(this.cds.ql.DELETE.from(this.getEntity()).where(example));
   }
 
-  public update(example: Partial<T>, key: string | number | object): Promise<void> {
+  public update(example: Partial<T>, key: string | number | object): Promise<number> {
     return this.cds.run(this.cds.ql.UPDATE.entity(this.getEntity(), key).set(example));
   }
 
