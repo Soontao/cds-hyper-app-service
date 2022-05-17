@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
-import { cwdRequire, cwdRequireCDS, EntityDefinition } from "cds-internal-tool";
+import { ApplicationService, cwdRequire, cwdRequireCDS, EntityDefinition } from "cds-internal-tool";
+import { mustBeCDSDefinition } from "cds-internal-tool/lib/assert";
 import { createRepositoryParser } from "./grammar";
 import { Example, PageExample } from "./PageExample";
 import { isEmptyFunction } from "./utils";
@@ -102,4 +103,17 @@ export function createRepository<T extends BaseRepository, I = any>(entity: Enti
       }
     }
   }) as any;
+}
+
+
+export function createRepositoryForService<T = any>(srv: ApplicationService, entity: EntityDefinition): T extends BaseRepository ? T : BaseRepository<T>;
+
+export function createRepositoryForService<T = any>(srv: ApplicationService, entity: string): T extends BaseRepository ? T : BaseRepository<T>;
+
+export function createRepositoryForService(srv: ApplicationService, entity: any) {
+  if (typeof entity === "string") { entity = srv.entities[entity]; }
+
+  mustBeCDSDefinition(entity);
+
+  return createRepository(entity);
 }

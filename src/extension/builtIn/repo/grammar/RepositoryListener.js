@@ -1,6 +1,6 @@
 // Generated from Repository.g4 by ANTLR 4.10.1
 // jshint ignore: start
-import antlr4 from '../../base/vendor/antlr4.js';
+import antlr4 from '../../../base/vendor/antlr4.js';
 
 // This class defines a complete listener for a parse tree produced by RepositoryParser.
 export default class RepositoryListener extends antlr4.tree.ParseTreeListener {

@@ -1,5 +1,5 @@
 const { cwdRequireCDS } = require("cds-internal-tool")
-const { extensions: { ApplicationServiceExt } } = require("../../../../src")
+const { ApplicationServiceExt } = require("../../../../src")
 
 
 module.exports = class DemoAppExt extends ApplicationServiceExt {

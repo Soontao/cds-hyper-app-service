@@ -1,5 +1,5 @@
 const { Request, EventContext, DatabaseService, EntityDefinition, ApplicationService } = require("cds-internal-tool")
-const { extensions: { impl: { HyperEntityHandler } } } = require("../../../../src")
+const { HyperEntityHandler } = require("../../../../src")
 
 module.exports = class PeopleEntityHandlers extends HyperEntityHandler {
 

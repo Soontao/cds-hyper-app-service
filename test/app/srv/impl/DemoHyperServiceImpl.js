@@ -1,5 +1,4 @@
-const HyperApplicationService = require("../../../../src");
-const { BaseRepository } = require("../../../../src/extension/repo/Repository");
+const { BaseRepository, HyperApplicationService } = require("../../../../src");
 const AnimalRepository = require("../repos/AnimalRepository");
 
 module.exports = class DemoHyperServiceImpl extends HyperApplicationService {

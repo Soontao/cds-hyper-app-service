@@ -4,8 +4,7 @@
       "app-service": {
         "impl": "../../src",
         "exts": [
-          "impl",
-          "repo",
+          "builtIn",
           {
             "impl": "./srv/ext/DemoExt.js",
             "loggerName": "demoLogger"

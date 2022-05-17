@@ -1,17 +1,16 @@
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
-import { ApplicationService, cdsProjectRequire, cwdRequireCDS, EntityDefinition, memorized } from "cds-internal-tool";
-import { mustBeCDSDefinition } from "cds-internal-tool/lib/assert";
+import { ApplicationService, cdsProjectRequire, cwdRequireCDS, memorized } from "cds-internal-tool";
 import * as extensions from "./extension";
-import { ApplicationServiceExt } from "./extension";
-import { BaseRepository, createRepository } from "./extension/repo/Repository";
+import { ApplicationServiceExt } from "./extension/base";
+
 
 
 const cds = cwdRequireCDS();
 
 export const getExtensions = memorized((service: ApplicationService) => {
-  const exts: Array<ApplicationServiceExt> = (cds.env.requires?.["app-service"]?.exts ?? ["impl", "repo"])
+  const exts: Array<ApplicationServiceExt> = (cds.env.requires?.["app-service"]?.exts ?? ["builtIn"])
     .map((m: string | { impl: string }) => {
       let mImpl: string;
       let mClass: any = undefined;
@@ -45,11 +44,12 @@ export const getExtensions = memorized((service: ApplicationService) => {
  * 
  */
 export class HyperApplicationService extends cds.ApplicationService {
-
   /**
    * alias for extensions
    */
   public static extensions = extensions;
+
+
 
   async init(): Promise<any> {
     const exts = getExtensions(this);
@@ -60,18 +60,6 @@ export class HyperApplicationService extends cds.ApplicationService {
 
   }
 
-
-  public getRepository<T = any>(entity: EntityDefinition): T extends BaseRepository ? T : BaseRepository<T>;
-
-  public getRepository<T = any>(entity: string): T extends BaseRepository ? T : BaseRepository<T>;
-
-  public getRepository(entity: any) {
-    if (typeof entity === "string") { entity = this.entities[entity]; }
-
-    mustBeCDSDefinition(entity);
-
-    return createRepository(entity);
-  }
 
 }
 

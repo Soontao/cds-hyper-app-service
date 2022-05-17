@@ -1,6 +1,6 @@
 
 import { assert, memorized } from "cds-internal-tool";
-import { parseJs } from "../base/utils";
+import { parseJs } from "../../base/utils";
 
 /**
  * check function body is empty or not

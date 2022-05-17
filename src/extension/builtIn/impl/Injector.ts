@@ -8,7 +8,7 @@ import {
   EventHook, Logger, memorized,
   mustBeArray, Service
 } from "cds-internal-tool";
-import { parseJs } from "../base/utils";
+import { parseJs } from "../../base/utils";
 import { CDSContextBase } from "./CDSContextBase";
 import { VALUES_HOOK } from "./constants";
 

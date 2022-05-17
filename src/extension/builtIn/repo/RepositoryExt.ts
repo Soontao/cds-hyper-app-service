@@ -1,7 +1,7 @@
 import { assert, cwdRequireCDS, fuzzy } from "cds-internal-tool";
-import { ApplicationServiceExt } from "../base/ApplicationServiceExt";
+import { ApplicationServiceExt } from "../../base/ApplicationServiceExt";
 import { PageExample } from "./PageExample";
-import { BaseRepository } from "./Repository";
+import { BaseRepository, createRepositoryForService } from "./Repository";
 
 export class RepositoryExt extends ApplicationServiceExt {
 
@@ -37,7 +37,8 @@ export class RepositoryExt extends ApplicationServiceExt {
           );
           assert.mustNotNullOrUndefined(entityDef);
         }
-        this.srv[prop] = this.srv.getRepository(entityDef);
+        
+        this.srv[prop] = createRepositoryForService(this.srv, entityDef);
       }
     }
   }

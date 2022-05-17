@@ -1,5 +1,5 @@
 import { cwdRequireCDS, EventHook, EventName, memorized } from "cds-internal-tool";
-import antlr4 from "../../base/vendor/antlr4";
+import antlr4 from "../../../base/vendor/antlr4";
 import HandlerNameLexer from "./HandlerNameLexer";
 import HandlerNameListener from "./HandlerNameListener";
 import HandlerNameParser from "./HandlerNameParser";

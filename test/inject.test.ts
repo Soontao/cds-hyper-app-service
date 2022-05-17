@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { getFunctionArgNames } from "../src/extension/impl/Injector";
+import { getFunctionArgNames } from "../src/extension/builtIn/impl/Injector";
 
 describe("Injector Test Suite", () => {
 

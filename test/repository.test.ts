@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { cwdRequireCDS, setupTest } from "cds-internal-tool";
-import HyperApplicationService from "../src";
-import { PageExample } from "../src/extension/repo/PageExample";
+import { PageExample } from "../src/extension/builtIn/repo/PageExample";
+import DemoHyperServiceImpl from "./app/srv/impl/DemoHyperServiceImpl";
 
 describe("Fundamental Test Suite", () => {
   
@@ -11,10 +11,9 @@ describe("Fundamental Test Suite", () => {
 
   it('should support connect to a service and create a repository', async () => {
 
-    const srv = await cds.connect.to('DemoService') as HyperApplicationService;
-    const AnimalDef = srv.entities['Animal'];
+    const srv = await cds.connect.to('DemoHyperService') as DemoHyperServiceImpl;
 
-    const repo = srv.getRepository<AnimalRepository>(AnimalDef)
+    const repo = srv.demoServiceAnimalRepository
 
     expect(repo).toBeInstanceOf(AnimalRepository)
 

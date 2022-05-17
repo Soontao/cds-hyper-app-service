@@ -2,8 +2,8 @@ import {
   ApplicationService, cwdRequireCDS,
   EntityDefinition, groupByKeyPrefix, ServiceDefinition
 } from "cds-internal-tool";
-import HyperApplicationService from "../../HyperApplicationService";
-import { createSrvRequire } from "../base/utils";
+import HyperApplicationService from "../../../HyperApplicationService";
+import { createSrvRequire } from "../../base/utils";
 import { ANNOTATION_IMPL, VALUES_HOOK_LIST } from "./constants";
 import { parseHandlerName } from "./grammar";
 import { HyperEntityHandler } from "./HyperEntityHandler";

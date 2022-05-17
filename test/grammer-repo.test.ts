@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { cwdRequireCDS } from "cds-internal-tool";
-import { isEmptyFunction } from "../src/extension/repo";
-import { createRepositoryParser } from "../src/extension/repo/grammar";
+import { isEmptyFunction } from "../src/extension/builtIn/repo";
+import { createRepositoryParser } from "../src/extension/builtIn/repo/grammar";
 
 
 describe("Repository Grammar Test Suite", () => {

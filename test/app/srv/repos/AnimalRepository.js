@@ -1,4 +1,4 @@
-const { extensions: { repo: { BaseRepository } } } = require("../../../../src");
+const { BaseRepository } = require("../../../../src");
 
 /**
  * @typedef {{ID:string,Name:string,Age:number}} Animal

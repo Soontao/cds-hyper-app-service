@@ -28,7 +28,7 @@ npm i -S cds-hyper-app-service
     "requires": {
       "app-service": {
         "impl": "cds-hyper-app-service",
-        "exts": ["impl", "repo"] // default value, developer could overwrite this config
+        "exts": ["builtIn"] // default value, developer could overwrite this config
       }
     }
   }
@@ -37,8 +37,8 @@ npm i -S cds-hyper-app-service
 
 ## Built-in Extensions
 
-- [Hyper Implementation](./src/extension/impl/README.md) - enhanced `@impl` annotation for entity/handler level
-- [Hyper Repository](./src//extension/repo/README.md) - repository implementation like spring repository but applied to CAP nodejs runtime
+- [Hyper Implementation](./src/extension/builtIn/impl/README.md) - enhanced `@impl` annotation for entity/handler level
+- [Hyper Repository](./src//extension/builtIn/repo/README.md) - repository implementation like spring repository but applied to CAP nodejs runtime
 
 ## Features
 

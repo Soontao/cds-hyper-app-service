@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { cwdRequireCDS, EntityDefinition, fuzzy, memorized } from "cds-internal-tool";
 import { DELETE, INSERT, SELECT, UPDATE } from "cds-internal-tool/lib/types/ql";
-import antlr4 from "../../base/vendor/antlr4";
+import antlr4 from "../../../base/vendor/antlr4";
 import RepositoryLexer from "./RepositoryLexer";
 import RepositoryListener from "./RepositoryListener";
 import RepositoryParser from "./RepositoryParser";

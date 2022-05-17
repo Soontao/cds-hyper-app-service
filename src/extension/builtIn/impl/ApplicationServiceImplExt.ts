@@ -1,4 +1,4 @@
-import { ApplicationServiceExt } from "../base/ApplicationServiceExt";
+import { ApplicationServiceExt } from "../../base/ApplicationServiceExt";
 import { HyperEntityHandler } from "./HyperEntityHandler";
 import { registerForObject, registerForService } from "./register";
 
