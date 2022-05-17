@@ -53,10 +53,21 @@ export class HyperApplicationService extends cwdRequireCDS().ApplicationService 
     for (const ext of exts) { await ext.afterInit(); }
   }
 
+  /**
+   * get repository shortcut from service
+   * 
+   * @param entityDef 
+   * @returns 
+   */
   public getRepository(entityDef: EntityDefinition) {
     return getOrCreateRepository(entityDef);
   }
 
+  /**
+   * get entity handler shortcut from service
+   * @param entityDef 
+   * @returns 
+   */
   public getEntityHandler(entityDef: EntityDefinition) {
     return getOrCreateEntityHandler(this, entityDef);
   }
