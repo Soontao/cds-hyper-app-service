@@ -1,10 +1,11 @@
 // @ts-nocheck
-import { cwdRequireCDS, setupTest } from "cds-internal-tool";
+import { cwdRequireCDS, fuzzy, setupTest } from "cds-internal-tool";
 import { PageExample } from "../src/extension/builtIn/repo/PageExample";
+import { isRepository } from "../src/utils";
 import DemoHyperServiceImpl from "./app/srv/impl/DemoHyperServiceImpl";
 
 describe("Fundamental Test Suite", () => {
-  
+
   setupTest(__dirname, "./app");
   const cds = cwdRequireCDS()
   const AnimalRepository = require("./app/srv/repos/AnimalRepository")
@@ -44,5 +45,10 @@ describe("Fundamental Test Suite", () => {
     expect(result).toBe(1)
   });
 
+  it('should support get repository from service', async () => {
+    const srv = await cds.connect.to('DemoHyperService') as DemoHyperServiceImpl;
+    const repo = srv.getRepository(fuzzy.findEntity("demoServiceAnimal"))
+    expect(isRepository(repo)).toBeTruthy()
+  });
 
 });

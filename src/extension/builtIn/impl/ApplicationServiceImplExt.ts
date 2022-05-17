@@ -1,5 +1,5 @@
 import { ApplicationServiceExt } from "../../base/ApplicationServiceExt";
-import { registerForObject, registerForService } from "./Register";
+import { registerForObject, registerForServiceAnnotation } from "./Register";
 
 /**
  * support hyper @impl annotations
@@ -11,7 +11,7 @@ import { registerForObject, registerForService } from "./Register";
 export class ApplicationServiceImplExt extends ApplicationServiceExt {
 
   beforeInit(): void | Promise<void> {
-    registerForService(this.srv);
+    registerForServiceAnnotation(this.srv);
     registerForObject(this.srv, this.srv);
   }
 

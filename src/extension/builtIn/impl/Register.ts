@@ -1,15 +1,12 @@
 import {
-  ApplicationService, cwdRequireCDS,
-  EntityDefinition, groupByKeyPrefix, ServiceDefinition
+  ApplicationService, cwdRequire, cwdRequireCDS,
+  EntityDefinition, groupByKeyPrefix
 } from "cds-internal-tool";
 import HyperApplicationService from "../../../HyperApplicationService";
-import { createSrvRequire } from "../../base/utils";
 import { ANNOTATION_IMPL, VALUES_HOOK_LIST } from "./constants";
 import { parseHandlerName } from "./grammar";
-import { HyperEntityHandler, mountEntityHandlerToService } from "./HyperEntityHandler";
+import { getOrCreateEntityHandler, HyperEntityHandler } from "./HyperEntityHandler";
 import { createInjectableHandler } from "./Injector";
-
-const IGNORE_METHODS = ["init", "constructor"];
 
 const isBuiltInFunctions = (name: string) => {
   const { ApplicationService } = cwdRequireCDS();
@@ -25,25 +22,21 @@ const isBuiltInFunctions = (name: string) => {
   return false;
 };
 
-export function registerForService(srv: ApplicationService) {
+/**
+ * process `@impl` annotations for `cds.ApplicationService` and mount the `handlers` to it
+ * @param srv 
+ */
+export function registerForServiceAnnotation(srv: HyperApplicationService) {
 
-  const srvRequire = createSrvRequire(srv.definition as ServiceDefinition);
 
   for (const entity of srv.entities) {
 
     const impl = groupByKeyPrefix(entity, ANNOTATION_IMPL);
 
-    // impl by single module
+    // impl by single module/HyperEntityHandler
     if (typeof impl === "string") {
-      const entityHandler = srvRequire(impl);
-      // TODO: support
-      if (entityHandler.prototype instanceof HyperEntityHandler) {
-        // TODO: cache make handler is singleton globally
-        mountEntityHandlerToService(entityHandler, entity, srv);
-        continue;
-      }
-      // TODO: raw object register directly
-      // TODO: warn
+      getOrCreateEntityHandler(srv, entity);
+      continue;
     }
 
     // impl by many modules
@@ -55,7 +48,7 @@ export function registerForService(srv: ApplicationService) {
         for (const [event, implRelativePath] of Object.entries(impl[hook])) {
 
           const EVENT = String(event).toUpperCase();
-          const implHandler = srvRequire(implRelativePath);
+          const implHandler = cwdRequire(srv, implRelativePath as string);
 
           const register = (handler: any) => srv[hook](
             EVENT,
@@ -101,8 +94,8 @@ export function registerForObject(object: any, service: ApplicationService, enti
     .keys(object)
     .concat(Object.getOwnPropertyNames(Object.getPrototypeOf(object)))
     .filter(
-      p => !p.startsWith("_") && // not private
-        !IGNORE_METHODS.includes(p) && // not ignored
+      p => VALUES_HOOK_LIST.some(hook => p.toLowerCase().startsWith(hook)) && // startsWith hook name
+        p !== "constructor" && // not constructor
         typeof object[p] === "function" && // is function
         !isBuiltInFunctions(p) // is not built-in functions
     );

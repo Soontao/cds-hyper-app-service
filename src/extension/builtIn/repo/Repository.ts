@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { cwdRequire, cwdRequireCDS, EntityDefinition } from "cds-internal-tool";
+import { cwdRequire, cwdRequireCDS, EntityDefinition, memorized } from "cds-internal-tool";
 import { createRepositoryParser } from "./grammar";
 import { Example, PageExample } from "./PageExample";
 import { isEmptyFunction } from "./utils";
@@ -58,7 +58,7 @@ export class BaseRepository<T = any> {
 
 }
 
-export function createRepository<T extends BaseRepository, I = any>(entity: EntityDefinition, repoClass?: new (...args: Array<any>) => T): T & I {
+export const getOrCreateRepository = memorized(<T extends BaseRepository>(entity: EntityDefinition): T => {
 
   // TODO: cache for entity
   const cds = cwdRequireCDS();
@@ -70,7 +70,7 @@ export function createRepository<T extends BaseRepository, I = any>(entity: Enti
   if (repoImpl !== undefined) {
     repo = new (cwdRequire(entity, repoImpl))(entity);
   } else {
-    repo = new (repoClass ?? BaseRepository)(entity);
+    repo = new BaseRepository(entity);
   }
 
   return new Proxy(repo, {
@@ -101,4 +101,4 @@ export function createRepository<T extends BaseRepository, I = any>(entity: Enti
       }
     }
   }) as any;
-}
+});

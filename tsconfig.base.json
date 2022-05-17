@@ -6,6 +6,7 @@
     "module": "CommonJS",
     "skipLibCheck": true,
     "allowJs": true,
+    "useDefineForClassFields": true,
     "noImplicitAny": false,
     "useUnknownInCatchVariables": false,
     "sourceMap": true,

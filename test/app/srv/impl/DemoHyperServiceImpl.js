@@ -6,12 +6,12 @@ module.exports = class DemoHyperServiceImpl extends HyperApplicationService {
   /**
    * @type {AnimalRepository}
    */
-  demoServiceAnimalRepository = undefined;
+  demoServiceAnimalRepository;
 
   /**
    * @type {BaseRepository<{ID:string}>}
    */
-  humanRepository = undefined;
+  humanRepository;
 
 
   /**

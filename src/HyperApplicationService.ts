@@ -1,15 +1,16 @@
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
-import { ApplicationService, cdsProjectRequire, cwdRequireCDS, memorized } from "cds-internal-tool";
+import { ApplicationService, cdsProjectRequire, cwdRequireCDS, EntityDefinition, memorized } from "cds-internal-tool";
 import * as extensions from "./extension";
 import { ApplicationServiceExt } from "./extension/base";
+import { getOrCreateEntityHandler } from "./extension/builtIn/impl";
+import { getOrCreateRepository } from "./extension/builtIn/repo/Repository";
 
 
-
-const cds = cwdRequireCDS();
 
 export const getExtensions = memorized((service: ApplicationService) => {
+  const cds = cwdRequireCDS();
   const exts: Array<ApplicationServiceExt> = (cds.env.requires?.["app-service"]?.exts ?? ["builtIn"])
     .map((m: string | { impl: string }) => {
       let mImpl: string;
@@ -43,13 +44,24 @@ export const getExtensions = memorized((service: ApplicationService) => {
  * support extensions for `ApplicationService`
  * 
  */
-export class HyperApplicationService extends cds.ApplicationService {
+export class HyperApplicationService extends cwdRequireCDS().ApplicationService {
+
   async init(): Promise<any> {
     const exts = getExtensions(this);
     for (const ext of exts) { await ext.beforeInit(); }
     await super.init();
     for (const ext of exts) { await ext.afterInit(); }
   }
+
+  public getRepository(entityDef: EntityDefinition) {
+    return getOrCreateRepository(entityDef);
+  }
+
+  public getEntityHandler(entityDef: EntityDefinition) {
+    return getOrCreateEntityHandler(this, entityDef);
+  }
+
 }
+
 
 export default HyperApplicationService;

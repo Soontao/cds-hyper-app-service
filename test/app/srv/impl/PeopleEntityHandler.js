@@ -1,8 +1,14 @@
 const { Request, EventContext, DatabaseService, EntityDefinition, ApplicationService } = require("cds-internal-tool")
-const { HyperEntityHandler } = require("../../../../src")
+const { HyperEntityHandler } = require("../../../../src");
+const { BaseRepository } = require("../../../../src");
 
 module.exports = class PeopleEntityHandlers extends HyperEntityHandler {
 
+
+  /**
+   * @type {BaseRepository<{ID:string,Age:number}>}
+   */
+  peopleRepository; // must assign `undefined` value
 
   /**
    * 

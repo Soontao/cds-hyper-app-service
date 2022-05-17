@@ -4,6 +4,7 @@
     "strict": false,
     "noImplicitAny": false,
     "useUnknownInCatchVariables": false,
+    "esModuleInterop": true,
     "allowJs": true
   }
 }

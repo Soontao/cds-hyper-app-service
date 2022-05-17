@@ -174,6 +174,7 @@ Popular parameter injection, with some type re-format, make CAP development much
   - [x] behavior change for `each` parameter
   - [ ] optional to verify handler parameters are injectable (runtime or startup)
   - [ ] `cds.Service` injection
+  - [ ] `HyperEntityHandler` injection
   - [ ] documentation
 - [x] handler name parser
   - [x] `on/before/after` hooks
