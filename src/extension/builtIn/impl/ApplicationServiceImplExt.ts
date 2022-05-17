@@ -1,6 +1,5 @@
 import { ApplicationServiceExt } from "../../base/ApplicationServiceExt";
-import { HyperEntityHandler } from "./HyperEntityHandler";
-import { registerForObject, registerForService } from "./register";
+import { registerForObject, registerForService } from "./Register";
 
 /**
  * support hyper @impl annotations
@@ -10,11 +9,6 @@ import { registerForObject, registerForService } from "./register";
  * * built-in logger
  */
 export class ApplicationServiceImplExt extends ApplicationServiceExt {
-
-  /**
-   * alias for `HyperEntityHandler`
-   */
-  public static HyperEntityHandler = HyperEntityHandler;
 
   beforeInit(): void | Promise<void> {
     registerForService(this.srv);

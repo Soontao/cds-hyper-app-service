@@ -44,23 +44,12 @@ export const getExtensions = memorized((service: ApplicationService) => {
  * 
  */
 export class HyperApplicationService extends cds.ApplicationService {
-  /**
-   * alias for extensions
-   */
-  public static extensions = extensions;
-
-
-
   async init(): Promise<any> {
     const exts = getExtensions(this);
-
     for (const ext of exts) { await ext.beforeInit(); }
     await super.init();
     for (const ext of exts) { await ext.afterInit(); }
-
   }
-
-
 }
 
 export default HyperApplicationService;

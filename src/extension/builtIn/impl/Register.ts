@@ -6,7 +6,7 @@ import HyperApplicationService from "../../../HyperApplicationService";
 import { createSrvRequire } from "../../base/utils";
 import { ANNOTATION_IMPL, VALUES_HOOK_LIST } from "./constants";
 import { parseHandlerName } from "./grammar";
-import { HyperEntityHandler } from "./HyperEntityHandler";
+import { HyperEntityHandler, mountEntityHandlerToService } from "./HyperEntityHandler";
 import { createInjectableHandler } from "./Injector";
 
 const IGNORE_METHODS = ["init", "constructor"];
@@ -39,8 +39,7 @@ export function registerForService(srv: ApplicationService) {
       // TODO: support
       if (entityHandler.prototype instanceof HyperEntityHandler) {
         // TODO: cache make handler is singleton globally
-        const handler: HyperEntityHandler = new entityHandler({ entity });
-        handler.mount(srv);
+        mountEntityHandlerToService(entityHandler, entity, srv);
         continue;
       }
       // TODO: raw object register directly

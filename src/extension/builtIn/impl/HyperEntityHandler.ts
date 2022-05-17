@@ -1,5 +1,6 @@
 import { ApplicationService, EntityDefinition } from "cds-internal-tool";
-import { registerForObject } from "./register";
+import { injectRepositoriesToObject } from "../repo/RepositoryExt";
+import { registerForObject } from "./Register";
 
 
 /**
@@ -13,8 +14,8 @@ export abstract class HyperEntityHandler {
 
   protected entity: EntityDefinition;
 
-  constructor(options: { entity: EntityDefinition; }) {
-    this.entity = options.entity;
+  constructor(entity: EntityDefinition) {
+    this.entity = entity;
   }
 
   /**
@@ -23,7 +24,17 @@ export abstract class HyperEntityHandler {
    * @param service 
    */
   public mount(service: ApplicationService) {
+    injectRepositoriesToObject(this, service);
     registerForObject(this, service, this.entity);
   }
 
+}
+
+
+export function mountEntityHandlerToService(
+  handlerClass: new (...args: Array<any>) => HyperEntityHandler,
+  entity: EntityDefinition,
+  service: ApplicationService
+) {
+  new handlerClass(entity).mount(service);
 }

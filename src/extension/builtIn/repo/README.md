@@ -6,7 +6,7 @@
 ## Get Started
 
 ```js
-const { extensions: { repo: { BaseRepository } } } = require("cds-hyper-app-service");
+const { BaseRepository } = require("cds-hyper-app-service");
 /**
  * @typedef {{ID:string,Name:string,Age:number}} Animal
  */
