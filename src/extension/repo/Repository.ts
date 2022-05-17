@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 import { cwdRequire, cwdRequireCDS, EntityDefinition } from "cds-internal-tool";
 import { createRepositoryParser } from "./grammar";
+import { Example, PageExample } from "./PageExample";
 import { isEmptyFunction } from "./utils";
 
 export class BaseRepository<T = any> {
@@ -20,8 +21,17 @@ export class BaseRepository<T = any> {
     this._methodParser = createRepositoryParser(entity);
   }
 
-  public find(example: Partial<T>): Promise<Array<T>> {
-    return this.cds.run(this.cds.ql.SELECT.from(this.getEntity()).where(example));
+  public find(example: Partial<T> | PageExample<T>): Promise<Array<T>> {
+    let data: any = example;
+    if (example instanceof Example) {
+      data = example.getExample();
+    }
+    let query = this.cds.ql.SELECT.from(this.getEntity()).where(data);
+    if (example instanceof PageExample) {
+      const page = example.getPage();
+      query = query.limit(page.rows ?? 1, page.offset);
+    }
+    return this.cds.run(query);
   }
 
   public findOne(example: Partial<T>): Promise<T> {

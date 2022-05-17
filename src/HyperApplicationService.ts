@@ -59,6 +59,7 @@ export class HyperApplicationService extends cds.ApplicationService {
 
   }
 
+
   public getRepository<T = any>(entity: EntityDefinition): BaseRepository<T>
 
   public getRepository<T = any>(entity: string): BaseRepository<T>

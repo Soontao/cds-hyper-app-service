@@ -9,6 +9,7 @@
 - [ ] repository interface
   - [ ] `@repo` annotation
 - [ ] error for method
+- [ ] inject repo into service
 - [x] find
   - [x] find by
   - [x] find by multi fields

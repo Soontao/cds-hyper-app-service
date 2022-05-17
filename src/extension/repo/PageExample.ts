@@ -3,7 +3,7 @@
 export interface Page { rows?: number, offset?: number }
 
 export class Example<T = any> {
-  private example?: Partial<T>;
+  private example: Partial<T>;
 
   constructor(example: Partial<T>) {
     this.example = example;
@@ -24,12 +24,9 @@ export class PageExample<T = any> extends Example<T> {
     this.page = page;
   }
 
-  public get getPage() {
+  public getPage() {
     return this.page;
   }
 
-  public get isPageExample() {
-    return true;
-  }
 
 } 
