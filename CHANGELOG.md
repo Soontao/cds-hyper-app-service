@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.4](https://github.com/Soontao/cds-hyper-app-service/compare/v0.0.3...v0.0.4) (2022-05-17)
+
+
+### Features
+
+* basic query ([86896d8](https://github.com/Soontao/cds-hyper-app-service/commit/86896d8bc6adfc34341102f0eb3ed600089e22a5))
+* basic repo support ([6a1cfd7](https://github.com/Soontao/cds-hyper-app-service/commit/6a1cfd7042b93e6c252949b7e3190dd569ec075b))
+* basic repo test case ([e9a8710](https://github.com/Soontao/cds-hyper-app-service/commit/e9a87103c1067d012b400b0cea82c0fba0008b29))
+* find by one/top/skip ([25109ef](https://github.com/Soontao/cds-hyper-app-service/commit/25109efdf09d73939396aa25e1d365c498b81401))
+* inject repo into service ([164737e](https://github.com/Soontao/cds-hyper-app-service/commit/164737e7ac09c6aa92bec1ee48c6be4050150be1))
+* support fixed literal ([dad61ca](https://github.com/Soontao/cds-hyper-app-service/commit/dad61ca8b34905d9d322b3f6084c1880ea6c8f98))
+* support in case sensitive column name ([826dcf0](https://github.com/Soontao/cds-hyper-app-service/commit/826dcf08f728c65b21c2bebfc937037aeb54cd18))
+* support is_not/not_equals ([8f4bb40](https://github.com/Soontao/cds-hyper-app-service/commit/8f4bb402d060633302780a92fa4672a709a73605))
+* support repo operators ([cca521d](https://github.com/Soontao/cds-hyper-app-service/commit/cca521d8fb3d03684c184ed99fd8ca678f47deef))
+* test for repo ([6ba7379](https://github.com/Soontao/cds-hyper-app-service/commit/6ba7379e3a7c26da0fec574c4c6b9f5702cca59e))
+* update ([4f31ce2](https://github.com/Soontao/cds-hyper-app-service/commit/4f31ce2ee4dd9192c87213fffcfd5c3622bce954))
+* update ([1c0d9b5](https://github.com/Soontao/cds-hyper-app-service/commit/1c0d9b58742173bd21c4f7ce0a50815a4d3d55d8))
+* update ([10378f1](https://github.com/Soontao/cds-hyper-app-service/commit/10378f1a54d47316a8c055d383fad951f8947782))
+* update repository & entity handler design ([e0f6501](https://github.com/Soontao/cds-hyper-app-service/commit/e0f650124a2d5bd3b1d7a0c2144e6d716656a00d))
+
+
+### Bug Fixes
+
+* by ([15762e5](https://github.com/Soontao/cds-hyper-app-service/commit/15762e58f5da7fd5dd2065d1ec0ea4cc6fc0dec0))
+* lint ([8ed7a00](https://github.com/Soontao/cds-hyper-app-service/commit/8ed7a005c37d2e1ad398ebba9213ffe9ecb60d70))
+* query for repo ([7ccb49c](https://github.com/Soontao/cds-hyper-app-service/commit/7ccb49cad8ca4dd51de41b571011f58daeca35d3))
+
 ### [0.0.3](https://github.com/Soontao/cds-hyper-app-service/compare/v0.0.2...v0.0.3) (2022-05-09)
 
 
