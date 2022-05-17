@@ -11,7 +11,7 @@ import { BaseRepository, createRepository } from "./extension/repo/Repository";
 const cds = cwdRequireCDS();
 
 export const getExtensions = memorized((service: ApplicationService) => {
-  const exts: Array<ApplicationServiceExt> = (cds.env.requires?.["app-service"]?.exts ?? [])
+  const exts: Array<ApplicationServiceExt> = (cds.env.requires?.["app-service"]?.exts ?? ["impl", "repo"])
     .map((m: string | { impl: string }) => {
       let mImpl: string;
       let mClass: any = undefined;

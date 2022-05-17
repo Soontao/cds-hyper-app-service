@@ -28,7 +28,7 @@ npm i -S cds-hyper-app-service
     "requires": {
       "app-service": {
         "impl": "cds-hyper-app-service",
-        "exts": [] // add extensions here
+        "exts": ["impl", "repo"] // default value, developer could overwrite this config
       }
     }
   }
