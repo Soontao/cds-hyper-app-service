@@ -5,6 +5,7 @@
         "impl": "../../src",
         "exts": [
           "impl",
+          "repo",
           {
             "impl": "./srv/ext/DemoExt.js",
             "loggerName": "demoLogger"

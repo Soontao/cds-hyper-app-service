@@ -34,7 +34,13 @@ export class BaseRepository<T = any> {
     return this.cds.run(query);
   }
 
-  public findOne(example: Partial<T>): Promise<T> {
+  /**
+   * find one record for entity
+   * 
+   * @param example 
+   * @returns object if found, null if not found
+   */
+  public findOne(example: Partial<T>): Promise<T | null> {
     return this.cds.run(this.cds.ql.SELECT.one.from(this.getEntity()).where(example));
   }
 
@@ -85,6 +91,7 @@ export function createRepository<T extends BaseRepository, I = any>(entity: Enti
         const buildQuery = repo.getMethodParser()(prop);
         if (buildQuery !== undefined) {
           const query = (...args: Array<any>) => cds.run(buildQuery(...args));
+          Object.defineProperty(query, "name", { value: prop, writable: false });
           baseRepo[prop] = query;
           return query;
         } else {

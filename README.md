@@ -37,8 +37,8 @@ npm i -S cds-hyper-app-service
 
 ## Built-in Extensions
 
-- [Hyper Implementation](https://github.com/Soontao/cds-hyper-app-service/tree/main/src/extension/impl) - enhanced `@impl` annotation for entity/handler level
-- [Hyper Repository](https://github.com/Soontao/cds-hyper-app-service/tree/main/src/extension/repo) - repository implementation like spring repository but applied to CAP nodejs runtime
+- [Hyper Implementation](./src/extension/impl/README.md) - enhanced `@impl` annotation for entity/handler level
+- [Hyper Repository](./src//extension/repo/README.md) - repository implementation like spring repository but applied to CAP nodejs runtime
 
 ## Features
 

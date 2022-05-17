@@ -1,6 +1,19 @@
-const HyperApplicationService = require("../../../../src")
+const HyperApplicationService = require("../../../../src");
+const { BaseRepository } = require("../../../../src/extension/repo/Repository");
+const AnimalRepository = require("../repos/AnimalRepository");
 
 module.exports = class DemoHyperServiceImpl extends HyperApplicationService {
+
+  /**
+   * @type {AnimalRepository}
+   */
+  demoServiceAnimalRepository = undefined;
+
+  /**
+   * @type {BaseRepository<{ID:string}>}
+   */
+  humanRepository = undefined;
+
 
   /**
    * 

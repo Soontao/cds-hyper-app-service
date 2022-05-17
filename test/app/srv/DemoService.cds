@@ -5,6 +5,7 @@ using {People} from '../db/db';
 service DemoService {
 
   @impl.on.create : './deep/onAnimalCreate.js'
+  @cds.hyper.repo : './repos/AnimalRepository.js'
   entity Animal : cuid {
     Name : String(255);
     Age  : Integer;
@@ -17,7 +18,7 @@ service DemoService {
   @impl : {
     before : {create : './impl/book/beforeBookCreate.js'},
     after  : {read : './impl/book/afterBookRead.js'},
-    // this event will be ignored 
+    // this event will be ignored
     later  : {read : './impl/book/laterEvent.js'},
   }
 

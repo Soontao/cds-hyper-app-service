@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
 import { ApplicationService, cdsProjectRequire, cwdRequireCDS, EntityDefinition, memorized } from "cds-internal-tool";
@@ -60,9 +61,9 @@ export class HyperApplicationService extends cds.ApplicationService {
   }
 
 
-  public getRepository<T = any>(entity: EntityDefinition): BaseRepository<T>
+  public getRepository<T = any>(entity: EntityDefinition): T extends BaseRepository ? T : BaseRepository<T>;
 
-  public getRepository<T = any>(entity: string): BaseRepository<T>
+  public getRepository<T = any>(entity: string): T extends BaseRepository ? T : BaseRepository<T>;
 
   public getRepository(entity: any) {
     if (typeof entity === "string") { entity = this.entities[entity]; }
