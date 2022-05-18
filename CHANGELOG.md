@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.5](https://github.com/Soontao/cds-hyper-app-service/compare/v0.0.4...v0.0.5) (2022-05-18)
+
+
+### Features
+
+* multi tenancy awared ([3373e81](https://github.com/Soontao/cds-hyper-app-service/commit/3373e8130e113a828b8d308588779507ae381d2c))
+
 ### [0.0.4](https://github.com/Soontao/cds-hyper-app-service/compare/v0.0.3...v0.0.4) (2022-05-17)
 
 
