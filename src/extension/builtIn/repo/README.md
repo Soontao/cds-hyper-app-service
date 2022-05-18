@@ -5,6 +5,8 @@
 
 ## Get Started
 
+> create a repository and define an empty method when correct name convention
+
 ```js
 const { BaseRepository } = require("cds-hyper-app-service");
 /**
@@ -27,6 +29,8 @@ class AnimalRepository extends BaseRepository {
 module.exports = AnimalRepository
 ```
 
+> and declare the repo location in `CDS`
+
 ```groovy
 using {cuid} from '@sap/cds/common';
 
@@ -38,6 +42,8 @@ service DemoService {
   }
 }
 ```
+
+> use it
 
 ```ts
 const repo = srv.getRepository<AnimalRepository>(AnimalDef)
@@ -70,13 +76,33 @@ const result = await repo.remove({ ID: inst.ID })
 expect(result).toBe(1)
 ```
 
+## Valid Method Name Convention
+
+- simple
+  - findByName
+  - findByNameEquals
+- operator
+  - findByNameAndAge
+  - findByNameOrAge
+- like
+  - findByNameLike
+- multi elements
+  - findByNameEqualsAndAgeEquals
+- pagination 
+  - findOneByName
+  - findTop5ByName
+  - findTop5Skip20ByName
+- literal
+  - findByActiveNotEqualsTrue
+  - findByActiveIsNull
+
 ## Features
 
-
-- [ ] repository interface
-  - [ ] `@repo` annotation
+- [x] repository interface
+  - [x] `@cds.hyper.repo` annotation
+  - [ ] singleton
 - [x] inject repo into service
-  - [ ] entity handler injection
+  - [x] entity handler injection
 - [x] error for method
 - [x] find
   - [x] find by
@@ -86,6 +112,9 @@ expect(result).toBe(1)
   - [x] is (not) true/false/null
   - [ ] cache metadata
   - [ ] multi-tenancy aware
+- [x] deleteBy
+- [ ] updateBy
+  - [ ] updateBySetValue
 - [x] simple DAO operations
   - [x] create
   - [x] update

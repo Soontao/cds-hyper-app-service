@@ -20,8 +20,9 @@ module.exports = class PeopleEntityHandlers extends HyperEntityHandler {
    * @param {Array} data
    * @param {import("express").Request} request
    * @param {import("express").Response} response
+   * @param {import("cds-internal-tool").LinkedCSN} model
    */
-  async beforeCreate(req, context, db, entity, service, data, request, response) {
+  async beforeCreate(req, context, db, entity, service, data, request, response, model) {
     if (req === undefined) {
       throw new Error("undefined req")
     }
@@ -45,6 +46,9 @@ module.exports = class PeopleEntityHandlers extends HyperEntityHandler {
     }
     if (response === undefined) {
       throw new Error("undefined response request")
+    }
+    if (model === undefined) {
+      throw new Error("undefined cds model")
     }
     if (!(this instanceof HyperEntityHandler)) {
       throw new Error("'this' is not HyperEntityHandler")

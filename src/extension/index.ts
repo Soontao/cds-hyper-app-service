@@ -5,7 +5,9 @@ import { ApplicationServiceImplExt } from "./builtIn/impl";
 import { RepositoryExt } from "./builtIn/repo";
 
 
-
+/**
+ * built-in bounded extension
+ */
 export class builtIn extends BoundedApplicationServiceExt {
   protected exts: ApplicationServiceExt<any>[];
 

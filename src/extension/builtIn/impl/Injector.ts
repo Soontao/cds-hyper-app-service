@@ -48,7 +48,7 @@ export type HandlerInjectorOptions = {
 export const getFunctionArgNames = memorized(function (f: AnyFunction) {
 
   assert.mustBeFunction(f);
-  
+
   // TODO: rest arguments support
   let tree: any;
   try {
@@ -116,6 +116,11 @@ export class InjectContext extends CDSContextBase {
 
   get service() {
     return this.#service;
+  }
+
+  get model() {
+    // for mtx extensibility, must get model from current context service
+    return this.#service.model;
   }
 
   get request(): import("express").Request {

@@ -4,30 +4,9 @@
 
 ## Get Started
 
-> install dependency
+> developer will have `three` options to implement the `ApplicationServices` when the `cds-hyper-app-service` is enabled
 
-```bash
-npm i -S cds-hyper-app-service
-```
-
-> overwrite the `app-service` implementation
-
-```json5
-{
-  "cds": {
-    "requires": {
-      "app-service": {
-        "impl": "cds-hyper-app-service",
-        "exts": ["impl"]
-      }
-    }
-  }
-}
-```
-
-## Extension - Hyper Impl
-
-### Option 1 - Service Handler
+### Option 1 - implement whole service by HyperApplicationService
 
 > define a cds service
 
@@ -64,8 +43,7 @@ module.exports = class DemoServiceImpl extends HyperApplicationService {
 }
 ```
 
-### Option 2 - Entity Handler
-
+### Option 2 - implement entity handlers by HyperEntityHandler
 
 > define service with entity handler
 
@@ -101,7 +79,7 @@ module.exports = class PeopleEntityHandlers extends HyperEntityHandler {
 }
 ```
 
-### Option 3 - Single Event Handler
+### Option 3 - implement handlers by Single Event Handler module
 
 > define the impl location
 
@@ -174,7 +152,8 @@ Popular parameter injection, with some type re-format, make CAP development much
   - [x] behavior change for `each` parameter
   - [ ] optional to verify handler parameters are injectable (runtime or startup)
   - [ ] `cds.Service` injection
-  - [ ] `HyperEntityHandler` injection
+  - [x] `HyperEntityHandler` injection
+  - [ ] `Repository` instance injection
   - [ ] documentation
 - [x] handler name parser
   - [x] `on/before/after` hooks

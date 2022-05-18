@@ -16,12 +16,4 @@ export abstract class CDSContextBase {
     return this.cds.db;
   }
 
-  protected get tx() {
-    return this.cds.tx;
-  }
-
-  protected get model() {
-    return this.cds.model;
-  }
-
 }
