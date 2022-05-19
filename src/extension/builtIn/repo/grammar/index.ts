@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { cwdRequireCDS, EntityDefinition, fuzzy, memorized } from "cds-internal-tool";
@@ -17,6 +18,7 @@ class RepositoryInformationListener extends RepositoryListener {
 
   private createQuery!: () => Query;
 
+  // TODO: refactor this
   private params: Array<(query: Query, args: any) => void> = [];
 
   private argIndex = 0;
@@ -35,9 +37,13 @@ class RepositoryInformationListener extends RepositoryListener {
     return curArgIndex;
   }
 
-  private toCQNLogic(logic: string, argIndex: number) {
+  private toCQNLogic(logic: string, query: any) {
     // for the first parameter, must use the 'where' method
-    return argIndex === 0 ? "where" : logic;
+    return (
+      query.SELECT?.where === undefined &&
+      query.UPDATE?.where === undefined &&
+      query.DELETE?.where === undefined
+    ) ? "where" : logic;
   }
 
   private toCQNOp(op: string): string {
@@ -85,6 +91,11 @@ class RepositoryInformationListener extends RepositoryListener {
 
   enterUpdateQuery(): void {
     this.createQuery = () => this.cds.ql.UPDATE.entity(this.entity);
+    // first arguments is used to update
+    const curArgIndex = this.nextArgIndex();
+    this.params.push((query, args: Array<any>) => {
+      (query as UPDATE<any>).with(args[curArgIndex]);
+    });
   }
 
   enterDeleteQuery(): void {
@@ -119,19 +130,20 @@ class RepositoryInformationListener extends RepositoryListener {
     const rawLogic = (ctx.logic()?.getText?.() ?? "AND").toLowerCase();
 
     if (lit) {
+      // plain literal
       this.params.push((query: Query) => {
         const litVal = this.toLit(lit);
         if (litVal === null) {
-          query[this.toCQNLogic(rawLogic, this.argIndex)](`${elementName} ${this.toCQNOp(op)} null`);
+          query[this.toCQNLogic(rawLogic, query)](`${elementName} ${this.toCQNOp(op)} null`);
         } else {
-          query[this.toCQNLogic(rawLogic, this.argIndex)](`${elementName} ${this.toCQNOp(op)}`, this.toLit(lit));
+          query[this.toCQNLogic(rawLogic, query)](`${elementName} ${this.toCQNOp(op)}`, this.toLit(lit));
         }
       });
     }
     else {
       const curArgIndex = this.nextArgIndex();
       this.params.push((query: Query, args: Array<any>) => {
-        query[this.toCQNLogic(rawLogic, curArgIndex)](`${elementName} ${this.toCQNOp(op)}`, args[curArgIndex]);
+        query[this.toCQNLogic(rawLogic, query)](`${elementName} ${this.toCQNOp(op)}`, args[curArgIndex]);
       });
     }
     // TODO: concern about two values op like BETWEEN

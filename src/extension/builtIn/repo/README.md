@@ -86,6 +86,8 @@ expect(result).toBe(1)
   - findByNameOrAge
 - like
   - findByNameLike
+- not
+  - findOneByNameNotEquals
 - multi elements
   - findByNameEqualsAndAgeEquals
 - pagination 
@@ -113,8 +115,7 @@ expect(result).toBe(1)
   - [ ] cache metadata
   - [ ] multi-tenancy aware
 - [x] deleteBy
-- [ ] updateBy
-  - [ ] updateBySetValue
+- [x] updateBy - first arguments as `updated values`
 - [x] simple DAO operations
   - [x] create
   - [x] update
