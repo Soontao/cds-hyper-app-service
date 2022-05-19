@@ -58,7 +58,7 @@ export function findEntityDefByRepoName(prop: string, srv?: ApplicationService):
   }
 
   if (entityDef === undefined) {
-    entityDef = fuzzy.findEntity(entityName);
+    entityDef = fuzzy.findEntity(entityName, srv?.model ?? cwdRequireCDS().model);
   }
 
   return entityDef;

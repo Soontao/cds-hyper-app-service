@@ -1,9 +1,8 @@
-@path     : '/-/async-store'
 @protocol : 'rest'
-service AsyncStoreService {
+service AsyncExecutionService {
 
   @readonly
-  entity Response {
+  entity AsyncExecution {
     statusCode : Integer;
     body       : String(10240);
   }

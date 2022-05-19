@@ -1,44 +1,45 @@
+/* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-import { cwdRequireCDS } from "cds-internal-tool";
+import { cwdRequireCDS, NextFunction, Request } from "cds-internal-tool";
+import { randomUUID } from "crypto";
 import path from "path";
+import HyperApplicationService from "../../HyperApplicationService";
 import { ApplicationServiceExt } from "../base";
-import { AsyncStoreService } from "./AsyncStoreService";
+import { AsyncExecutionService } from "./Service";
 
-// once import this module, mount it
-// TODO: check configuration
-setImmediate(() => {
-  const cds = cwdRequireCDS();
-  cds.serve(path.join(__dirname, "./AsyncStoreService.cds"), { silent: true })
-    .with(AsyncStoreService)
-    .in(cds.app);
-});
 
 export = class AsyncApplicationExt extends ApplicationServiceExt {
 
   // ref: http://docs.oasis-open.org/odata/odata/v4.0/os/part1-protocol/odata-v4.0-os-part1-protocol.html#_Toc372793747
 
-  beforeInit(): void | Promise<void> {
+  async beforeInit(srv: HyperApplicationService): void | Promise<void> {
     const cds = cwdRequireCDS();
+    srv.on("*", async (req: Request, next: NextFunction) => {
+      const asyncExecutionService: AsyncExecutionService = await cds.connect.to(
+        AsyncExecutionService.name,
+        { impl: AsyncExecutionService, model: path.dirname(__dirname) }
+      );
+      if (asyncExecutionService !== undefined) {
+        const isAsync = req._.req.get("respond-async") !== undefined;
+        const host = req._.req.headers.host ?? "localhost";
+        if (isAsync) {
+          req._.res
+            .status(202)
+            .header("Location", `${req._.req.protocol}://${host}${AsyncExecutionService.path}/AsyncExecution?id=${randomUUID()}`)
+            .header("Retry-After", "1000");
 
-    this.srv.on((req, next) => {
-      const isAsync = req._.req.get("respond-async") === undefined;
-      if (isAsync) {
-        req._.res
-          .status(202)
-          .header("Location", "")
-          .header("Retry-After", "1000");
-        cds.spawn({ tenant: req.tenant, user: req.user }, async (tx) => {
-          try {
-            tx.dispatch(new cds.Request({ ...req }));
-          } catch (error) {
-            throw error;
-          }
-        });
-        return;
-      } else {
-        return next();
+          cds.spawn({ tenant: req.tenant, user: req.user }, async (tx) => {
+            try {
+              tx.dispatch(new cds.Request({ ...req }));
+            } catch (error) {
+              throw error;
+            }
+          });
+          return;
+        }
       }
+      return next();
     });
   }
 
