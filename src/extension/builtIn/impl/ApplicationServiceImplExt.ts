@@ -1,3 +1,4 @@
+import HyperApplicationService from "../../../HyperApplicationService";
 import { ApplicationServiceExt } from "../../base/ApplicationServiceExt";
 import { registerForObject, registerForServiceAnnotation } from "./Register";
 
@@ -10,9 +11,9 @@ import { registerForObject, registerForServiceAnnotation } from "./Register";
  */
 export class ApplicationServiceImplExt extends ApplicationServiceExt {
 
-  beforeInit(): void | Promise<void> {
-    registerForServiceAnnotation(this.srv);
-    registerForObject(this.srv, this.srv);
+  beforeInit(srv: HyperApplicationService): void | Promise<void> {
+    registerForServiceAnnotation(srv);
+    registerForObject(srv, srv);
   }
-
+  
 }

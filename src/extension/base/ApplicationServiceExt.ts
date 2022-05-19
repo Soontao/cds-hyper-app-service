@@ -6,26 +6,17 @@ import HyperApplicationService from "../../HyperApplicationService";
  */
 export abstract class ApplicationServiceExt<O = any> {
 
-  protected srv: HyperApplicationService;
-
-  protected options?: O;
-
-  constructor(srv: HyperApplicationService, options?: O) {
-    this.srv = srv;
-    this.options = options;
-  }
-
   /**
    * before init, handlers registered in this method  will be invoked before the standard handlers
    */
-  beforeInit(): Promise<void> | void {
+  beforeInit(srv: HyperApplicationService, options?: O): Promise<void> | void {
     // do nothing
   }
 
   /**
    * after init, handlers registered in this method will be invoked after the standard handlers (if no response)
    */
-  afterInit(): Promise<void> | void {
+  afterInit(srv: HyperApplicationService, options?: O): Promise<void> | void {
     // do nothing
   }
 

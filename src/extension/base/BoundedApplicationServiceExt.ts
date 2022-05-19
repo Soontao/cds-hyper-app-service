@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import HyperApplicationService from "../../HyperApplicationService";
 import { ApplicationServiceExt } from "./ApplicationServiceExt";
 
 /**
@@ -8,12 +9,12 @@ export class BoundedApplicationServiceExt<O = any> extends ApplicationServiceExt
 
   protected exts: Array<ApplicationServiceExt> = [];
 
-  async beforeInit(): Promise<void> {
-    for (const ext of this.exts) { await ext.beforeInit(); }
+  async beforeInit(srv: HyperApplicationService, options: any): Promise<void> {
+    for (const ext of this.exts) { await ext.beforeInit(srv, options); }
   }
 
-  async afterInit(): Promise<void> {
-    for (const ext of this.exts) { await ext.afterInit(); }
+  async afterInit(srv: HyperApplicationService, options: any): Promise<void> {
+    for (const ext of this.exts) { await ext.afterInit(srv, options); }
   }
 
 }

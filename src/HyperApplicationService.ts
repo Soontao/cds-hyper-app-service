@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
-import { ApplicationService, cdsProjectRequire, cwdRequireCDS, EntityDefinition, memorized } from "cds-internal-tool";
+import { cdsProjectRequire, cwdRequireCDS, EntityDefinition, memorized } from "cds-internal-tool";
 import * as extensions from "./extension";
 import { ApplicationServiceExt } from "./extension/base";
 import { getOrCreateEntityHandler } from "./extension/builtIn/impl";
@@ -9,9 +9,9 @@ import { getOrCreateRepository } from "./extension/builtIn/repo/Repository";
 
 
 
-export const getExtensions = memorized((service: ApplicationService) => {
+export const getExtensions = memorized((service: HyperApplicationService) => {
   const cds = cwdRequireCDS();
-  const exts: Array<ApplicationServiceExt> = (cds.env.requires?.["app-service"]?.exts ?? ["builtIn"])
+  const exts: Array<{ ext: ApplicationServiceExt<any>, options: any }> = (cds.env.requires?.["app-service"]?.exts ?? ["builtIn"])
     .map((m: string | { impl: string }) => {
       let mImpl: string;
       let mClass: any = undefined;
@@ -33,9 +33,20 @@ export const getExtensions = memorized((service: ApplicationService) => {
         throw new TypeError(`module ${mImpl} is not defined`);
       }
 
-      return new mClass(service, mOptions);
+      return { ext: new mClass(), options: mOptions };
     });
-  return exts;
+  return {
+    async beforeInitAll() {
+      for (const { ext, options } of exts) {
+        await ext.beforeInit(service, options);
+      }
+    },
+    async afterInitAll() {
+      for (const { ext, options } of exts) {
+        await ext.afterInit(service, options);
+      }
+    },
+  };
 });
 
 /**
@@ -47,10 +58,10 @@ export const getExtensions = memorized((service: ApplicationService) => {
 export class HyperApplicationService extends cwdRequireCDS().ApplicationService {
 
   async init(): Promise<any> {
-    const exts = getExtensions(this);
-    for (const ext of exts) { await ext.beforeInit(); }
+    const { beforeInitAll, afterInitAll } = getExtensions(this);
+    await beforeInitAll();
     await super.init();
-    for (const ext of exts) { await ext.afterInit(); }
+    await afterInitAll();
   }
 
   /**
