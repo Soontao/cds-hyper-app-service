@@ -44,6 +44,25 @@ function findEntityInService(srv: ApplicationService, entityName: string) {
     .find(entity => entity.name.toLowerCase() === entityName.toLowerCase());
 }
 
+export function isRepositoryName(name: string) {
+  return name.toLowerCase().endsWith("repository");
+}
+
+export function findEntityDefByRepoName(prop: string, srv?: ApplicationService): EntityDefinition | undefined {
+  const entityName = prop.slice(0, prop.length - "repository".length);
+
+  let entityDef: EntityDefinition | undefined = undefined;
+
+  if (srv !== undefined) {
+    entityDef = findEntityInService(srv, entityName);
+  }
+
+  if (entityDef === undefined) {
+    entityDef = fuzzy.findEntity(entityName);
+  }
+
+  return entityDef;
+}
 
 /**
  * inject repositories into target object
@@ -57,30 +76,17 @@ export function injectRepositoriesToObject(target: any, srv?: ApplicationService
 
   const logger = cwdRequireCDS().log("applyRepositoriesToObject");
   for (const prop of Object.getOwnPropertyNames(target)) {
-    if (
-      target[prop] === undefined &&
-      prop.toLocaleLowerCase().endsWith("repository")
-    ) {
+    if (target[prop] === undefined && isRepositoryName(prop)) {
       const describer = Object.getOwnPropertyDescriptor(target, prop);
-      
+
       if (describer?.writable) {
 
-        const entityName = prop.slice(0, prop.length - "repository".length);
-
-        let entityDef: EntityDefinition | undefined = undefined;
-
-        if (srv !== undefined) {
-          entityDef = findEntityInService(srv, entityName);
-        }
-
-        if (entityDef === undefined) {
-          entityDef = fuzzy.findEntity(entityName);
-        }
+        const entityDef = findEntityDefByRepoName(prop, srv);
 
         if (entityDef === undefined) {
           logger.warn(
+            "can not find the entity metadata for",
             "repository", prop,
-            "do not find the entity metadata for", entityName,
             "please check the model/code"
           );
           assert.mustNotNullOrUndefined(entityDef);

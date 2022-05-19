@@ -6,7 +6,7 @@ import HyperApplicationService from "../../../HyperApplicationService";
 import { ANNOTATION_IMPL, VALUES_HOOK_LIST } from "./constants";
 import { parseHandlerName } from "./grammar";
 import { getOrCreateEntityHandler, HyperEntityHandler } from "./HyperEntityHandler";
-import { createInjectableHandler } from "./Injector";
+import { createInjectableHandler } from "./Injector/Injector";
 
 const isBuiltInFunctions = (name: string) => {
   const { ApplicationService } = cwdRequireCDS();

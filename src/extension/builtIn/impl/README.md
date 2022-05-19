@@ -151,9 +151,9 @@ Popular parameter injection, with some type re-format, make CAP development much
   - [ ] documentation for `data` in different hooks
   - [x] behavior change for `each` parameter
   - [ ] optional to verify handler parameters are injectable (runtime or startup)
-  - [ ] `cds.Service` injection
-  - [x] `HyperEntityHandler` injection
-  - [ ] `Repository` instance injection
+  - [x] `HyperEntityHandler` handlers injection
+  - [x] inject `Repository` into `HyperApplicationService`/`HyperEntityHandler`
+  - [x] inject `Repository`/`Service` into handler parameters
   - [ ] documentation
 - [x] handler name parser
   - [x] `on/before/after` hooks
