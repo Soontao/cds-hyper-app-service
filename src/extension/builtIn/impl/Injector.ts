@@ -5,7 +5,7 @@ import {
   assert,
   EntityDefinition,
   EventContext,
-  EventHook, Logger, memorized,
+  EventHook, isCDSRequest, Logger, memorized,
   mustBeArray, Service
 } from "cds-internal-tool";
 import { parseJs } from "../../base/utils";
@@ -40,7 +40,7 @@ export type HandlerInjectorOptions = {
 };
 
 /**
- * get argument names from function object
+ * get the argument parameters names from function object
  * 
  * @param {AnyFunction} f any type function, support arrow, async, plain
  * @returns {Array<string>} the arg name list of the target function
@@ -73,7 +73,28 @@ interface InjectContextOptions<DATA = Array<any>> {
   hook: EventHook;
   req?: EventContext;
   data?: DATA;
+  providers?: Array<ParameterInjectProvider>;
   next: AnyFunction;
+}
+
+export abstract class ParameterInjectProvider<T = any> {
+
+
+  /**
+   * check whether the parameter could be provided by this provider
+   * 
+   * @param parameterName 
+   */
+  abstract match(parameterName: string): boolean;
+
+  /**
+   * really provision the parameter instance by name 
+   * 
+   * @param parameterName 
+   * @param context 
+   */
+  abstract provide(parameterName: string, context: InjectContext): T;
+
 }
 
 export class InjectContext extends CDSContextBase {
@@ -90,13 +111,16 @@ export class InjectContext extends CDSContextBase {
 
   #logger: Logger;
 
-  constructor({ entity, service, hook, req, data, next }: InjectContextOptions) {
+  #providers: Array<ParameterInjectProvider>;
+
+  constructor({ entity, service, hook, req, data, next, providers }: InjectContextOptions) {
     super();
     this.#entity = entity;
     this.#req = req;
     this.#data = data;
     this.#next = next;
     this.#service = service;
+    this.#providers = providers ?? [];
     this.#logger = this.cds.log(
       [service?.name, hook, entity?.name].filter(v => v !== undefined).join("-")
     );
@@ -107,7 +131,9 @@ export class InjectContext extends CDSContextBase {
   }
 
   get entity() {
-    return this.#entity;
+    if (this.#entity !== undefined) {
+      return this.model.definitions[this.#entity?.name];
+    }
   }
 
   get req() {
@@ -123,14 +149,16 @@ export class InjectContext extends CDSContextBase {
     return this.#service.model;
   }
 
-  get request(): import("express").Request {
-    // @ts-ignore
-    return this.#req?._?.req;
+  get request(): import("express").Request | undefined {
+    if (isCDSRequest(this.#req)) {
+      return this.#req?._?.req;
+    }
   }
 
-  get response(): import("express").Response {
-    // @ts-ignore
-    return this.#req?._?.res;
+  get response(): import("express").Response | undefined {
+    if (isCDSRequest(this.#req)) {
+      return this.#req?._?.res;
+    }
   }
 
   get data() {
@@ -152,17 +180,28 @@ export class InjectContext extends CDSContextBase {
   get locale() { return this.#req?.locale; }
 
   public getArgs(argNames: Array<string>) {
-    return argNames.map((argName: string) => this[argName]);
+    return argNames.map((argName: string) => {
+      // if built-in objects
+      if (argName in this) { return this[argName]; }
+      // if configurable objects
+      for (const provider of this.#providers) {
+        if (provider.match(argName)) { return provider.provide(argName, this); }
+      }
+    });
   }
 
-
-}
-
-function newInjectContext(opt: InjectContextOptions) {
-  return new InjectContext(opt);
 }
 
 
+function newInjectContext(opt: InjectContextOptions) { return new InjectContext(opt); }
+
+
+/**
+ * create a `cds.Service` handler which automatically inject parameters
+ * 
+ * @param options 
+ * @returns 
+ */
 export function createInjectableHandler({ entity, hook, handler, thisArg, each }: HandlerInjectorOptions) {
   const argsExtractor = NATIVE_HANDLER_ARGS_EXTRACTORS[hook];
 
@@ -170,19 +209,20 @@ export function createInjectableHandler({ entity, hook, handler, thisArg, each }
     throw new Error(`hook not supported ${hook}`);
   }
 
-  const argNames = getFunctionArgNames(handler);
+  const parameterNames = getFunctionArgNames(handler);
 
   const invokeHandler = (service: any, req: EventContext, data: any, next: any, thisValue: any) => {
     const ctx = newInjectContext({ entity, service, hook, req, data, next });
-    return handler.apply(thisValue, ctx.getArgs(argNames));
+    return handler.apply(thisValue, ctx.getArgs(parameterNames));
   };
 
   return async function (...args: Array<any>): Promise<any> {
     const { req, data, next } = argsExtractor(...args);
+
     // @ts-ignore
     const service = this, thisValue = thisArg ?? this;
 
-    if (each && argNames.includes("data")) {
+    if (each && parameterNames.includes("data")) {
       return Promise.all((data ?? []).map(item => invokeHandler(service, req, item, next, thisValue)));
     }
 
