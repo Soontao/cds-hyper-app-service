@@ -10,15 +10,10 @@ export class BaseRepository<T = any> {
 
   private _entity: EntityDefinition;
 
-  private _methodParser: ReturnType<typeof createRepositoryParser>;
-
   public getEntity() { return this._entity; }
-
-  public getMethodParser() { return this._methodParser; }
 
   constructor(entity: EntityDefinition) {
     this._entity = entity;
-    this._methodParser = createRepositoryParser(entity);
   }
 
   public find(example: Partial<T> | PageExample<T>): Promise<Array<T>> {
@@ -44,7 +39,25 @@ export class BaseRepository<T = any> {
     return this.cds.run(this.cds.ql.SELECT.one.from(this.getEntity()).where(example));
   }
 
-  public create(example: Partial<T>): Promise<T> {
+
+  /**
+   * bulk creation
+   * 
+   * @param example 
+   */
+  public create(example: Array<Partial<T>>): Promise<Array<T>>
+
+  /**
+   * create single instance
+   * 
+   * @param example 
+   */
+  public create(example: Partial<T>): Promise<T>
+
+  public create(example: any): Promise<any> {
+    if (example instanceof Array) {
+      return this.cds.run(this.cds.ql.INSERT.into(this.getEntity()).entries(...example)).then(() => example) as any;
+    }
     return this.cds.run(this.cds.ql.INSERT.into(this.getEntity()).entries(example)).then(() => example) as any;
   }
 
@@ -73,6 +86,8 @@ export const getOrCreateRepository = memorized(<T extends BaseRepository>(entity
     repo = new BaseRepository(entity);
   }
 
+  const methodParser = createRepositoryParser(entity);
+
   return new Proxy(repo, {
     get: (baseRepo, prop) => {
       // if have that property
@@ -87,7 +102,7 @@ export const getOrCreateRepository = memorized(<T extends BaseRepository>(entity
 
       // if not have method
       if (typeof prop === "string") {
-        const buildQuery = repo.getMethodParser()(prop);
+        const buildQuery = methodParser(prop);
         if (buildQuery !== undefined) {
           const query = (...args: Array<any>) => cds.run(buildQuery(...args));
           Object.defineProperty(query, "name", { value: prop, writable: false });
