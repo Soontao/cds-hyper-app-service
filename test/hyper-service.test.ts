@@ -24,4 +24,22 @@ describe("Hyper Service Test Suite", () => {
     expect(response.data.value).toBe('hello hyper-app-service')
   });
 
+  it('should support rest protocol', async () => {
+    let response = await axios.get("/hyper-rest/Location")
+    expect(response.status).toBe(200)
+    expect(response.data).toHaveLength(0)
+
+    response = await axios.get("/hyper-rest/Location?ID=chengdu")
+    expect(response.status).toBe(404)
+
+
+    response = await axios.post("/hyper-rest/Location", { Name: "chengdu", Country: "china", Size: 99999 })
+    expect(response.status).toBe(201)
+    expect(response.data.ID).not.toBeUndefined()
+
+    response = await axios.get("/hyper-rest/Location", { params: { ID: response.data.ID } })
+    expect(response.status).toBe(200)
+    expect(response.data.Name).toBe("chengdu")
+  });
+
 });

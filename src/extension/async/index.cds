@@ -1,5 +1,5 @@
 @protocol : 'rest'
-@impl     : './Service.ts'
+@impl     : './Service'
 service AsyncExecutionService {
 
   @readonly

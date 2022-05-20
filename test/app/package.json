@@ -8,13 +8,8 @@
           {
             "impl": "./srv/ext/DemoExt.js",
             "loggerName": "demoLogger"
-          },
-          "../../src/extension/async"
+          }
         ]
-      },
-      "AsyncExecutionService": {
-        "model": "../../src/extension/async",
-        "impl": "../../src/extension/async/Service"
       }
     }
   }

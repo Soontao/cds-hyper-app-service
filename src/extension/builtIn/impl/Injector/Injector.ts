@@ -57,7 +57,11 @@ export function createInjectableHandler({ entity, hook, handler, thisArg, each }
     // @ts-ignore
     const service = this, thisValue = thisArg ?? this;
 
+    // 'onReadEachXXXXX'
     if (each && parameterNames.includes("data")) {
+      if (data?.length === 1) {
+        return invokeHandler(service, req, data[0], next, thisValue);
+      }
       return Promise.all((data ?? []).map(item => invokeHandler(service, req, item, next, thisValue)));
     }
 

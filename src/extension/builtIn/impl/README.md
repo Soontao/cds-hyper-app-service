@@ -146,10 +146,11 @@ Popular parameter injection, with some type re-format, make CAP development much
   - [ ] warning if with entity name
 - [x] framework `cds.requires.impl` support
   - [x] markdown doc update
+- [ ] support `@protocol: rest` protocol
 - [x] parameter injection
   - [ ] rest arguments
   - [ ] documentation for `data` in different hooks
-  - [x] behavior change for `each` parameter
+  - [x] behavior change for `each` parameter: `onReadEachXXXX`
   - [ ] optional to verify handler parameters are injectable (runtime or startup)
   - [x] `HyperEntityHandler` handlers injection
   - [x] inject `Repository` into `HyperApplicationService`/`HyperEntityHandler`
