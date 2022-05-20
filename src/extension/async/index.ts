@@ -3,7 +3,6 @@
 // @ts-nocheck
 import { cwdRequireCDS, NextFunction, Request } from "cds-internal-tool";
 import { randomUUID } from "crypto";
-import path from "path";
 import HyperApplicationService from "../../HyperApplicationService";
 import { ApplicationServiceExt } from "../base";
 import { AsyncExecutionService } from "./Service";
@@ -16,10 +15,7 @@ export = class AsyncApplicationExt extends ApplicationServiceExt {
   async beforeInit(srv: HyperApplicationService): void | Promise<void> {
     const cds = cwdRequireCDS();
     srv.on("*", async (req: Request, next: NextFunction) => {
-      const asyncExecutionService: AsyncExecutionService = await cds.connect.to(
-        AsyncExecutionService.name,
-        { impl: AsyncExecutionService, model: path.dirname(__dirname) }
-      );
+      const asyncExecutionService: AsyncExecutionService = await cds.connect.to("AsyncExecutionService");
       if (asyncExecutionService !== undefined) {
         const isAsync = req._.req.get("respond-async") !== undefined;
         const host = req._.req.headers.host ?? "localhost";
