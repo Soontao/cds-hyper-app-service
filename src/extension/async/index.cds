@@ -4,8 +4,9 @@ service AsyncExecutionService {
 
   @readonly
   entity AsyncExecution {
-    statusCode : Integer;
-    body       : String(10240);
+    key ID         : UUID;
+        StatusCode : Integer;
+        Body       : String(10240);
   }
 
 }
