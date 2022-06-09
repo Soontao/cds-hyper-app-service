@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.6](https://github.com/Soontao/cds-hyper-app-service/compare/v0.0.5...v0.0.6) (2022-06-09)
+
+
+### Features
+
+* partial async execution extension ([e466dc9](https://github.com/Soontao/cds-hyper-app-service/commit/e466dc9add874d9f931be1307b9f0903f1cd4224))
+* test with rest protocol adapter ([9c867ab](https://github.com/Soontao/cds-hyper-app-service/commit/9c867abed38a95d9d0947896e095840027ee8219))
+* update ([1dcde35](https://github.com/Soontao/cds-hyper-app-service/commit/1dcde35d148deecf6412af5f837255d85c3b532d))
+* update by query ([fd4caac](https://github.com/Soontao/cds-hyper-app-service/commit/fd4caac919d50ca36b6d728d610f294a22c02e24))
+* update repo ([8f85ec2](https://github.com/Soontao/cds-hyper-app-service/commit/8f85ec2dd42f3137820f1a5376f0e0d2516b6e3b))
+
+
+### Bug Fixes
+
+* async service ([9a9f0d8](https://github.com/Soontao/cds-hyper-app-service/commit/9a9f0d831f46a758f57dd8aa039a779ea39b7150))
+
 ### [0.0.5](https://github.com/Soontao/cds-hyper-app-service/compare/v0.0.4...v0.0.5) (2022-05-18)
 
 
