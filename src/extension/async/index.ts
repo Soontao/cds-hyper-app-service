@@ -8,7 +8,7 @@ import { ApplicationServiceExt } from "../base";
 import { AsyncExecutionService } from "./Service";
 
 
-export = class AsyncApplicationExt extends ApplicationServiceExt {
+export class AsyncApplicationExt extends ApplicationServiceExt {
 
   // ref: http://docs.oasis-open.org/odata/odata/v4.0/os/part1-protocol/odata-v4.0-os-part1-protocol.html#_Toc372793747
 

@@ -3,7 +3,7 @@ const { ApplicationServiceExt } = require("../../../../src")
 
 
 module.exports = class DemoAppExt extends ApplicationServiceExt {
-  beforeInit(srv, options) {
-    srv.demologger = cwdRequireCDS().log(options.loggerName)
+  beforeInit(srv) {
+    srv.demologger = cwdRequireCDS().log(this.options.loggerName)
   }
 }

@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@types/express": "^4.17.13",
-    "cds-internal-tool": "^0.0.30",
+    "cds-internal-tool": "^0",
     "espree": "^9.3.2"
   },
   "devDependencies": {

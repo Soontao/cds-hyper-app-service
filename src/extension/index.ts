@@ -6,8 +6,10 @@ import { RepositoryExt } from "./builtIn/repo";
 /**
  * built-in bounded extension
  */
-export class builtIn extends BoundedApplicationServiceExt {
+export class builtIn extends BoundedApplicationServiceExt<{ hyper: any, repo: any }> {
 
-  protected exts = [new ApplicationServiceImplExt(), new RepositoryExt()];
-
+  constructor(options) {
+    super(options)
+    this.exts = [new ApplicationServiceImplExt(options.hyper), new RepositoryExt(options.repo)];
+  }
 }

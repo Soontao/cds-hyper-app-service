@@ -7,47 +7,44 @@ import { ApplicationServiceExt } from "./extension/base";
 import { getOrCreateEntityHandler } from "./extension/builtIn/impl";
 import { getOrCreateRepository } from "./extension/builtIn/repo/Repository";
 
+export const getExtensionInstance = memorized(function getExtensionInstance(m: string | { impl: string }) {
+  let mImpl: string;
+  let mClass: any = undefined;
+  let mOptions = {};
 
+  switch (typeof m) {
+    case "string":
+      mImpl = m;
+      break;
+    case "object":
+      mImpl = m.impl;
+      mOptions = m;
+      break;
+  }
 
-export const getExtensions = memorized((service: HyperApplicationService) => {
+  mClass = mImpl in extensions ? extensions[mImpl] : cdsProjectRequire(mImpl);
+
+  if (mClass === undefined) {
+    throw new TypeError(`module ${mImpl} is not defined`);
+  }
+
+  return new mClass(mOptions)
+}, 1, 102400)
+
+export const getExtensions = memorized(function getExtensions(service: HyperApplicationService) {
   const cds = cwdRequireCDS();
-  const exts: Array<{ ext: ApplicationServiceExt<any>, options: any }> = (cds.env.requires?.["app-service"]?.exts ?? ["builtIn"])
-    .map((m: string | { impl: string }) => {
-      let mImpl: string;
-      let mClass: any = undefined;
-      let mOptions = {};
+  const extensions: Array<string> = cds.env.requires?.["app-service"]?.exts ?? ["builtIn"]
+  const exts: Array<ApplicationServiceExt<any>> = extensions.map(ext => getExtensionInstance(ext));
 
-      switch (typeof m) {
-        case "string":
-          mImpl = m;
-          break;
-        case "object":
-          mImpl = m.impl;
-          mOptions = m;
-          break;
-      }
-
-      mClass = mImpl in extensions ? extensions[mImpl] : cdsProjectRequire(mImpl);
-
-      if (mClass === undefined) {
-        throw new TypeError(`module ${mImpl} is not defined`);
-      }
-
-      return { ext: new mClass(), options: mOptions };
-    });
   return {
     async beforeInitAll() {
-      for (const { ext, options } of exts) {
-        await ext.beforeInit(service, options);
-      }
+      for (const ext of exts) { await ext.beforeInit(service); }
     },
     async afterInitAll() {
-      for (const { ext, options } of exts) {
-        await ext.afterInit(service, options);
-      }
+      for (const ext of exts) { await ext.afterInit(service); }
     },
   };
-});
+}, 1, 102400);
 
 /**
  * HyperApplicationService

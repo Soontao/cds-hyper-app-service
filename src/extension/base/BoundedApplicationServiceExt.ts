@@ -9,12 +9,12 @@ export class BoundedApplicationServiceExt<O = any> extends ApplicationServiceExt
 
   protected exts: Array<ApplicationServiceExt> = [];
 
-  async beforeInit(srv: HyperApplicationService, options: any): Promise<void> {
-    for (const ext of this.exts) { await ext.beforeInit(srv, options); }
+  async beforeInit(srv: HyperApplicationService): Promise<void> {
+    for (const ext of this.exts) { await ext.beforeInit(srv); }
   }
 
-  async afterInit(srv: HyperApplicationService, options: any): Promise<void> {
-    for (const ext of this.exts) { await ext.afterInit(srv, options); }
+  async afterInit(srv: HyperApplicationService): Promise<void> {
+    for (const ext of this.exts) { await ext.afterInit(srv); }
   }
 
 }
