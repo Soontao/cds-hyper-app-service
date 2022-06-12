@@ -28,12 +28,12 @@ export const getExtensionInstance = memorized(function getExtensionInstance(m: s
     throw new TypeError(`module ${mImpl} is not defined`);
   }
 
-  return new mClass(mOptions)
-}, 1, 102400)
+  return new mClass(mOptions);
+}, 1, 102400);
 
 export const getExtensions = memorized(function getExtensions(service: HyperApplicationService) {
   const cds = cwdRequireCDS();
-  const extensions: Array<string> = cds.env.requires?.["app-service"]?.exts ?? ["builtIn"]
+  const extensions: Array<string> = cds.env.requires?.["app-service"]?.exts ?? ["builtIn"];
   const exts: Array<ApplicationServiceExt<any>> = extensions.map(ext => getExtensionInstance(ext));
 
   return {

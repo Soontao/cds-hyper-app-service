@@ -9,7 +9,7 @@ import { RepositoryExt } from "./builtIn/repo";
 export class builtIn extends BoundedApplicationServiceExt<{ hyper: any, repo: any }> {
 
   constructor(options) {
-    super(options)
+    super(options);
     this.exts = [new ApplicationServiceImplExt(options.hyper), new RepositoryExt(options.repo)];
   }
 }

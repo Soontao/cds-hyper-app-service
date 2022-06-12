@@ -10,7 +10,7 @@ export abstract class ApplicationServiceExt<O = any> {
   protected options: O;
 
   constructor(options: O) {
-    this.options = options
+    this.options = options;
   }
 
   /**
