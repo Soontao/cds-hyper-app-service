@@ -19,6 +19,6 @@ export interface ParameterInjectProvider<T = any> {
    * @param parameterName 
    * @param context 
    */
-  provide(parameterName: string, context: InjectContext): T;
+  provide(parameterName: string, context: InjectContext): T | Promise<T>;
 
 }

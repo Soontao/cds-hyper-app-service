@@ -8,7 +8,7 @@ import {
 } from "cds-internal-tool";
 import { getFunctionArgNames, NATIVE_HANDLER_ARGS_EXTRACTORS } from "./Args";
 import { InjectContext } from "./InjectContext";
-import { CDSServiceProvider, RepositoryProvider } from "./providers";
+import { ApplicationServiceProvider, RepositoryProvider, ServiceProvider } from "./providers";
 
 
 export type HandlerInjectorOptions = {
@@ -38,7 +38,7 @@ export function createInjectableHandler({ entity, hook, handler, thisArg, each }
 
   const parameterNames = getFunctionArgNames(handler);
 
-  const invokeHandler = (service: any, req: EventContext, data: any, next: any, thisValue: any) => {
+  const invokeHandler = async (service: any, req: EventContext, data: any, next: any, thisValue: any) => {
     const ctx = InjectContext.New({
       entity,
       service,
@@ -46,9 +46,9 @@ export function createInjectableHandler({ entity, hook, handler, thisArg, each }
       req,
       data,
       next,
-      providers: [CDSServiceProvider, RepositoryProvider]
+      providers: [ApplicationServiceProvider, ServiceProvider, RepositoryProvider]
     });
-    return handler.apply(thisValue, ctx.getArgs(parameterNames));
+    return handler.apply(thisValue, await ctx.getArgs(parameterNames));
   };
 
   const injectableHandler = async function (...args: Array<any>): Promise<any> {

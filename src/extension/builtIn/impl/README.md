@@ -155,6 +155,7 @@ Popular parameter injection, with some type re-format, make CAP development much
   - [x] `HyperEntityHandler` handlers injection
   - [x] inject `Repository` into `HyperApplicationService`/`HyperEntityHandler`
   - [x] inject `Repository`/`Service` into handler parameters
+  - [x] inject `cds.Service`
   - [ ] documentation
 - [x] handler name parser
   - [x] `on/before/after` hooks

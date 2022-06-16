@@ -7,8 +7,10 @@ import { ParameterInjectProvider } from "./ParameterInjectProvider";
 
 
 
-// TODO: support cds.requires services
-export const CDSServiceProvider: ParameterInjectProvider = {
+/**
+ * cds.ApplicationService provider
+ */
+export const ApplicationServiceProvider: ParameterInjectProvider = {
   match(parameterName: string, context: InjectContext): boolean {
     return fuzzy.findService(parameterName, context.model) !== undefined;
   },
@@ -20,7 +22,21 @@ export const CDSServiceProvider: ParameterInjectProvider = {
   },
 };
 
+/**
+ * cds.Service provider
+ */
+export const ServiceProvider: ParameterInjectProvider = {
+  match: function (parameterName: string, context: InjectContext): boolean {
+    return typeof cwdRequireCDS()?.requires?.[parameterName] === 'object'
+  },
+  provide: function (parameterName: string, context: InjectContext) {
+    return cwdRequireCDS().connect.to(parameterName)
+  }
+}
 
+/**
+ * repository provider
+ */
 export const RepositoryProvider: ParameterInjectProvider = {
   match: function (parameterName: string, context: InjectContext): boolean {
     return isRepositoryName(parameterName) && findEntityDefByRepoName(parameterName, context.service) !== undefined;

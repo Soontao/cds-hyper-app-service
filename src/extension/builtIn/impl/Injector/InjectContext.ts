@@ -100,15 +100,39 @@ export class InjectContext extends CDSContextBase {
 
   get locale() { return this.#req?.locale; }
 
-  public getArgs(argNames: Array<string>) {
-    return argNames.map((argName: string) => {
+  public async getArgs(argNames: Array<string>) {
+
+    const args: Array<any> = []
+
+    for (const argName of argNames) {
       // if built-in objects
-      if (argName in this) { return this[argName]; }
-      // if configurable objects
-      for (const provider of this.#providers) {
-        if (provider.match(argName, this)) { return provider.provide(argName, this); }
+      if (argName in this) {
+        args.push(this[argName]);
+        continue;
       }
-    });
+      
+      // if configurable objects
+      let provided = false
+      for (const provider of this.#providers) {
+        if (provider.match(argName, this)) {
+          let value = provider.provide(argName, this);
+          if (value instanceof Promise) { value = await value };
+          args.push(value);
+          provided = true
+          break;
+        }
+      }
+      
+      if (provided) {
+        continue
+      }
+      
+      this.logger.debug("context cannot provide the value of", argName, 'will be undefined')
+      args.push(undefined)
+    }
+
+    return args
+
   }
 
   /**
