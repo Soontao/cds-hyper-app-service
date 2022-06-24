@@ -23,6 +23,15 @@ export default class RepositoryListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
+	// Enter a parse tree produced by RepositoryParser#countQuery.
+	enterCountQuery(ctx) {
+	}
+
+	// Exit a parse tree produced by RepositoryParser#countQuery.
+	exitCountQuery(ctx) {
+	}
+
+
 	// Enter a parse tree produced by RepositoryParser#updateQuery.
 	enterUpdateQuery(ctx) {
 	}
@@ -74,6 +83,15 @@ export default class RepositoryListener extends antlr4.tree.ParseTreeListener {
 
 	// Exit a parse tree produced by RepositoryParser#find.
 	exitFind(ctx) {
+	}
+
+
+	// Enter a parse tree produced by RepositoryParser#count.
+	enterCount(ctx) {
+	}
+
+	// Exit a parse tree produced by RepositoryParser#count.
+	exitCount(ctx) {
 	}
 
 

@@ -102,7 +102,7 @@ export class InjectContext extends CDSContextBase {
 
   public async getArgs(argNames: Array<string>) {
 
-    const args: Array<any> = []
+    const args: Array<any> = [];
 
     for (const argName of argNames) {
       // if built-in objects
@@ -112,26 +112,26 @@ export class InjectContext extends CDSContextBase {
       }
       
       // if configurable objects
-      let provided = false
+      let provided = false;
       for (const provider of this.#providers) {
         if (provider.match(argName, this)) {
           let value = provider.provide(argName, this);
-          if (value instanceof Promise) { value = await value };
+          if (value instanceof Promise) { value = await value; }
           args.push(value);
-          provided = true
+          provided = true;
           break;
         }
       }
       
       if (provided) {
-        continue
+        continue;
       }
       
-      this.logger.debug("context cannot provide the value of", argName, 'will be undefined')
-      args.push(undefined)
+      this.logger.debug("context cannot provide the value of", argName, "will be undefined");
+      args.push(undefined);
     }
 
-    return args
+    return args;
 
   }
 

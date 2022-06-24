@@ -26,13 +26,13 @@ export const ApplicationServiceProvider: ParameterInjectProvider = {
  * cds.Service provider
  */
 export const ServiceProvider: ParameterInjectProvider = {
-  match: function (parameterName: string, context: InjectContext): boolean {
-    return typeof cwdRequireCDS()?.requires?.[parameterName] === 'object'
+  match: function (parameterName: string): boolean {
+    return typeof cwdRequireCDS()?.requires?.[parameterName] === "object";
   },
-  provide: function (parameterName: string, context: InjectContext) {
-    return cwdRequireCDS().connect.to(parameterName)
+  provide: function (parameterName: string) {
+    return cwdRequireCDS().connect.to(parameterName);
   }
-}
+};
 
 /**
  * repository provider

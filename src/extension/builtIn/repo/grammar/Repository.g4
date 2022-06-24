@@ -1,8 +1,10 @@
 grammar Repository;
 
-query: (findQuery | updateQuery | deleteQuery) LINE_BREAK? EOF?;
+query: (findQuery | countQuery | updateQuery | deleteQuery) LINE_BREAK? EOF?;
 
 findQuery: find fieldExprList;
+
+countQuery: count fieldExprList;
 
 updateQuery: update fieldExprList;
 
@@ -17,6 +19,8 @@ identifier: UPPER_CHAR? (CHAR | keywords | literal)+;
 
 find: FIND limitExpr? BY?;
 
+count: COUNT BY?;
+
 limitExpr: ONE | (topExpr skipExpr?);
 
 topExpr: TOP NUMBER;
@@ -27,7 +31,15 @@ update: UPDATE BY?;
 
 delete: DELETE BY?;
 
-keywords: FIND | DELETE | UPDATE | BY | ONE | TOP | K_SKIP;
+keywords:
+	FIND
+	| COUNT
+	| DELETE
+	| UPDATE
+	| BY
+	| ONE
+	| TOP
+	| K_SKIP;
 
 literal: NULL | TRUE | FALSE;
 
@@ -72,6 +84,7 @@ TRUE: T R U E;
 FALSE: F A L S E;
 
 FIND: F I N D;
+COUNT: C O U N T;
 BY: B Y;
 UPDATE: U P D A T E;
 DELETE: D E L E T E;

@@ -1,20 +1,27 @@
 grammar HandlerName;
 
-name: (actionHandler | eventHandler) LINE_BREAK? EOF?;
+name: (actionHandler | eventHandler | freedomEventHandler) LINE_BREAK? EOF?;
 
+// CRUD handlers
 eventHandler: hook each? event? (FOR entityName)?;
 
+// event
+freedomEventHandler: hook EVENT eventName;
+
+// on action/function
 actionHandler:
 	hook each? (ACTION | FUNCTION) actionName (FOR entityName)?;
 
 entityName: freeName;
 actionName: freeName;
+eventName: freeName;
 
 each: EACH;
 
 // include the keywords
 freeName: UPPER_CHAR? ( CHAR | event | hook | keywords | each)+;
 
+// TODO: ANY star event
 event:
 	CREATE
 	| UPDATE
@@ -30,7 +37,7 @@ event:
 
 hook: (BEFORE | ON | AFTER);
 
-keywords: FOR | EACH | ACTION | FUNCTION;
+keywords: FOR | EACH | ACTION | FUNCTION | EVENT;
 
 fragment A: [aA]; // match either an 'a' or 'A'
 fragment B: [bB];
@@ -67,6 +74,7 @@ CHAR: .;
 
 ACTION: A C T I O N;
 FUNCTION: F U N C T I O N;
+EVENT: E V E N T;
 
 // CRUD
 CREATE: C R E A T E;

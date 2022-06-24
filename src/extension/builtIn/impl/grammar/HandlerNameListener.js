@@ -23,6 +23,15 @@ export default class HandlerNameListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
+	// Enter a parse tree produced by HandlerNameParser#freedomEventHandler.
+	enterFreedomEventHandler(ctx) {
+	}
+
+	// Exit a parse tree produced by HandlerNameParser#freedomEventHandler.
+	exitFreedomEventHandler(ctx) {
+	}
+
+
 	// Enter a parse tree produced by HandlerNameParser#actionHandler.
 	enterActionHandler(ctx) {
 	}
@@ -47,6 +56,15 @@ export default class HandlerNameListener extends antlr4.tree.ParseTreeListener {
 
 	// Exit a parse tree produced by HandlerNameParser#actionName.
 	exitActionName(ctx) {
+	}
+
+
+	// Enter a parse tree produced by HandlerNameParser#eventName.
+	enterEventName(ctx) {
+	}
+
+	// Exit a parse tree produced by HandlerNameParser#eventName.
+	exitEventName(ctx) {
 	}
 
 
