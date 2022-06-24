@@ -28,7 +28,7 @@ const isBuiltInFunctions = (name: string) => {
  */
 export function registerForServiceAnnotation(srv: HyperApplicationService) {
 
-
+  // TODO: support freedom events
   for (const entity of srv.entities) {
 
     const impl = groupByKeyPrefix(entity, ANNOTATION_IMPL);
@@ -46,7 +46,7 @@ export function registerForServiceAnnotation(srv: HyperApplicationService) {
       for (const hook of hooks) {
 
         for (const [event, implRelativePath] of Object.entries(impl[hook])) {
-
+          // TODO: support action/function
           const EVENT = String(event).toUpperCase();
           const implHandler = cwdRequire(srv, implRelativePath as string);
 

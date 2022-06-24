@@ -114,9 +114,12 @@ expect(result).toBe(1)
   - [x] is (not) true/false/null
   - [ ] cache metadata
   - [ ] multi-tenancy aware
+  - [ ] order by
+  - [ ] count
 - [x] deleteBy
 - [x] updateBy - first arguments as `updated values`
 - [x] simple DAO operations
   - [x] create
   - [x] update
   - [x] remove
+  - [ ] count

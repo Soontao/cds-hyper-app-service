@@ -165,6 +165,7 @@ Popular parameter injection, with some type re-format, make CAP development much
   - [x] single entity
   - [x] optional entity
   - [x] bound/unbound action/function support
+  - [ ] event
   - [ ] case in-sensitive action match
   - [ ] order
   - [ ] support messaging event name
