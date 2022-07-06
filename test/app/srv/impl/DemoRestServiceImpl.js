@@ -18,11 +18,15 @@ module.exports = class DemoRestServiceImpl extends HyperApplicationService {
 
   /**
    * 
-   * @param {Request['_']['req']} request
+   * @param {Request} req
    */
-  onReadForLocation(request) {
-    if (request.query.ID) {
-      return locationStore.get(request.query.ID)
+  onReadForLocation(req) {
+    if (req._.req?.query?.ID) {
+      const id = req._.req.query.ID;
+      if (locationStore.has(id)) {
+        return locationStore.get(req._.req.query.ID)
+      }
+      return req.error(404)
     }
     return Array.from(locationStore.values())
   }
