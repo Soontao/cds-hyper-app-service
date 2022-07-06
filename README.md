@@ -28,7 +28,8 @@ npm i -S cds-hyper-app-service
     "requires": {
       "app-service": {
         "impl": "cds-hyper-app-service",
-        "exts": ["builtIn"] // default value, developer could overwrite this config
+        // default value, developer could overwrite this config
+        "exts": ["builtIn"]
       }
     }
   }
@@ -47,6 +48,11 @@ npm i -S cds-hyper-app-service
   - [x] support options for `exts` node
   - [ ] more context data
   - [ ] documentation/example
+
+## Compatible Table
+
+- `@sap/cds`@`5` <-> `cds-hyper-impl`@`0.x`
+- `@sap/cds`@`6` <-> `cds-hyper-impl`@`6.x`
 
 ## [CHANGELOG](./CHANGELOG.md)
 
