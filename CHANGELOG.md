@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.1.0](https://github.com/Soontao/cds-hyper-app-service/compare/v0.0.10...v6.1.0) (2022-07-06)
+
+
+### Features
+
+* add some grammar ([e66d429](https://github.com/Soontao/cds-hyper-app-service/commit/e66d429144764522bfaf0529520015cb44631a19))
+* support cds@6 ([1ac64dd](https://github.com/Soontao/cds-hyper-app-service/commit/1ac64dd3e97faa7fd6788c63753a6364f7501ac3))
+
 ### [0.0.10](https://github.com/Soontao/cds-hyper-app-service/compare/v0.0.9...v0.0.10) (2022-06-20)
 
 ### [0.0.9](https://github.com/Soontao/cds-hyper-app-service/compare/v0.0.8...v0.0.9) (2022-06-16)

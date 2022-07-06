@@ -1,6 +1,6 @@
 {
   "name": "cds-hyper-app-service",
-  "version": "6.0.0",
+  "version": "6.1.0",
   "main": "lib/index.js",
   "description": "CAP Hyper ApplicationService, for extension",
   "engines": {
