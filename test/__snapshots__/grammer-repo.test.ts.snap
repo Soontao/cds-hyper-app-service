@@ -1,0 +1,328 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Repository Grammar Test Suite should support find one 1`] = `
+Query {
+  "SELECT": {
+    "from": {
+      "ref": [
+        "Demo",
+      ],
+    },
+    "one": true,
+    "where": [
+      {
+        "ref": [
+          "Name",
+        ],
+      },
+      "=",
+      {
+        "val": "Theo",
+      },
+    ],
+  },
+}
+`;
+
+exports[`Repository Grammar Test Suite should support find one not equals 1`] = `
+Query {
+  "SELECT": {
+    "from": {
+      "ref": [
+        "Demo",
+      ],
+    },
+    "one": true,
+    "where": [
+      {
+        "ref": [
+          "Name",
+        ],
+      },
+      "!=",
+      {
+        "val": "Theo",
+      },
+    ],
+  },
+}
+`;
+
+exports[`Repository Grammar Test Suite should support find top 1`] = `
+Query {
+  "SELECT": {
+    "from": {
+      "ref": [
+        "Demo",
+      ],
+    },
+    "limit": {
+      "rows": {
+        "val": 5,
+      },
+    },
+    "where": [
+      {
+        "ref": [
+          "Name",
+        ],
+      },
+      "=",
+      {
+        "val": "Theo",
+      },
+    ],
+  },
+}
+`;
+
+exports[`Repository Grammar Test Suite should support find top skip 1`] = `
+Query {
+  "SELECT": {
+    "from": {
+      "ref": [
+        "Demo",
+      ],
+    },
+    "limit": {
+      "offset": {
+        "val": 20,
+      },
+      "rows": {
+        "val": 5,
+      },
+    },
+    "where": [
+      {
+        "ref": [
+          "Name",
+        ],
+      },
+      "=",
+      {
+        "val": "Theo",
+      },
+    ],
+  },
+}
+`;
+
+exports[`Repository Grammar Test Suite should support like operator 1`] = `
+Query {
+  "SELECT": {
+    "from": {
+      "ref": [
+        "Demo",
+      ],
+    },
+    "where": [
+      {
+        "ref": [
+          "Name",
+        ],
+      },
+      "like",
+      {
+        "val": "Theo",
+      },
+    ],
+  },
+}
+`;
+
+exports[`Repository Grammar Test Suite should support other operations 1`] = `
+Query {
+  "DELETE": {
+    "from": "Demo",
+    "where": [
+      {
+        "ref": [
+          "Name",
+        ],
+      },
+      "=",
+      {
+        "val": "Theo",
+      },
+    ],
+  },
+}
+`;
+
+exports[`Repository Grammar Test Suite should support parse multi field 1`] = `
+Query {
+  "SELECT": {
+    "from": {
+      "ref": [
+        "Demo",
+      ],
+    },
+    "where": [
+      {
+        "ref": [
+          "Name",
+        ],
+      },
+      "=",
+      {
+        "val": "Theo",
+      },
+      "and",
+      {
+        "ref": [
+          "age",
+        ],
+      },
+      "=",
+      {
+        "val": 12,
+      },
+    ],
+  },
+}
+`;
+
+exports[`Repository Grammar Test Suite should support parse multi field 2`] = `
+Query {
+  "SELECT": {
+    "from": {
+      "ref": [
+        "Demo",
+      ],
+    },
+    "where": [
+      {
+        "ref": [
+          "Name",
+        ],
+      },
+      "=",
+      {
+        "val": "Theo",
+      },
+      "and",
+      {
+        "ref": [
+          "age",
+        ],
+      },
+      "=",
+      {
+        "val": 12,
+      },
+    ],
+  },
+}
+`;
+
+exports[`Repository Grammar Test Suite should support parse or keyword 1`] = `
+Query {
+  "SELECT": {
+    "from": {
+      "ref": [
+        "Demo",
+      ],
+    },
+    "where": [
+      {
+        "ref": [
+          "Name",
+        ],
+      },
+      "=",
+      {
+        "val": "Theo",
+      },
+      "or",
+      {
+        "ref": [
+          "age",
+        ],
+      },
+      "=",
+      {
+        "val": 12,
+      },
+    ],
+  },
+}
+`;
+
+exports[`Repository Grammar Test Suite should support parse or keyword 2`] = `
+Query {
+  "SELECT": {
+    "from": {
+      "ref": [
+        "Demo",
+      ],
+    },
+    "where": [
+      {
+        "ref": [
+          "Name",
+        ],
+      },
+      "=",
+      {
+        "val": "Theo",
+      },
+      "or",
+      {
+        "ref": [
+          "age",
+        ],
+      },
+      "=",
+      {
+        "val": 12,
+      },
+    ],
+  },
+}
+`;
+
+exports[`Repository Grammar Test Suite should support parse simple method 1`] = `
+Query {
+  "SELECT": {
+    "from": {
+      "ref": [
+        "Demo",
+      ],
+    },
+    "where": [
+      {
+        "ref": [
+          "Name",
+        ],
+      },
+      "=",
+      {
+        "val": "Theo",
+      },
+    ],
+  },
+}
+`;
+
+exports[`Repository Grammar Test Suite should support parse simple method 2`] = `
+Query {
+  "SELECT": {
+    "from": {
+      "ref": [
+        "Demo",
+      ],
+    },
+    "where": [
+      {
+        "ref": [
+          "Name",
+        ],
+      },
+      "=",
+      {
+        "val": "Theo",
+      },
+    ],
+  },
+}
+`;

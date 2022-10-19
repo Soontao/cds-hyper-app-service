@@ -17,55 +17,55 @@ describe("Repository Grammar Test Suite", () => {
   it('should support parse simple method', () => {
     for (const methodName of ['findByName', 'findByNameEquals']) {
       const query = parse(methodName)('Theo')
-      expect(query).toStrictEqual(SELECT('Demo').where({ Name: 'Theo' }))
+      expect(query).toMatchSnapshot()
     }
   });
 
   it('should support parse multi field', () => {
     for (const methodName of ['findByNameAndAge', 'findByNameEqualsAndAgeEquals']) {
       const query = parse(methodName)('Theo', 12)
-      expect(query).toStrictEqual(SELECT('Demo').where({ Name: 'Theo', age: 12 }))
+      expect(query).toMatchSnapshot()
     }
   });
 
   it('should support parse or keyword', () => {
     for (const methodName of ['findByNameOrAge', 'findByNameEqualsOrAgeEquals']) {
       const query = parse(methodName)('Theo', 12)
-      expect(query).toStrictEqual(SELECT('Demo').where({ Name: 'Theo', or: { age: 12 } }))
+      expect(query).toMatchSnapshot()
     }
   });
 
   it('should support find one', () => {
     expect(parse('findOneByName')('Theo'))
-      .toStrictEqual(SELECT.one.from('Demo').where({ Name: 'Theo' }))
+      .toMatchSnapshot()
   });
 
 
   it('should support find one not equals', () => {
     expect(parse('findOneByNameNotEquals')('Theo'))
-      .toStrictEqual(SELECT.one.from('Demo').where`Name != 'Theo'`)
+      .toMatchSnapshot()
   });
 
   it('should support find top', () => {
     expect(parse('findTop5ByName')('Theo'))
-      .toStrictEqual(SELECT.from('Demo').where({ Name: 'Theo' }).limit(5))
+      .toMatchSnapshot()
   });
 
   it('should support find top skip', () => {
     expect(parse('findTop5Skip20ByName')('Theo'))
-      .toStrictEqual(SELECT.from('Demo').where({ Name: 'Theo' }).limit(5, 20))
+      .toMatchSnapshot()
   });
 
   it('should support like operator', () => {
     for (const methodName of ['findByNameLike']) {
       const query = parse(methodName)('Theo')
-      expect(query).toStrictEqual(SELECT('Demo').where({ Name: { like: 'Theo' } }))
+      expect(query).toMatchSnapshot()
     }
   });
 
   it('should support other operations', () => {
     const query = parse('deleteByName')("Theo")
-    expect(query).toStrictEqual(DELETE.from('Demo').where({ Name: 'Theo' }))
+    expect(query).toMatchSnapshot()
   });
 
   it('should support literal fixed value', () => {
