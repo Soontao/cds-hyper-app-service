@@ -10,6 +10,9 @@
             "loggerName": "demoLogger"
           }
         ]
+      },
+      "db": {
+        "kind": "sql"
       }
     }
   }
