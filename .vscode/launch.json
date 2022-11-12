@@ -4,12 +4,12 @@
     {
       "name": "launch demo app",
       "request": "launch",
+      "runtimeExecutable": "npx",
       "runtimeArgs": [
         "cds-ts",
         "run"
       ],
       "cwd": "${workspaceFolder}/test/app",
-      "runtimeExecutable": "npx",
       "skipFiles": [
         "<node_internals>/**"
       ],
