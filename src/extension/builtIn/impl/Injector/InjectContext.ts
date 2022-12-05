@@ -1,15 +1,13 @@
 import {
-  ApplicationService,
-  EntityDefinition,
-  EventContext,
-  EventHook, isCDSRequest, Logger
+  ApplicationService, EventContext,
+  EventHook, isCDSRequest, LinkedEntityDefinition, Logger
 } from "cds-internal-tool";
 import { CDSContextBase } from "../CDSContextBase";
 import { ParameterInjectProvider } from "./ParameterInjectProvider";
 
 
 interface InjectContextOptions<DATA = Array<any>> {
-  entity?: EntityDefinition;
+  entity?: LinkedEntityDefinition;
   service: ApplicationService;
   hook: EventHook;
   req?: EventContext;
@@ -24,7 +22,7 @@ export class InjectContext extends CDSContextBase {
 
   #data: any;
 
-  #entity?: EntityDefinition;
+  #entity?: LinkedEntityDefinition;
 
   #service: ApplicationService;
 
@@ -110,7 +108,7 @@ export class InjectContext extends CDSContextBase {
         args.push(this[argName]);
         continue;
       }
-      
+
       // if configurable objects
       let provided = false;
       for (const provider of this.#providers) {
@@ -122,11 +120,11 @@ export class InjectContext extends CDSContextBase {
           break;
         }
       }
-      
+
       if (provided) {
         continue;
       }
-      
+
       this.logger.debug("context cannot provide the value of", argName, "will be undefined");
       args.push(undefined);
     }

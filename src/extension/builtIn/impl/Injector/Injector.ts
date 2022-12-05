@@ -2,9 +2,9 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import {
-  EntityDefinition,
   EventContext,
-  EventHook
+  EventHook,
+  LinkedEntityDefinition
 } from "cds-internal-tool";
 import { getFunctionArgNames, NATIVE_HANDLER_ARGS_EXTRACTORS } from "./Args";
 import { InjectContext } from "./InjectContext";
@@ -14,7 +14,7 @@ import { ApplicationServiceProvider, RepositoryProvider, ServiceProvider } from 
 export type HandlerInjectorOptions = {
   handler: any;
   hook: EventHook;
-  entity?: EntityDefinition;
+  entity?: LinkedEntityDefinition;
   /**
    * this arg for handler when executing
    */
