@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@types/express": "4.17.17",
-    "cds-internal-tool": "1.7.1",
+    "cds-internal-tool": "1.7.3",
     "espree": "9.4.1"
   },
   "devDependencies": {
