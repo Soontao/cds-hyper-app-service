@@ -22,7 +22,7 @@
     "coverage": "npm test -- --coverage --no-cache"
   },
   "dependencies": {
-    "@types/express": "5.0.0",
+    "@types/express": "5.0.1",
     "cds-internal-tool": "1.7.9",
     "espree": "10.3.0"
   },
