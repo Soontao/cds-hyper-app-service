@@ -24,7 +24,7 @@
   "dependencies": {
     "@types/express": "5.0.3",
     "cds-internal-tool": "1.7.9",
-    "espree": "10.3.0"
+    "espree": "10.4.0"
   },
   "devDependencies": {
     "@types/jest": "29.5.14",
