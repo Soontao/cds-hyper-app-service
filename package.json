@@ -34,7 +34,7 @@
     "eslint": "10.4.0",
     "eslint-plugin-jest": "29.15.2",
     "jest": "30.4.2",
-    "ts-jest": "29.4.9",
+    "ts-jest": "29.4.10",
     "ts-node": "10.9.2",
     "typescript": "6.0.3"
   },
